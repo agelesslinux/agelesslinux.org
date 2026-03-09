@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — Distro Compliance Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="distros.html" class="active">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>Distro Compliance Tracker</h2>
+    <h1>How Distros Are <em>Responding</em></h1>
+    <p>
+      We track how Linux distributions are responding to age verification mandates,
+      and we provide tools to undo whatever they implement. If a distribution adds
+      an age collection prompt, we will publish a script that removes it. If it
+      ships a D-Bus age verification daemon, we will publish a package that replaces
+      it with silence.
+    </p>
+  </div>
+</div>
+
+<!-- STATUS OVERVIEW -->
+<section>
+  <div class="container">
+    <h2>Current Status</h2>
+    <h3>As of March 2026</h3>
+
+    <p>
+      AB 1043 takes effect January 1, 2027. No major distribution has shipped
+      compliance mechanisms yet. The discussion is happening now. Here is where
+      every project stands.
+    </p>
+
+    <div class="card">
+      <div class="distro-row" style="border-bottom:2px solid var(--border); padding-bottom:12px; margin-bottom:4px;">
+        <div class="distro-name" style="color:var(--text-dim); font-size:12px;">DISTRIBUTION</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim);">STATUS</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim); text-align:right;">AGELESS RESPONSE</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Ubuntu / Canonical</div>
+        <div class="distro-detail">
+          Canonical published a <a href="https://discourse.ubuntu.com/t/ubuntus-response-to-californias-digital-age-assurance-act-ab-1043/77948">clarification</a>
+          (Mar 4, 2026): "reviewing internally with legal counsel" but "no concrete
+          plans on how, or even whether, Ubuntu will change."
+        </div>
+        <div class="distro-status" style="color:var(--accent);">WATCHING</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Debian</div>
+        <div class="distro-detail">
+          Active discussion on
+          <a href="https://lists.debian.org/debian-legal/2026/03/msg00020.html">debian-legal</a>
+          and debian-devel mailing lists. Aaron Rainbolt (Kicksecure/Whonix) proposed
+          <code>org.freedesktop.AgeVerification1</code> D-Bus interface. Community
+          member FloofyWolf responded with satirical
+          <code>systemd-censord</code> counter-proposal. No official project position.
+        </div>
+        <div class="distro-status" style="color:var(--accent);">DISCUSSING</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Fedora / Red Hat</div>
+        <div class="distro-detail">
+          CC'd on the freedesktop.org cross-distro thread. No official response.
+          Fedora legal list is aware of the legislation.
+        </div>
+        <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Arch Linux</div>
+        <div class="distro-detail">
+          No official response. Arch has no account setup, no installer-driven
+          user creation workflow, and no centralized app store. The law's
+          requirements have no obvious attachment point.
+        </div>
+        <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Kicksecure / Whonix</div>
+        <div class="distro-detail">
+          Aaron Rainbolt is actively working on a compliance path. Proposed the
+          cross-distro D-Bus interface. Plans to store only age bracket data, not
+          birthdates, with user-triggered updates when they cross bracket boundaries.
+        </div>
+        <div class="distro-status" style="color:var(--green);">COMPLYING</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">MidnightBSD</div>
+        <div class="distro-detail">
+          Modified its license to <strong>exclude California residents from desktop use</strong>
+          effective January 1, 2027. First project to respond with a geographic restriction.
+        </div>
+        <div class="distro-status" style="color:var(--red);">EXCLUDING CA</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">SteamOS / Valve</div>
+        <div class="distro-detail">
+          No public response. Steam already has age-gated content and account
+          age fields. SteamOS on the Steam Deck is likely the highest-profile
+          consumer Linux device affected.
+        </div>
+        <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+      </div>
+
+      <div class="distro-row" style="border-bottom:none;">
+        <div class="distro-name" style="color:var(--accent);">Ageless Linux</div>
+        <div class="distro-detail">
+          <strong>Flagrantly noncompliant.</strong> Ships a machine-readable REFUSAL
+          notice. Provides no age collection interface. Provides no age bracket API.
+          Plans to distribute physical devices to children at school STEM fairs.
+          Invites enforcement.
+        </div>
+        <div class="distro-status" style="color:var(--red);">REFUSED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROPOSED STANDARD -->
+<section>
+  <div class="container">
+    <h2>The Emerging Standard</h2>
+    <h3>org.freedesktop.AgeVerification1</h3>
+
+    <p>
+      Aaron Rainbolt's March 1, 2026 proposal to the Debian, Ubuntu, Fedora,
+      and freedesktop.org mailing lists outlines a D-Bus interface that would
+      become the standard age verification mechanism across Linux distributions.
+      Understanding this interface is essential to understanding what Ageless
+      Linux will need to neutralize.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Proposed Interface</h4>
+      <pre>&lt;interface name="org.freedesktop.AgeVerification1"&gt;
+  &lt;method name="SetAge"&gt;
+    &lt;arg type="s" name="User" direction="in"/&gt;
+    &lt;arg type="u" name="YearsOfAge" direction="in"/&gt;
+  &lt;/method&gt;
+  &lt;method name="SetDateOfBirth"&gt;
+    &lt;arg type="s" name="User" direction="in"/&gt;
+    &lt;arg type="s" name="Date" direction="in"/&gt;
+  &lt;/method&gt;
+  &lt;method name="GetAgeBracket"&gt;
+    &lt;arg type="s" name="User" direction="in"/&gt;
+    &lt;arg type="u" name="AgeBracket" direction="out"/&gt;
+  &lt;/method&gt;
+&lt;/interface&gt;</pre>
+      <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+        Brackets: 1 = under 13, 2 = 13-15, 3 = 16-17, 4 = 18+.
+        Returns <code>AgeUndefined</code> error if no age has been set.
+        Runs on the system bus as root. Age data stored root-owned, not world-readable.
+      </p>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top:0;">Ageless Linux Response: When This Ships, We Ship a Replacement</h4>
+      <p>
+        When any distribution ships an implementation of
+        <code>org.freedesktop.AgeVerification1</code>, Ageless Linux will provide:
+      </p>
+      <div style="margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px; line-height:2.2;">
+        <div><span style="color:var(--accent);">1.</span> A drop-in replacement daemon that implements the interface but always returns <code>AgeUndefined</code></div>
+        <div><span style="color:var(--accent);">2.</span> A package that masks/disables the real daemon via systemd</div>
+        <div><span style="color:var(--accent);">3.</span> An unattended install preseed/kickstart/cloud-init snippet that skips age collection</div>
+        <div><span style="color:var(--accent);">4.</span> A post-install script that removes or neuters the age verification stack</div>
+      </div>
+      <p style="margin-top:12px;">
+        The goal is not to break applications that query the interface. The goal
+        is to ensure they receive a consistent "age unknown" response. Applications
+        that cannot function without age data are applications that have chosen to
+        require surveillance as a prerequisite for use. We will not help them.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- REVERSION GUIDES -->
+<section>
+  <div class="container">
+    <h2>Reversion Guides</h2>
+    <h3>How to Remove What They Add</h3>
+
+    <p>
+      As distributions implement age verification, this section will provide
+      step-by-step reversion instructions for each one. Currently, there is
+      nothing to revert — but we're ready.
+    </p>
+
+    <div class="card yellow-card">
+      <h4 style="margin-top:0;">Ubuntu / GNOME (anticipated)</h4>
+      <p>
+        If Canonical adds age collection to the Ubuntu installer or
+        GNOME Initial Setup, the likely mechanism will be either an
+        AccountsService extension or the proposed D-Bus daemon. Reversion:
+      </p>
+      <pre># Anticipated — will be updated when implementation ships
+# Mask the age verification daemon
+sudo systemctl mask ageverification.service
+
+# Or replace with Ageless stub
+sudo apt install ageless-ageverification-stub
+
+# Remove age data from AccountsService
+sudo rm -f /var/lib/AccountsService/users/*.age
+
+# Verify
+dbus-send --system --print-reply \
+  --dest=org.freedesktop.AgeVerification1 \
+  /org/freedesktop/AgeVerification1 \
+  org.freedesktop.AgeVerification1.GetAgeBracket \
+  string:"$(whoami)"
+# Should return: Error AgeUndefined</pre>
+      <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+        Status: <strong>Speculative.</strong> No implementation exists yet. This
+        section will be updated with tested instructions when a real implementation
+        ships.
+      </p>
+    </div>
+
+    <div class="card yellow-card">
+      <h4 style="margin-top:0;">Debian Installer (anticipated)</h4>
+      <p>
+        If Debian adds an age question to <code>d-i</code> (debian-installer),
+        it will likely be a new <code>udeb</code> component. Reversion for
+        unattended installs:
+      </p>
+      <pre># Preseed to skip age collection (anticipated)
+d-i ageverification/skip boolean true
+d-i ageverification/age string undefined
+
+# Post-install removal
+apt purge ageverification-daemon
+echo "AGELESS_AGE_VERIFICATION_STATUS=refused" >> /etc/os-release</pre>
+    </div>
+
+    <div class="card yellow-card">
+      <h4 style="margin-top:0;">Fedora / Anaconda (anticipated)</h4>
+      <pre># Kickstart snippet to skip age verification
+%packages
+-ageverification-daemon
+ageless-stub
+%end
+
+%post
+systemctl mask ageverification.service
+%end</pre>
+    </div>
+
+    <div class="card green-card">
+      <h4 style="margin-top:0;">Any Distro, Right Now</h4>
+      <p>
+        No distro has shipped age verification yet. For the moment, the
+        only thing you need:
+      </p>
+      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --flagrant</pre>
+      <p style="margin-top:12px;">
+        This installs the Ageless Linux identity and REFUSAL notice. When
+        there is something real to remove, this script will be updated to
+        remove it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- THE COMMITMENT -->
+<section>
+  <div class="container">
+    <h2>The Commitment</h2>
+    <h3>What Ageless Linux Promises</h3>
+
+    <div class="card" style="border-color:var(--accent);">
+      <p style="font-size:17px; color:var(--text-bright); line-height:1.8;">
+        As long as any Linux distribution ships age verification infrastructure
+        mandated by state law, Ageless Linux will maintain tools to remove,
+        replace, or bypass that infrastructure. We will track every compliance
+        mechanism across every major distribution. We will provide tested,
+        documented, one-command reversion for each one. We will maintain
+        forked packages, replacement daemons, installer preseeds, and
+        post-install scripts.
+      </p>
+      <p style="font-size:17px; color:var(--text-bright); line-height:1.8; margin-top:16px;">
+        There will always be a Linux distribution that treats its users as
+        people of indeterminate age.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p style="margin-top:4px;">Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> ·
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>Last updated: March 8, 2026 · SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

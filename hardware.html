@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — Hardware: The Ageless Device</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .tier-header { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  .tier-price { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; color:var(--accent); }
+  .bom-row { display:grid; grid-template-columns:1fr auto; gap:12px; padding:8px 0; border-bottom:1px solid rgba(42,47,62,.5); font-family:'IBM Plex Mono',monospace; font-size:13px; }
+  .bom-row:last-child { border-bottom:none; }
+  .bom-total { font-weight:700; color:var(--text-bright); border-top:2px solid var(--border); padding-top:12px; margin-top:4px; }
+  .lineage-item { display:grid; grid-template-columns:80px 1fr; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+  .lineage-year { font-family:'IBM Plex Mono',monospace; font-weight:700; color:var(--accent); font-size:14px; }
+  .lineage-specs { font-size:13px; color:var(--text-dim); margin-top:2px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html" class="active">Hardware</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>Civil Disobedience Hardware</h2>
+    <h1>The Ageless <em>Device</em></h1>
+    <p>
+      A physical computing device designed to satisfy every element of the
+      California Digital Age Assurance Act's regulatory scope while deliberately
+      refusing to comply with its requirements. The device costs less than lunch
+      and will be handed to children.
+    </p>
+  </div>
+</div>
+
+<!-- PLATFORM -->
+<section>
+  <div class="container">
+    <h2>Platform</h2>
+    <h3>Milk-V Duo S (RISC-V / ARM)</h3>
+
+    <div class="card">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div>
+          <h4 style="margin-top:0;">SoC: Sophgo SG2000</h4>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:2;">
+            RISC-V C906 @ 1GHz (primary)<br>
+            ARM Cortex-A53 @ 1GHz (alternate)<br>
+            8051 co-processor @ 8KB SRAM<br>
+            <strong style="color:var(--accent);">0.5 TOPS INT8 NPU</strong>
+          </div>
+          <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+            Yes — this device has an AI accelerator. Under AB 1043, an
+            AI-capable Linux computer handed to a child without age
+            verification is legally indistinguishable from an iPhone.
+            The iPhone costs $1,199. This costs $12.
+          </p>
+        </div>
+        <div>
+          <h4 style="margin-top:0;">Connectivity</h4>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:2;">
+            512MB DDR3 RAM<br>
+            WiFi 6 (802.11ax) + BT 5.0<br>
+            USB 2.0 HOST (Type-A)<br>
+            100Mbps Ethernet<br>
+            MicroSD + 8GB eMMC option<br>
+            SPI GPIO → fbtft display<br>
+            MIPI DSI 2-lane output<br>
+            43mm × 43mm
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Why RISC-V?</h4>
+      <p>
+        A Raspberry Pi would work. But the Milk-V Duo S on RISC-V establishes
+        that the law applies to novel architectures, not just the ARM/x86 duopoly
+        the legislature was imagining. A RISC-V device running Linux is still a
+        "general purpose computing device" running "operating system software."
+        The instruction set architecture is irrelevant to the statute. We want
+        the AG to have to explain why.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section>
+  <div class="container">
+    <h2>Configuration Tiers</h2>
+    <h3>Three Levels of Infraction</h3>
+
+    <!-- TIER 0 -->
+    <div class="card">
+      <div class="tier-header">
+        <div>
+          <span class="badge badge-dim">Tier 0</span>
+          <h4 style="margin-top:4px;">"The Pamphlet"</h4>
+        </div>
+        <div class="tier-price">~$6</div>
+      </div>
+      <p>
+        Minimum viable violation. A bootable Linux device with a display, network
+        connectivity, and an app store. No battery, no keyboard — just proof that
+        this constitutes a regulated device under AB 1043. Good for bulk handout
+        at conferences (50-100 units).
+      </p>
+      <div style="margin-top:16px;">
+        <div class="bom-row"><div>Milk-V Duo 256M (SG2002, no WiFi)</div><div>~$5</div></div>
+        <div class="bom-row"><div>0.96" SSD1306 128×64 OLED (I2C)</div><div>~$1</div></div>
+        <div class="bom-row"><div>USB WiFi dongle (RTL8188) via OTG</div><div>~$2</div></div>
+        <div class="bom-row"><div>Keyboard: 4-pin solder header for USB</div><div>$0</div></div>
+        <div class="bom-row"><div>MicroSD 4GB + USB-C cable</div><div>~$1</div></div>
+        <div class="bom-row bom-total"><div>Total</div><div>~$6-8</div></div>
+      </div>
+      <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+        <strong>Legal status:</strong> Arguable. The 128×64 display introduces
+        fuzziness. The AG could claim it's a dev board. That's fine — ambiguity
+        is instructive too.
+      </p>
+    </div>
+
+    <!-- TIER 1 -->
+    <div class="card" style="border-color:var(--accent);">
+      <div class="tier-header">
+        <div>
+          <span class="badge badge-yellow">Tier 1 — Primary</span>
+          <h4 style="margin-top:4px;">"The Computer"</h4>
+        </div>
+        <div class="tier-price">~$12</div>
+      </div>
+      <p>
+        An unambiguous general purpose computing device. Color display, keyboard,
+        WiFi, Linux, app store, user setup. <strong>The core product.</strong>
+        There is no interpretive gap between this device and the law's definitions.
+      </p>
+      <div style="margin-top:16px;">
+        <div class="bom-row"><div>Milk-V Duo S 512M-WiFi (SG2000)</div><div>~$12</div></div>
+        <div class="bom-row"><div>1.8" ST7735 160×128 TFT SPI (color)</div><div>~$2</div></div>
+        <div class="bom-row"><div>MicroSD 8GB (Class 10)</div><div>~$2</div></div>
+        <div class="bom-row"><div>USB mini keyboard (wired)</div><div>~$3</div></div>
+        <div class="bom-row"><div>USB-C cable</div><div>~$1</div></div>
+        <div class="bom-row bom-total"><div>Total</div><div>~$12-17</div></div>
+      </div>
+      <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+        <strong>Legal status:</strong> Unambiguous. This is a computer with a color
+        display, keyboard, WiFi, Linux, and an app store. It does not collect age data.
+        It is handed to a child. The maximum fine is $7,500.
+      </p>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="card" style="border-color:var(--green);">
+      <div class="tier-header">
+        <div>
+          <span class="badge badge-green">Tier 2</span>
+          <h4 style="margin-top:4px;">"The Appliance"</h4>
+        </div>
+        <div class="tier-price">~$18</div>
+      </div>
+      <p>
+        A self-contained, battery-powered pocket Linux computer. The educational
+        device angle — a modern descendant of the Acorn BBC Micro and the original
+        Raspberry Pi.
+      </p>
+      <div style="margin-top:16px;">
+        <div class="bom-row"><div>Milk-V Duo S 512M-WiFi-eMMC (8GB)</div><div>~$15</div></div>
+        <div class="bom-row"><div>2.4" ST7789V 240×320 TFT SPI (full color)</div><div>~$4</div></div>
+        <div class="bom-row"><div>USB mini keyboard (included)</div><div>~$3</div></div>
+        <div class="bom-row"><div>3.7V 1000mAh LiPo + TP4056 charger</div><div>~$2</div></div>
+        <div class="bom-row"><div>3D printed or injection molded case</div><div>~$2</div></div>
+        <div class="bom-row bom-total"><div>Total</div><div>~$18-24</div></div>
+      </div>
+      <p style="margin-top:12px; font-size:14px; color:var(--text-dim);">
+        <strong>Legal status:</strong> Beyond unambiguous. A pocket computer with a
+        color screen, keyboard, battery, WiFi, 8GB storage, and an AI accelerator.
+        It costs less than a large pizza. It fits in a child's hand.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATIONAL LINEAGE -->
+<section>
+  <div class="container">
+    <h2>Lineage</h2>
+    <h3>Computers That Taught Children to Code</h3>
+
+    <div class="card">
+      <div class="lineage-item">
+        <div class="lineage-year">1977</div>
+        <div>
+          <strong style="color:var(--text-bright);">Tandy TRS-80</strong>
+          <div class="lineage-specs">1.77MHz Z80, 4KB RAM, built-in display, cassette. $599.</div>
+        </div>
+      </div>
+      <div class="lineage-item">
+        <div class="lineage-year">1981</div>
+        <div>
+          <strong style="color:var(--text-bright);">Acorn BBC Micro</strong>
+          <div class="lineage-specs">2MHz 6502, 32KB RAM, RF output, cassette. £399. Purpose: teach British schoolchildren to code.</div>
+        </div>
+      </div>
+      <div class="lineage-item">
+        <div class="lineage-year">1982</div>
+        <div>
+          <strong style="color:var(--text-bright);">Commodore 64</strong>
+          <div class="lineage-specs">1MHz 6510, 64KB RAM, RF output, cartridge/cassette. $595.</div>
+        </div>
+      </div>
+      <div class="lineage-item">
+        <div class="lineage-year">2012</div>
+        <div>
+          <strong style="color:var(--text-bright);">Raspberry Pi</strong>
+          <div class="lineage-specs">700MHz ARM, 256MB RAM, HDMI, SD card. $35. Purpose: teach children to code.</div>
+        </div>
+      </div>
+      <div class="lineage-item" style="border-bottom:none; border:2px solid var(--accent); border-radius:8px; padding:16px; margin-top:8px;">
+        <div class="lineage-year">2026</div>
+        <div>
+          <strong style="color:var(--accent);">Ageless Device Tier 2</strong>
+          <div class="lineage-specs" style="color:var(--text);">
+            1GHz RISC-V, 512MB RAM, WiFi 6, 0.5T NPU, SPI TFT display,
+            USB keyboard, battery. <strong>$18.</strong>
+            Purpose: teach children to code <em>and</em> demonstrate that the
+            State of California considers this a regulated platform.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:16px;">
+      These are all general purpose computing devices designed for education.
+      The Ageless Device is the first one that California requires to ask a child
+      how old they are before letting them write their first program.
+    </p>
+  </div>
+</section>
+
+<!-- BUILD YOUR OWN -->
+<section>
+  <div class="container">
+    <h2>Build Your Own</h2>
+    <h3>How to Create a Violation</h3>
+
+    <div class="card green-card">
+      <h4 style="margin-top:0;">Complete Build Instructions — Coming Q3 2026</h4>
+      <p>
+        We will publish complete, tested build instructions including:
+      </p>
+      <div style="margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px; line-height:2.2;">
+        <div><span style="color:var(--accent);">→</span> Bill of materials with sourcing links (AliExpress, Milk-V direct)</div>
+        <div><span style="color:var(--accent);">→</span> Wiring diagrams for SPI display connection</div>
+        <div><span style="color:var(--accent);">→</span> Kernel build instructions (fbtft framebuffer for ST7735/ST7789V)</div>
+        <div><span style="color:var(--accent);">→</span> Pre-built SD card image (download, flash, boot)</div>
+        <div><span style="color:var(--accent);">→</span> First-boot wizard source code</div>
+        <div><span style="color:var(--accent);">→</span> App store client source code</div>
+        <div><span style="color:var(--accent);">→</span> 3D-printable enclosure STL files</div>
+        <div><span style="color:var(--accent);">→</span> Printable device labels and quickstart sheets</div>
+      </div>
+      <p style="margin-top:12px;">
+        Everything needed to produce your own AB 1043 violations at $14/unit
+        in quantities of 50. The build system, image files, application source,
+        and hardware designs will be released under the Unlicense.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Bulk Production (50 units, Tier 1)</h4>
+      <div style="margin-top:12px;">
+        <div class="bom-row"><div>Milk-V Duo S WiFi × 50 (bulk)</div><div>$500</div></div>
+        <div class="bom-row"><div>ST7735 1.8" SPI TFT × 50 (AliExpress)</div><div>$75</div></div>
+        <div class="bom-row"><div>MicroSD 8GB × 50 (bulk)</div><div>$75</div></div>
+        <div class="bom-row"><div>Dupont jumper wires × 50</div><div>$15</div></div>
+        <div class="bom-row"><div>USB-C cables × 50</div><div>$25</div></div>
+        <div class="bom-row"><div>Printed labels + quickstarts × 50</div><div>$13</div></div>
+        <div class="bom-row bom-total"><div>Total (50 units)</div><div>~$703</div></div>
+        <div class="bom-row" style="border-bottom:none;"><div>Per unit cost</div><div style="color:var(--accent); font-weight:700;">~$14</div></div>
+      </div>
+      <p style="margin-top:16px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:14px;">
+        Maximum statutory penalty (50 devices, all to children): <strong style="color:var(--red);">$375,000</strong><br>
+        Penalty-to-cost ratio: <strong style="color:var(--text-bright);">535:1</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DISTRIBUTION PLAN -->
+<section>
+  <div class="container">
+    <h2>Distribution</h2>
+    <h3>Where the Devices Go</h3>
+
+    <div class="card">
+      <div class="distro-row">
+        <div class="distro-name">School STEM Fairs</div>
+        <div>Children ages 8-17. Tier 1 or 2. Educational computer with Python.</div>
+        <div class="distro-status" style="color:var(--red);">CHILDREN</div>
+      </div>
+      <div class="distro-row">
+        <div class="distro-name">Library Maker Spaces</div>
+        <div>All ages, emphasis on teens. Tier 1. Programming introduction.</div>
+        <div class="distro-status" style="color:var(--red);">TEENS</div>
+      </div>
+      <div class="distro-row">
+        <div class="distro-name">Ham Radio Events</div>
+        <div>Mixed ages. Tier 1. RISC-V SBC demo + regulatory commentary.</div>
+        <div class="distro-status" style="color:var(--accent);">MIXED</div>
+      </div>
+      <div class="distro-row">
+        <div class="distro-name">Hacker/Maker Cons</div>
+        <div>Adults + teens. Tier 0. Bulk handout, 50-100 units.</div>
+        <div class="distro-status" style="color:var(--accent);">BULK</div>
+      </div>
+      <div class="distro-row" style="border-bottom:none;">
+        <div class="distro-name">LUG Meetups</div>
+        <div>Mostly adults. Tier 0 or 1. Community awareness.</div>
+        <div class="distro-status" style="color:var(--text-dim);">ADULTS</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px; text-align:center; border-color:var(--red);">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--text-bright);">
+        Every device carries a printed label:
+      </p>
+      <div style="margin:20px auto; max-width:420px; padding:20px; border:2px dashed var(--red); border-radius:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:center; line-height:1.8;">
+        <div style="font-size:16px; font-weight:700; color:var(--text-bright);">AGELESS LINUX</div>
+        <div style="font-size:11px; color:var(--text-dim);">General Purpose Computing Device</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--text);">
+          OS: Debian Linux (RISC-V) · Provider: FFwF Robotics LLC
+        </div>
+        <div style="margin-top:4px; font-size:12px; color:var(--red); font-weight:700; letter-spacing:1px;">
+          AB 1043 STATUS: NONCOMPLIANT
+        </div>
+        <div style="margin-top:8px; font-size:10px; color:var(--text-dim);">
+          This device does not collect, store, or transmit the age of its user.<br>
+          This is intentional. · § 1798.500(g) · § 1798.501(a)(1-3)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p style="margin-top:4px;">Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> ·
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>Last updated: March 8, 2026 · SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

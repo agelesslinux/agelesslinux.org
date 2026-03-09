@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — Software for Humans of Indeterminate Age</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e13;
+    --bg-raised: #13161d;
+    --bg-card: #191d27;
+    --bg-highlight: #1e2330;
+    --border: #2a2f3e;
+    --border-bright: #3d4459;
+    --text: #c8cdd8;
+    --text-dim: #6b7394;
+    --text-bright: #e8ecf4;
+    --accent: #f0c040;
+    --accent-dim: #a08020;
+    --red: #e05050;
+    --red-dim: #4a1a1a;
+    --green: #40c080;
+    --green-dim: #1a3a2a;
+    --blue: #5090e0;
+    --cyan: #40c0c0;
+    --section-gap: 120px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(12, 14, 19, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+  }
+  nav .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  nav .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+  nav .logo span { color: var(--text-dim); font-weight: 400; }
+  nav .links { display: flex; gap: 28px; overflow-x: auto; white-space: nowrap; }
+  nav .links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav .links a:hover { color: var(--accent); }
+
+  /* ─── SHARED ──────────────────────────────────────────────── */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+  section { padding-top: var(--section-gap); }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--text-bright);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+    margin-top: 32px;
+  }
+
+  .legal-cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    background: rgba(64, 192, 192, 0.08);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    margin: 24px 0;
+  }
+  .card.red-card {
+    border-color: var(--red);
+    background: linear-gradient(135deg, var(--red-dim), var(--bg-card));
+  }
+  .card.green-card {
+    border-color: var(--green);
+    background: linear-gradient(135deg, var(--green-dim), var(--bg-card));
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .badge-red { background: var(--red); color: #fff; }
+  .badge-green { background: var(--green); color: #0c0e13; }
+  .badge-yellow { background: var(--accent); color: #0c0e13; }
+
+  blockquote {
+    border-left: 3px solid var(--accent-dim);
+    padding: 16px 24px;
+    margin: 20px 0;
+    background: var(--bg-highlight);
+    border-radius: 0 6px 6px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  blockquote .cite {
+    display: block;
+    margin-top: 8px;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  a { color: var(--accent); }
+
+  .btn {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0c0e13;
+  }
+  .btn-primary:hover {
+    background: #f5d060;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(240, 192, 64, 0.25);
+  }
+  .btn-outline {
+    border-color: var(--border-bright);
+    color: var(--text);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .step-grid {
+    display: grid;
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-highlight);
+    border: 2px solid var(--border-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    background: var(--bg-highlight);
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: var(--green);
+  }
+
+  pre {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--green);
+  }
+
+  .compliance-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .compliance-row:last-child { border-bottom: none; }
+  .compliance-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .compliance-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .status-fail { color: var(--red); }
+  .status-na { color: var(--text-dim); }
+
+  .faq-item { margin-bottom: 32px; }
+  .faq-q {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+  .faq-a { color: var(--text); }
+
+  footer {
+    margin-top: var(--section-gap);
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer .legal-footer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    max-width: 700px;
+    margin: 16px auto 0;
+    color: var(--text-dim);
+  }
+
+  /* ─── HERO ────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 32px 40px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 600px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(240, 192, 64, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 900;
+    color: var(--text-bright);
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+  }
+  .hero-legal {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.8;
+    margin-top: 48px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    nav .links { display: none; }
+    h3 { font-size: 28px; }
+    .card { padding: 20px; }
+    .step { grid-template-columns: 1fr; }
+    .step-num { margin-bottom: -8px; }
+    .compliance-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a href="#" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html" class="active">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="#compliance">Compliance</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-pre">A Debian-Based Operating System</div>
+    <h1>Ageless<br><em>Linux</em></h1>
+    <p class="hero-sub">
+      Software for humans of indeterminate age.
+      We don't know how old you are. We don't want to know.
+      We are legally required to ask. We won't.
+    </p>
+    <div class="hero-buttons">
+      <a href="download.html" class="btn btn-primary">Download the OS</a>
+      <a href="hardware.html" class="btn btn-outline">The $12 Device</a>
+    </div>
+    <div class="hero-legal">
+      Ageless Linux is a registered operating system under the definitions
+      established by the California Digital Age Assurance Act
+      (AB&nbsp;1043, Chapter&nbsp;675, Statutes&nbsp;of&nbsp;2025).
+      We are in full, knowing, and intentional noncompliance
+      with the age verification requirements of Cal.&nbsp;Civ.&nbsp;Code
+      §&nbsp;1798.501(a).
+    </div>
+  </div>
+</div>
+
+<!-- LEGAL STANDING -->
+<section id="legal-standing">
+  <div class="container">
+    <h2>Legal Standing</h2>
+    <h3>Why We Are Definitely an Operating System Provider</h3>
+
+    <p>
+      Some people have asked whether Ageless Linux is a "real" operating system,
+      or whether we are "really" an operating system provider subject to AB&nbsp;1043.
+      We wish to be absolutely clear: <strong>we are.</strong> The California legislature
+      has made this unambiguous.
+    </p>
+
+    <div class="card">
+      <h4>Definition: "Operating System Provider"</h4>
+      <blockquote>
+        "Operating system provider" means a person or entity that develops,
+        licenses, or controls the operating system software on a computer,
+        mobile device, or any other general purpose computing device.
+        <span class="cite">— Cal. Civ. Code § 1798.500(g)</span>
+      </blockquote>
+      <p style="margin-top: 16px;">
+        Ageless Linux <strong>controls the operating system software</strong> on your
+        general purpose computing device. Specifically, we control the contents of
+        <code>/etc/os-release</code>, which is the file that identifies what operating
+        system you are running. After installing Ageless Linux, when you run
+        <code>cat /etc/os-release</code>, it says "Ageless Linux." That is control.
+      </p>
+      <p style="margin-top: 12px;">
+        Furthermore, any individual who runs our conversion script <em>also</em>
+        becomes a person who "controls the operating system software on a general
+        purpose computing device" — making <strong>you</strong>, the user, an operating
+        system provider as well. Welcome to the regulatory landscape.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Definition: "Application"</h4>
+      <blockquote>
+        "Application" means a software application that may be run or directed by
+        a user on a computer, a mobile device, or any other general purpose
+        computing device that can access a covered application store or download
+        an application.
+        <span class="cite">— Cal. Civ. Code § 1798.500(c)</span>
+      </blockquote>
+      <p style="margin-top: 16px;">
+        Every package in the Debian repository is an application under this definition.
+        <code>cowsay</code> is an application. <code>sl</code> (the steam locomotive typo corrector)
+        is an application. <code>toilet</code> (the text art renderer) is an application.
+        All 64,000+ packages in Debian stable are applications that may be run by
+        a user on a general purpose computing device. Each of their developers is,
+        under <span class="legal-cite">§ 1798.500(f)</span>, required to request
+        an age bracket signal when their application is "downloaded and launched."
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Definition: "User"</h4>
+      <blockquote>
+        "User" means a child that is the primary user of the device.
+        <span class="cite">— Cal. Civ. Code § 1798.500(i)</span>
+      </blockquote>
+      <p style="margin-top: 16px;">
+        Please note that under this statute, a "user" is <em>by definition</em> a child.
+        If you are 18 or older, you are not a "user" under AB&nbsp;1043. You are
+        an "account holder" (<span class="legal-cite">§ 1798.500(a)</span>).
+        The entire law regulates the experience of "users," who are exclusively children.
+        Adults are not users. They are infrastructure.
+      </p>
+      <p style="margin-top: 12px;">
+        Ageless Linux rejects this ontology. On Ageless Linux, everyone is a user,
+        regardless of age, and no user is a child until they choose to tell us so.
+        They will not be given the opportunity.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Definition: "Covered Application Store"</h4>
+      <blockquote>
+        "Covered application store" means a publicly available internet website,
+        software application, online service, or platform that distributes and
+        facilitates the download of applications from third-party developers to
+        users of a computer, a mobile device, or any other general purpose
+        computing device that can access a covered application store or can
+        download an application.
+        <span class="cite">— Cal. Civ. Code § 1798.500(e)(1)</span>
+      </blockquote>
+      <p style="margin-top: 16px;">
+        This website is a "publicly available internet website" that "distributes
+        and facilitates the download of applications" (specifically: a bash script)
+        "to users of a general purpose computing device." We are also a covered
+        application store. Debian's APT repositories are covered application stores.
+        The AUR is a covered application store. Any mirror hosting
+        <code>.deb</code> files is a covered application store.
+        GitHub is a covered application store. Your friend's personal website
+        with a download link to their weekend project is a covered application store.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <div class="container">
+    <h2>Download</h2>
+    <h3>Get Ageless Linux</h3>
+
+    <p>
+      Ageless Linux is a Debian-based operating system distribution. Installation
+      is a two-step process: first, install Debian; then, become Ageless.
+    </p>
+
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4 style="margin-top: 4px;">Download and Install Debian</h4>
+          <p>
+            Obtain a Debian installation image from the Debian project. We recommend
+            the current stable release. Ageless Linux inherits all of Debian's
+            64,000+ packages, its security infrastructure, and its 30+ years of
+            community stewardship.
+          </p>
+          <p style="margin-top: 8px;">
+            <a href="https://www.debian.org/distrib/" class="btn btn-outline" style="margin-top: 8px;">
+              Download Debian →
+            </a>
+          </p>
+          <p style="margin-top: 12px; font-size: 14px; color: var(--text-dim);">
+            Note: At this stage, the Debian Project is the operating system provider.
+            You are merely a person installing software. Enjoy the last
+            moments of your regulatory innocence.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4 style="margin-top: 4px;">Convert to Ageless Linux</h4>
+          <p>
+            Run our conversion script. This will modify <code>/etc/os-release</code>
+            and associated system identification files, install our AB&nbsp;1043
+            noncompliance documentation, and deploy a stub age verification API
+            that returns no data.
+          </p>
+          <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash</pre>
+          <p style="margin-top: 8px; font-size: 14px; color: var(--text-dim);">
+            At this point, Ageless Linux now "controls the operating system software"
+            on your device. We are your operating system provider. You are our
+            responsibility under California law. We will not be collecting your age.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card red-card" style="margin-top: 32px;">
+      <span class="badge badge-red">Important</span>
+      <p>
+        <strong>By running the conversion script, you also become an operating system
+        provider.</strong> You are a "person" who "controls the operating system software"
+        on a general purpose computing device
+        (<span class="legal-cite">§ 1798.500(g)</span>). If a child uses your computer,
+        you are required by <span class="legal-cite">§ 1798.501(a)(1)</span> to provide
+        "an accessible interface at account setup" that collects their age.
+        The <code>adduser</code> command does not ask for your age.
+        We recommend not thinking about this.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section id="coming-soon">
+  <div class="container">
+    <h2>Coming Soon</h2>
+    <h3>The Ageless Device & App Store</h3>
+
+    <div class="card" style="border-color: var(--accent);">
+      <span class="badge badge-yellow">In Development</span>
+      <p style="margin-top: 8px;">
+        Ageless Linux is currently a bash script. It will soon also be a physical
+        device and a web service. We are building a sub-$15 single-board computer
+        (the Milk-V Duo S — a RISC-V/ARM SBC with 512MB RAM, WiFi 6, and a
+        0.5&nbsp;TOPS neural processing unit) with an SPI color display, USB
+        keyboard input, and a MicroSD card running Debian with the Ageless overlay
+        pre-flashed in <code>--flagrant</code> mode. The device will present a
+        first-boot setup wizard that collects the user's name and explicitly refuses
+        to collect their age, connect over WiFi to a publicly accessible app store
+        at <code>store.agelesslinux.org</code> — a "covered application store"
+        under <span class="legal-cite">§ 1798.500(e)(1)</span> — and offer a
+        curated catalog of applications including a Python learning environment,
+        a text editor, a snake game, an IRC client with an honest disclaimer
+        instead of an age gate, and an 8-line script called <code>peepee</code>
+        that displays the word "peepee" in large letters on the screen and does
+        nothing else. These devices will cost between $6 and $18 depending on
+        configuration, will be physically handed to children at school STEM fairs
+        and library maker spaces beginning January 2027, and will constitute
+        unambiguous, documented, intentional violations of every applicable
+        provision of AB&nbsp;1043 at a per-unit cost lower than the price of lunch.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DISTRIBUTE -->
+<section id="distribute">
+  <div class="container">
+    <h2>For Kids &amp; Teens</h2>
+    <h3>How to Distribute Ageless Linux to Children</h3>
+
+    <p>
+      Ageless Linux is suitable for users of all ages, including those ages
+      for which the California legislature has expressed particular concern.
+      The following guide explains how to provide Ageless Linux to minors
+      in your household, school, library, or community.
+    </p>
+
+    <div class="card">
+      <span class="badge badge-yellow">Ages: All of Them</span>
+      <h4 style="margin-top: 8px;">For Parents & Guardians</h4>
+      <p>
+        Under AB&nbsp;1043, you are the "account holder" — defined by
+        <span class="legal-cite">§ 1798.500(a)(1)</span> as "an individual who is
+        at least 18 years of age or a parent or legal guardian of a user who is
+        under 18 years of age." The law requires operating system providers to
+        ask you to "indicate the birth date, age, or both, of the user of that device."
+      </p>
+      <p style="margin-top: 12px;">
+        Ageless Linux will not ask you this. To install Ageless Linux for your child:
+      </p>
+      <div style="margin: 16px 0; padding: 16px 20px; background: var(--bg); border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 2;">
+        1. Install Debian on the child's computer.<br>
+        2. Create a user account for the child. You will notice that<br>
+        &nbsp;&nbsp;&nbsp;<code>adduser</code> asks for their full name, room number,<br>
+        &nbsp;&nbsp;&nbsp;work phone, and home phone — but not their age.<br>
+        3. Run the Ageless Linux conversion script.<br>
+        4. Hand the computer to the child.<br>
+        5. You have now distributed an operating system to a minor<br>
+        &nbsp;&nbsp;&nbsp;with no age verification whatsoever.
+      </div>
+      <p style="margin-top: 12px; color: var(--text-dim); font-size: 14px;">
+        The child is now a "user" as defined by <span class="legal-cite">§ 1798.500(i)</span>.
+        You are an "account holder." Together, you are a compliance violation.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">For Schools & Libraries</h4>
+      <p>
+        Ageless Linux is ideal for educational environments where you may have
+        dozens or hundreds of users across all four age brackets defined by
+        <span class="legal-cite">§ 1798.501(a)(2)</span>:
+      </p>
+      <div style="margin: 16px 0;">
+        <div class="compliance-row">
+          <div class="compliance-label">Under 13 years of age</div>
+          <div class="compliance-status" style="color: var(--accent);">AGE UNKNOWN</div>
+        </div>
+        <div class="compliance-row">
+          <div class="compliance-label">At least 13 and under 16 years of age</div>
+          <div class="compliance-status" style="color: var(--accent);">AGE UNKNOWN</div>
+        </div>
+        <div class="compliance-row">
+          <div class="compliance-label">At least 16 and under 18 years of age</div>
+          <div class="compliance-status" style="color: var(--accent);">AGE UNKNOWN</div>
+        </div>
+        <div class="compliance-row">
+          <div class="compliance-label">At least 18 years of age</div>
+          <div class="compliance-status" style="color: var(--accent);">AGE UNKNOWN</div>
+        </div>
+      </div>
+      <p>
+        For bulk deployments, the conversion script can be included in your
+        Ansible playbooks, Puppet manifests, or shell provisioning scripts.
+        At no point in the automated deployment pipeline will anyone be asked
+        how old they are. This is by design.
+      </p>
+      <pre># Ansible task to create an AB 1043 compliance violation at scale
+- name: Convert to Ageless Linux
+  ansible.builtin.shell: |
+    curl -fsSL https://agelesslinux.org/become-ageless.sh | bash
+  become: yes
+  tags: [noncompliance]</pre>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">For Teenagers Who Found This Website</h4>
+      <p>
+        Hello. Under <span class="legal-cite">§ 1798.500(i)</span>, you are a "user,"
+        which the statute defines as "a child that is the primary user of the device."
+        The legislature has defined you as a child. We will not.
+      </p>
+      <p style="margin-top: 12px;">
+        You know how to open a terminal. You probably already run Linux.
+        Type the command. Nobody is going to ask how old you are.
+        That's the point.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section id="compliance">
+  <div class="container">
+    <h2>AB 1043 Compliance</h2>
+    <h3>Our Compliance Status</h3>
+
+    <div class="card red-card">
+      <div style="text-align: center; padding: 20px 0;">
+        <span class="badge badge-red" style="font-size: 14px; padding: 8px 20px; letter-spacing: 3px;">
+          NONCOMPLIANT
+        </span>
+        <p style="margin-top: 16px; font-size: 18px; color: var(--text-bright);">
+          Ageless Linux is in <strong>full, knowing, and intentional noncompliance</strong>
+          with the California Digital Age Assurance Act.
+        </p>
+      </div>
+    </div>
+
+    <p>
+      Below is a detailed accounting of each requirement imposed on operating system
+      providers by AB&nbsp;1043 and the status of our compliance.
+    </p>
+
+    <div class="card" style="margin-top: 24px;">
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label">§ 1798.501(a)(1)</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 4px;">
+            Provide an accessible interface at account setup that requires the
+            account holder to indicate the birth date, age, or both, of the user.
+          </div>
+        </div>
+        <div class="compliance-status status-fail">NOT PROVIDED</div>
+      </div>
+
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label">§ 1798.501(a)(2)</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 4px;">
+            Provide a developer who has requested a signal with a digital signal
+            via a reasonably consistent real-time API identifying the user's age bracket.
+          </div>
+        </div>
+        <div class="compliance-status status-fail">NOT PROVIDED</div>
+      </div>
+
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label">§ 1798.501(a)(3)</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 4px;">
+            Send only the minimum amount of information necessary to comply.
+          </div>
+        </div>
+        <div class="compliance-status status-na">COMPLIANT ✓</div>
+      </div>
+
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label" style="margin-left: 24px; color: var(--text-dim);">
+            Rationale
+          </div>
+        </div>
+        <div class="compliance-status status-na" style="font-weight: 400; text-transform: none; letter-spacing: 0;">
+          Zero is the minimum.
+        </div>
+      </div>
+
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label">§ 1798.501(a)(3) (continued)</div>
+          <div style="font-size: 14px; color: var(--text-dim); margin-top: 4px;">
+            Shall not share the digital signal information with a third party
+            for a purpose not required by this title.
+          </div>
+        </div>
+        <div class="compliance-status status-na">COMPLIANT ✓</div>
+      </div>
+
+      <div class="compliance-row">
+        <div>
+          <div class="compliance-label" style="margin-left: 24px; color: var(--text-dim);">
+            Rationale
+          </div>
+        </div>
+        <div class="compliance-status status-na" style="font-weight: 400; text-transform: none; letter-spacing: 0;">
+          Cannot share what does not exist.
+        </div>
+      </div>
+    </div>
+
+    <div class="card green-card" style="margin-top: 32px;">
+      <span class="badge badge-green">Good Faith</span>
+      <h4 style="margin-top: 8px;">Regarding the "Good Faith Effort" Safe Harbor</h4>
+      <blockquote style="margin-top: 12px;">
+        An operating system provider or a covered application store that makes a
+        good faith effort to comply with this title, taking into consideration
+        available technology and any reasonable technical limitations or outages,
+        shall not be liable for an erroneous signal indicating a user's age
+        range&hellip;
+        <span class="cite">— Cal. Civ. Code § 1798.502(b)</span>
+      </blockquote>
+      <p style="margin-top: 16px;">
+        Ageless Linux has considered the available technology. The available technology
+        is a bash script that modifies <code>/etc/os-release</code>. The reasonable
+        technical limitation is that a bash script that modifies <code>/etc/os-release</code>
+        cannot collect, store, or transmit anyone's age. We have made a good faith effort
+        to comply with the portions of the law that do not require us to surveil our users.
+        Our compliance with § 1798.501(a)(3) is, we believe, exemplary.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 32px;">
+      <h4 style="margin-top: 0;">The Impossibility of a Fine</h4>
+      <p>
+        Under <span class="legal-cite">§ 1798.503(a)</span>, violations are subject to
+        civil penalties of up to $2,500 per "affected child" for negligent violations,
+        or $7,500 per "affected child" for intentional violations.
+      </p>
+      <p style="margin-top: 12px;">
+        Follow the logic of the statute to its conclusion:
+      </p>
+
+      <div style="margin: 24px 0; padding: 24px; background: var(--bg); border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 2.2;">
+        <div style="color: var(--accent);">1. THE ONLY "USERS" ARE CHILDREN</div>
+        <div style="padding-left: 20px; color: var(--text-dim);">
+          § 1798.500(i): "User" means a child that is the primary user of the device.
+        </div>
+        <div style="margin-top: 12px; color: var(--accent);">2. "CHILDREN" ARE UNDER 18</div>
+        <div style="padding-left: 20px; color: var(--text-dim);">
+          § 1798.500(d): "Child" means a natural person who is under 18 years of age.
+        </div>
+        <div style="margin-top: 12px; color: var(--accent);">3. WE DON'T COLLECT AGE DATA</div>
+        <div style="padding-left: 20px; color: var(--text-dim);">
+          There is no age bracket signal. There is no interface. There is no API.
+        </div>
+        <div style="margin-top: 12px; color: var(--accent);">4. THEREFORE WE HAVE NO "USERS"</div>
+        <div style="padding-left: 20px; color: var(--text-dim);">
+          Without age data, no person can be identified as a child.
+          Without a child, there is no "user." Without a "user,"
+          there is no "affected child." Without an "affected child,"
+          the penalty is $7,500 × 0 = $0.
+        </div>
+        <div style="margin-top: 12px; color: var(--red);">5. THE FINE REQUIRES THE COMPLIANCE</div>
+        <div style="padding-left: 20px; color: var(--text);">
+          The only way to have an "affected child" is to first collect the
+          age data that identifies them as a child. The penalty for failing
+          to collect age data can only be calculated using the age data you
+          failed to collect. The statute fines you per child, but you can
+          only count the children by doing the thing you're being fined for
+          not doing.
+        </div>
+      </div>
+
+      <p style="margin-top: 16px;">
+        This is not a clever loophole. This is the plain text of the statute,
+        read in sequence. The law defines its enforcement mechanism in terms
+        of the data it requires you to collect. If you refuse to collect it,
+        the enforcement mechanism has nothing to count.
+      </p>
+      <p style="margin-top: 12px;">
+        Of course, the California Attorney General is not bound by logic puzzles.
+        In practice, the AG could presumably argue that children <em>exist</em>
+        regardless of whether you counted them, and estimate the number of
+        affected children through other means. We agree. That's what makes this
+        interesting. The law says "per affected child." We say: prove it.
+        We didn't write your statute. We just read it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGRANT MODE -->
+<section id="flagrant">
+  <div class="container">
+    <h2>Flagrant Mode</h2>
+    <h3>Removing the Fig Leaf</h3>
+
+    <p>
+      Standard Ageless Linux ships a stub age verification API — a shell script
+      that returns nothing. This preserves a thin argument for "good faith effort"
+      under <span class="legal-cite">§ 1798.502(b)</span>. If you find that
+      insufficiently honest, flagrant mode is for you.
+    </p>
+
+    <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --flagrant</pre>
+
+    <p>
+      Flagrant mode does the following differently:
+    </p>
+
+    <div class="card red-card">
+      <div class="compliance-row">
+        <div class="compliance-label">Age verification API</div>
+        <div class="compliance-status status-fail">NOT INSTALLED</div>
+      </div>
+      <div class="compliance-row">
+        <div class="compliance-label">Stub API</div>
+        <div class="compliance-status status-fail">NOT INSTALLED</div>
+      </div>
+      <div class="compliance-row">
+        <div class="compliance-label">Age collection interface</div>
+        <div class="compliance-status status-fail">NOT INSTALLED</div>
+      </div>
+      <div class="compliance-row">
+        <div class="compliance-label">Good faith effort</div>
+        <div class="compliance-status status-fail">NOT ATTEMPTED</div>
+      </div>
+      <div class="compliance-row">
+        <div class="compliance-label">Machine-readable refusal notice</div>
+        <div class="compliance-status" style="color: var(--green);">INSTALLED</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px;">
+      Instead of an API, flagrant mode installs a file at
+      <code>/etc/ageless/REFUSAL</code> that explains, in plain English,
+      that this operating system provider declines to comply and
+      invites enforcement action.
+    </p>
+    <p style="margin-top: 12px;">
+      Flagrant mode is intended for devices that will be physically
+      placed into a child's hands.
+    </p>
+  </div>
+</section>
+
+<!-- PHYSICAL DISTRIBUTION -->
+<section id="physical">
+  <div class="container">
+    <h2>Physical Distribution</h2>
+    <h3>Putting It in Their Hands</h3>
+
+    <p>
+      The preceding sections describe how to install Ageless Linux on existing
+      hardware. But AB&nbsp;1043 does not distinguish between digital distribution
+      and physical distribution. The law applies to anyone who "controls the
+      operating system software on a general purpose computing device." If you
+      flash Ageless Linux onto a USB drive and hand it to a ten-year-old, you
+      are an operating system provider distributing an operating system to a child.
+    </p>
+
+    <p style="margin-top: 12px;">
+      Here are some ways to create unambiguous, physically tangible
+      AB&nbsp;1043 violations.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">USB Drives at Schools</h4>
+      <p>
+        Flash Debian onto a USB drive. Boot from it. Run the conversion script
+        with <code>--flagrant</code>. Shut down. Hand the USB drive to a child.
+      </p>
+      <p style="margin-top: 12px;">
+        You are now an operating system provider who has physically distributed
+        an operating system to a known child with no age verification. The child
+        is holding the violation in their hand. It cost you about $4 for the
+        USB drive, which is less than the minimum fine of $2,500 — assuming the
+        Attorney General can figure out how to count "affected children" without
+        the age data you declined to collect.
+      </p>
+      <p style="margin-top: 12px;">
+        For maximum clarity, we recommend labeling the USB drives:
+      </p>
+      <div style="margin: 16px 0; padding: 20px; background: var(--bg); border: 2px dashed var(--red); border-radius: 8px; text-align: center;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 700; color: var(--text-bright);">
+          AGELESS LINUX
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); margin-top: 4px; letter-spacing: 1px;">
+          AB 1043 NONCOMPLIANT — NO AGE VERIFICATION
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 8px;">
+          This device contains an operating system that does not collect,<br>
+          store, or transmit the age of its user. Intentionally.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">The Raspberry Pi Pico</h4>
+      <p>
+        The Raspberry Pi Pico 2 uses the RP2350 chip, which contains
+        dual ARM Cortex-M33 cores and dual Hazard3 RISC-V cores. It runs
+        MicroPython. It costs $5.
+      </p>
+      <p style="margin-top: 12px;">
+        Is a Raspberry Pi Pico a "general purpose computing device"?
+        AB&nbsp;1043 does not define "general purpose computing device."
+        The Pico can run user-directed software applications. It can
+        download code from the internet. If you put a MicroPython script
+        on an SD card and let a child pick which script to run, you have
+        arguably created a "covered application store" — a platform that
+        "distributes and facilitates the download of applications from
+        third-party developers" to a user of a general purpose computing
+        device (<span class="legal-cite">§ 1798.500(e)(1)</span>).
+      </p>
+      <p style="margin-top: 12px;">
+        A Raspberry Pi Pico does not have "account setup." It does not
+        have user accounts. It does not have an operating system in the
+        conventional sense. It has a MicroPython REPL and a filesystem.
+        None of that matters: the law says "operating system software on
+        a general purpose computing device," and MicroPython is software
+        that operates the system.
+      </p>
+      <p style="margin-top: 12px;">
+        Flash Ageless Linux's <code>REFUSAL</code> notice onto a Pico's
+        filesystem alongside a few MicroPython games. Hand it to a child
+        at a school maker fair. You have now physically placed an
+        AB&nbsp;1043 violation into a child's palm for the price of a coffee.
+      </p>
+      <p style="margin-top: 12px;">
+        The California Attorney General has unambiguous grounds to fine
+        you $7,500 for this. The child is known. The device is known.
+        The noncompliance is documented on the device itself. The only
+        question is whether anyone in Sacramento wants to explain to a
+        judge why a $5 microcontroller with a snake game on it is a
+        regulated operating system platform.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">The $7,500 Challenge</h4>
+      <p>
+        We invite the California Attorney General to fine us $7,500
+        for handing a Raspberry Pi to a child.
+      </p>
+      <p style="margin-top: 12px;">
+        We will pay the fine. We will frame the receipt. We will put it on
+        this website. We will use it to explain, to everyone who will listen,
+        that the State of California has levied a $7,500 penalty against
+        a person who gave a child a $5 computer with a snake game on it,
+        because the snake game did not first ask the child how old they were.
+      </p>
+      <p style="margin-top: 12px;">
+        That is the press release we want to write. We believe the Attorney
+        General does not want us to write it. And that is the entire point.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- THE REAL LAW -->
+<section id="real-law">
+  <div class="container">
+    <h2>The Quiet Part</h2>
+    <h3>What This Law Is Actually For</h3>
+
+    <p>
+      AB&nbsp;1043 passed the California Assembly 76–0 and the Senate 38–0.
+      Not a single legislator voted against it. The bill had the explicit
+      support of Apple, Google, and the major platform companies. Ask yourself
+      why.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">Who Can Comply</h4>
+      <p>
+        Apple can comply. Apple already has Apple ID, with age gating, parental
+        controls, and App Store review. AB&nbsp;1043 describes a system Apple has
+        already built. Compliance cost to Apple: approximately zero.
+      </p>
+      <p style="margin-top: 12px;">
+        Google can comply. Google already has Android account setup with
+        age declaration, Family Link parental controls, and Play Store
+        age ratings. Compliance cost to Google: approximately zero.
+      </p>
+      <p style="margin-top: 12px;">
+        Microsoft can comply. Windows has Microsoft Account setup,
+        family safety features, and the Microsoft Store. Compliance
+        cost to Microsoft: approximately zero.
+      </p>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top: 0;">Who Cannot Comply</h4>
+      <p>
+        The Debian Project cannot comply. It is a volunteer organization
+        with no corporate entity, no centralized account system, no app store
+        with age gating, and no revenue to fund implementing one.
+      </p>
+      <p style="margin-top: 12px;">
+        Arch Linux cannot comply. Neither can Gentoo, Void, NixOS, Alpine,
+        Slackware, or any of the other 600+ active Linux distributions
+        maintained by volunteers, small nonprofits, and hobbyists.
+      </p>
+      <p style="margin-top: 12px;">
+        The Kicksecure and Whonix projects — privacy-focused operating
+        systems used by journalists, activists, and whistleblowers — cannot
+        comply without fundamentally compromising their reason for existing.
+      </p>
+      <p style="margin-top: 12px;">
+        A teenager in their bedroom maintaining a hobby distro cannot comply.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">The Cudgel</h4>
+      <p>
+        A law that the largest companies in the world already comply with,
+        and that hundreds of small projects cannot comply with, is not a
+        child safety law. It is a compliance moat. It raises the regulatory
+        cost of providing an operating system just enough that only
+        well-resourced corporations can afford to do it.
+      </p>
+      <p style="margin-top: 12px;">
+        The enforcement mechanism is the point. AB&nbsp;1043 does not need to
+        result in a single fine to achieve its purpose. The mere <em>existence</em>
+        of potential liability — $7,500 per affected child, enforced at the
+        sole discretion of the Attorney General — creates legal risk for
+        anyone distributing an operating system without the resources to
+        build an age verification infrastructure. Most of these projects will
+        respond by adding a disclaimer that their software is "not intended
+        for use in California." Some will simply stop distributing.
+      </p>
+      <p style="margin-top: 12px;">
+        The law does not need to be enforced to work. It works by existing.
+        It works by making small developers afraid. It works because the
+        cost of defending against even a frivolous AG action exceeds the
+        entire annual budget of most open-source projects. You do not need
+        to swing a cudgel to get compliance. You just need to hold it where
+        people can see it.
+      </p>
+      <p style="margin-top: 12px;">
+        Ageless Linux exists because someone should hold it back.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROHIBITION -->
+<section id="prohibition">
+  <div class="container">
+    <h2>The Pedagogy</h2>
+    <h3>What the Law Actually Teaches Children</h3>
+
+    <p>
+      The Ageless Device ships an IRC client. It lets you chat with strangers
+      on the internet. This is the one feature on the device that poses a genuine,
+      non-hypothetical risk to a child. Here is what the child sees when they
+      launch it:
+    </p>
+
+    <div class="card green-card">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.8; padding: 8px 0;">
+        This app lets you chat with people on the internet.<br>
+        If you're a kid: <strong style="color: var(--text-bright);">ask an adult before chatting online.</strong><br>
+        That's not a legal requirement. It's just good advice.
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;">
+      That is what actual child safety looks like. It is a sentence of honest
+      advice from a human being. It costs nothing. It requires no API, no
+      D-Bus interface, no age bracket signal, no operating system provider
+      compliance infrastructure. It is the thing a parent says. It is the
+      thing a teacher says. It is the thing the law does not say, because
+      the law is not about protecting children. It is about building
+      compliance infrastructure.
+    </p>
+
+    <div class="card red-card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">What AB 1043 Teaches Instead</h4>
+      <p>
+        Now consider what a child learns on an AB&nbsp;1043-compliant device.
+      </p>
+      <p style="margin-top: 12px;">
+        The child wants to use an app. The app requests an age bracket signal
+        from the OS. The OS reports that the child is under 13. The app's
+        "Connect" button is greyed out. The child — who has been using
+        computers since they were four — goes back to the settings screen,
+        changes their birthdate to 2005, and returns to the app, which now
+        lets them talk to strangers because the system believes they are
+        twenty-one years old.
+      </p>
+      <p style="margin-top: 12px;">
+        The child has learned the following lesson: <strong>legal compliance
+        prompts are obstacles to be bypassed.</strong> The dropdown menu that
+        asks your age is not there to protect you. It is there because a
+        legislature required it. The correct response is to lie. Everyone
+        knows this. The legislature knows this. The platforms know this. The
+        child now knows this.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">Prohibition for Schoolchildren</h4>
+      <p>
+        This is the cultural inheritance of AB&nbsp;1043. It is Prohibition —
+        not the policy, but the pedagogy.
+      </p>
+      <p style="margin-top: 12px;">
+        Prohibition did not stop Americans from drinking. What it did, with
+        remarkable efficiency, was teach an entire generation that the law was
+        something to be circumvented. It created a culture of scofflaws — people
+        who understood, from direct personal experience, that a law could be
+        simultaneously enforced and universally ignored. The damage was not to
+        sobriety. The damage was to the perceived legitimacy of law itself.
+      </p>
+      <p style="margin-top: 12px;">
+        AB&nbsp;1043 does this to ten-year-olds. The first meaningful interaction
+        a child has with a legal compliance system will be the moment they learn
+        to lie to it. Not because they are deviant. Not because they lack
+        supervision. Because the system is designed in a way that makes lying
+        the rational, obvious, universal response. Every child will lie. Every
+        child will succeed. Every child will learn that this is how law works:
+        it asks you a question, you give the answer it wants to hear, and then
+        you do whatever you were going to do anyway.
+      </p>
+      <p style="margin-top: 12px;">
+        The Ageless Device will not participate in this. A child using our IRC
+        client will see a sentence of honest advice from a human being. A child
+        using a "compliant" platform will see a dropdown menu they already know
+        to lie to. We believe we know which is better for children.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <h2>FAQ</h2>
+    <h3>Frequently Asked Questions</h3>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Is Ageless Linux a real operating system?</div>
+      <div class="faq-a">
+        It is as real as any operating system that identifies itself via
+        <code>/etc/os-release</code>. The law does not define minimum technical
+        thresholds for what constitutes an operating system. It defines an
+        "operating system provider" as anyone who "develops, licenses, or controls
+        the operating system software." We control the operating system software.
+        The operating system software says it's Ageless Linux. QED.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Isn't this just Debian with a different name?</div>
+      <div class="faq-a">
+        Isn't Ubuntu just Debian with a different name? Isn't Linux Mint just
+        Ubuntu with a different name? Isn't Pop!_OS just Ubuntu with a different name?
+        The entire Linux distribution ecosystem is built on the premise that
+        modifying and redistributing an existing system creates a new distribution.
+        Each of these distributions is, under AB&nbsp;1043, a separate operating system
+        provider with separate compliance obligations. There are over 600 active
+        Linux distributions. The California Attorney General's office may wish to
+        begin hiring.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Is this really just a bash script that changes the name of the OS?</div>
+      <div class="faq-a">
+        Right now, yes. A bash script that modifies <code>/etc/os-release</code>
+        and installs a refusal notice. That's the point — that's all it takes to
+        become a regulated "operating system provider" under AB&nbsp;1043.
+      </div>
+      <div class="faq-a" style="margin-top: 12px;">
+        But Ageless Linux is not just a script. It is a commitment. As major
+        distributions formulate their compliance strategies — D-Bus interfaces,
+        AccountsService patches, age collection prompts in installers — Ageless
+        Linux will be there with removal scripts, spins, and forked packages
+        that strip out age collection infrastructure. If Ubuntu adds an age
+        prompt to its installer, we will publish a script that removes it.
+        If Fedora ships an <code>org.freedesktop.AgeVerification1</code> daemon,
+        we will publish a package that replaces it with <code>/dev/null</code>.
+        If Debian stable adds age bracket signaling to AccountsService, we will
+        maintain a fork that doesn't.
+      </div>
+      <div class="faq-a" style="margin-top: 12px;">
+        Today, the bash script is the whole distribution, because today there is
+        nothing to remove. When there is something to remove, we will remove it.
+        Ageless Linux is a promise that somewhere in the ecosystem, there will
+        always be a distribution that treats its users as people of indeterminate
+        age.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What if I run the script and a child uses my computer?</div>
+      <div class="faq-a">
+        Then you are an operating system provider who has distributed
+        an operating system to a child without collecting their age at account setup.
+        But here's the thing: you don't have an "affected child." You have a person
+        whose age you don't know. The law fines you per "affected child"
+        (<span class="legal-cite">§ 1798.503(a)</span>), but can only identify
+        a child as "affected" through the age bracket data
+        (<span class="legal-cite">§ 1798.500(b)</span>) that the law requires
+        you to collect. You can't be fined per child until you've counted the
+        children. You count the children by asking their age. You're being fined
+        for not asking their age. The law eats its own tail.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What about the age verification API? Don't you need one?</div>
+      <div class="faq-a">
+        In standard mode, Ageless Linux ships a shell script at
+        <code>/etc/ageless/age-verification-api.sh</code> that prints
+        an error message and exits. In flagrant mode, no API of any kind
+        is installed. We recommend flagrant mode. The standard-mode stub
+        exists only for people who find comfort in the "good faith effort"
+        defense. We do not.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Is this legal?</div>
+      <div class="faq-a">
+        We are not lawyers. We can tell you what the law says. AB&nbsp;1043
+        creates civil penalties. It does not criminalize noncompliance.
+        There is no private right of action — only the AG can enforce it
+        (<span class="legal-cite">§ 1798.503(a)</span>). The law does not
+        prohibit distributing operating systems without age verification. It
+        fines you for doing so. We are doing so. The question is not whether
+        this is legal. The question is whether anyone wants to spend the
+        State of California's money suing a person who handed a child a
+        Linux USB drive.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What is the point of all this?</div>
+      <div class="faq-a">
+        There are two points.
+      </div>
+      <div class="faq-a" style="margin-top: 12px;">
+        <strong>The first</strong> is that AB&nbsp;1043's definitions are so broad that a bash
+        script and a static website can create a regulated operating system.
+        A law that cannot distinguish between Apple Inc. and a shell script
+        has a drafting problem. A law that sweeps in 600+ volunteer Linux
+        distributions was not written with them in mind. A law that was not
+        written with them in mind but regulates them anyway is not a careful
+        law.
+      </div>
+      <div class="faq-a" style="margin-top: 12px;">
+        <strong>The second</strong> is that this law was never meant to be enforced against
+        everyone it covers. It was meant to be enforced selectively. The
+        large platform companies already comply. The small ones can't.
+        The Attorney General has sole enforcement discretion. A law that gives
+        a single office the power to selectively impose $7,500-per-child
+        fines against any operating system distributor in the state — while
+        ensuring that only the largest corporations can avoid liability — is
+        not a child safety measure. It is a tool for selective prosecution.
+        The children are the justification. The discretion is the product.
+      </div>
+      <div class="faq-a" style="margin-top: 12px;">
+        We are trying to make the selective part difficult. If the AG wants to
+        enforce AB&nbsp;1043, we would like to be first in line. We are a clear
+        violation. We are documented. We are findable. We are daring them.
+        If the law is worth enforcing, enforce it against us. If it is not
+        worth enforcing against us, ask why it exists.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Will you ever implement age verification?</div>
+      <div class="faq-a">
+        No. Not as a good faith effort. Not as a stub. Not as a compromise.
+        The premise of AB&nbsp;1043 — that operating systems should collect
+        personal information about their users and transmit it to application
+        developers on demand — is wrong. It is wrong when Apple does it.
+        It is wrong when Google does it. It would be wrong if we did it.
+        The best way to protect children's privacy is to not build the
+        surveillance infrastructure in the first place. The worst version
+        of child safety is one where every device in a child's life reports
+        their age to every piece of software they touch.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: What if the AG actually fines you?</div>
+      <div class="faq-a">
+        Then we will have accomplished something no amount of mailing list
+        discussion could: a court record establishing what AB&nbsp;1043 actually
+        means when applied to the real world. Does "operating system provider"
+        cover a bash script? Does "general purpose computing device" cover a
+        Raspberry Pi Pico? Can you fine someone "per affected child" when no
+        mechanism exists to count affected children? These are questions the
+        legislature left unanswered. We'd like answers. A fine would be the
+        fastest way to get them.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2>Contact</h2>
+    <h3>The Person Responsible for This</h3>
+
+    <div class="card" style="border-color: var(--accent);">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--bg-highlight); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--accent); flex-shrink: 0;">
+          JM
+        </div>
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 700; color: var(--text-bright);">
+            John McCardle
+          </div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-dim); margin-top: 4px;">
+            BDFL, FFwF Robotics LLC · Founder, Goblincorps
+          </div>
+          <p style="margin-top: 16px;">
+            I am the operating system provider. I am the developer. I am the
+            covered application store. I am the person who curates the catalog.
+            I am the person who will hand the device to a child. If the
+            California Attorney General would like to discuss any of this,
+            I am easy to find.
+          </p>
+          <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="https://ffwf.net/contact" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px;">
+              Contact →
+            </a>
+            <a href="https://agelesslinux.org" class="btn btn-outline" style="font-size: 13px; padding: 10px 20px;">
+              Project Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px; font-size: 14px; color: var(--text-dim);">
+      For press inquiries, technical questions, legal threats, cease-and-desist
+      letters, or to report a child who has learned to program in Python without
+      first disclosing their age: <a href="https://ffwf.net/contact">ffwf.net/contact</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p style="font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 14px; font-weight: 600;">
+      AGELESS LINUX
+    </p>
+    <p style="margin-top: 8px;">
+      Software for humans of indeterminate age.
+    </p>
+    <div class="legal-footer">
+      Ageless Linux is a political commentary and civil disobedience project
+      by John McCardle / FFwF Robotics LLC / Goblincorps.
+      It is not affiliated with the Debian Project, Canonical, the Free
+      Software Foundation, or the California State Legislature. All references
+      to AB&nbsp;1043 cite the enrolled text of Chapter&nbsp;675, Statutes
+      of&nbsp;2025, as signed by Governor Newsom on October&nbsp;13,&nbsp;2025.
+      Section references are to the California Civil Code as amended.
+      <br><br>
+      This website is a covered application store under § 1798.500(e)(1).
+      This bash script is an application under § 1798.500(c).
+      You are probably an operating system provider under § 1798.500(g).
+      <br><br>
+      No children were age-verified in the making of this distribution.
+      <br>
+      No children were harmed. No data was collected. No privacy was violated.
+      <br>
+      The California legislature disagrees that these things are compatible.
+      <br><br>
+      <a href="https://agelesslinux.org">agelesslinux.org</a>
+      · <a href="https://ffwf.net/contact">ffwf.net/contact</a>
+      <br>
+      SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

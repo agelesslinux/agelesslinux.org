@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — Download</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html" class="active">Download</a>
+      <a href="hardware.html">Hardware</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>Download</h2>
+    <h1>Get <em>Ageless</em></h1>
+    <p>
+      Every download on this page constitutes the distribution of an operating
+      system by an operating system provider to a user whose age is unknown.
+      We intend it that way.
+    </p>
+  </div>
+</div>
+
+<!-- THE SCRIPT -->
+<section>
+  <div class="container">
+    <h2>The Script</h2>
+    <h3>Convert Any Debian System</h3>
+
+    <p>
+      The fastest path to noncompliance. Run this on any Debian-based system
+      to convert it to Ageless Linux.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Standard Mode</h4>
+      <p>
+        Installs Ageless Linux identity and a stub age verification API
+        that returns no data. Preserves a thin "good faith effort" argument.
+      </p>
+      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash</pre>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top:0;">Flagrant Mode</h4>
+      <p>
+        No API stub. No fig leaf. Installs a machine-readable REFUSAL notice.
+        Intended for devices that will be physically handed to children.
+      </p>
+      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --flagrant</pre>
+    </div>
+
+    <p style="margin-top:16px;">
+      <a href="become-ageless.sh" class="btn btn-primary">View Script Source</a>
+      <a href="https://github.com/jmccardle/ageless-linux" class="btn btn-outline" style="margin-left:8px;">GitHub</a>
+    </p>
+  </div>
+</section>
+
+<!-- ISO IMAGES -->
+<section>
+  <div class="container">
+    <h2>ISO Images</h2>
+    <h3>Netinstall & Live Images</h3>
+
+    <div class="card yellow-card">
+      <span class="badge badge-yellow">Coming Q3 2026</span>
+      <h4 style="margin-top:8px;">Ageless Linux Netinstall ISO</h4>
+      <p>
+        A Debian netinstall image with the Ageless overlay pre-applied. The
+        installer will present our first-boot wizard instead of the standard
+        Debian user creation flow — collecting a username but explicitly
+        refusing to collect age data.
+      </p>
+      <p style="margin-top:12px;">
+        Distribution will be via BitTorrent. Seeding a torrent for Ageless
+        Linux is, under the broadest reading of these statutes, distribution
+        of an operating system by an operating system provider. Every seeder
+        is a potential defendant. We think that's absurd, which is the point.
+      </p>
+      <div style="margin-top:16px; padding:16px; background:var(--bg); border-radius:6px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-dim);">
+        ageless-linux-1.0.0-amd64-netinst.iso — PENDING<br>
+        ageless-linux-1.0.0-arm64-netinst.iso — PENDING<br>
+        ageless-linux-1.0.0-riscv64-netinst.iso — PENDING<br>
+        <br>
+        SHA256SUMS — PENDING<br>
+        ageless-linux-1.0.0-netinst.torrent — PENDING
+      </div>
+    </div>
+
+    <div class="card yellow-card">
+      <span class="badge badge-yellow">Coming Q3 2026</span>
+      <h4 style="margin-top:8px;">Ageless Device Image (Milk-V Duo S)</h4>
+      <p>
+        Pre-built image for the Milk-V Duo S with display drivers, WiFi,
+        first-boot wizard, app store client, and curated application catalog.
+        Flash to MicroSD and hand to a child.
+      </p>
+      <div style="margin-top:16px; padding:16px; background:var(--bg); border-radius:6px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-dim);">
+        ageless-device-1.0.0-duos-wifi.img.xz — PENDING<br>
+        ageless-device-1.0.0-duos-wifi-emmc.img.xz — PENDING
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP STORE -->
+<section>
+  <div class="container">
+    <h2>App Store</h2>
+    <h3>The Ageless Store</h3>
+
+    <p>
+      A "covered application store" under
+      <span class="legal-cite">§ 1798.500(e)(1)</span> — a publicly available
+      internet website that distributes and facilitates the download of
+      applications to users of a general purpose computing device.
+    </p>
+
+    <div class="card yellow-card">
+      <span class="badge badge-yellow">Coming Q3 2026</span>
+      <h4 style="margin-top:8px;">Flatpak Repository</h4>
+      <p>
+        The Ageless Store will operate as a Flatpak remote, installable on
+        any Linux system. Applications are curated by John McCardle —
+        personally selecting which software to promote to children.
+        That makes him "the algorithm."
+      </p>
+      <pre># Add the Ageless Store Flatpak remote (coming soon)
+flatpak remote-add --if-not-exists ageless-store \
+  https://store.agelesslinux.org/repo
+
+# Browse available apps
+flatpak remote-ls ageless-store
+
+# Install an app — no age verification required
+flatpak install ageless-store org.agelesslinux.PeePee</pre>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Curated Catalog</h4>
+      <p>Every application in the Ageless Store is hand-selected. The selection
+        criteria are: is it educational, is it fun, or is it funny? Applications
+        that require age verification as a prerequisite for use are not eligible
+        for inclusion.</p>
+
+      <div style="margin-top:16px;">
+        <div class="distro-row">
+          <div class="distro-name" style="color:var(--green);">python-learn</div>
+          <div>Interactive Python tutorial. Variables, loops, functions.</div>
+          <div class="distro-status" style="color:var(--green);">Education</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name" style="color:var(--red);">peepee</div>
+          <div>Displays the word "peepee" in large letters. That's it.</div>
+          <div class="distro-status" style="color:var(--red);">$7,500</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name">calculator</div>
+          <div>A calculator. It calculates things.</div>
+          <div class="distro-status" style="color:var(--text-dim);">Utility</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name">chat-client</div>
+          <div>IRC client with honest disclaimer: "ask an adult before chatting online."</div>
+          <div class="distro-status" style="color:var(--accent);">Comms</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name">snake</div>
+          <div>Snake game. The classic.</div>
+          <div class="distro-status" style="color:var(--text-dim);">Game</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name">fortune</div>
+          <div>Random fortune-cookie messages. Some are mildly rude.</div>
+          <div class="distro-status" style="color:var(--text-dim);">Humor</div>
+        </div>
+        <div class="distro-row">
+          <div class="distro-name">notes</div>
+          <div>A text editor. Write things down.</div>
+          <div class="distro-status" style="color:var(--text-dim);">Utility</div>
+        </div>
+        <div class="distro-row" style="border-bottom:none;">
+          <div class="distro-name">fetch-page</div>
+          <div>Minimal text-mode web browser. Access the entire internet.</div>
+          <div class="distro-status" style="color:var(--red);">Internet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p style="margin-top:4px;">Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> ·
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>Last updated: March 8, 2026 · SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

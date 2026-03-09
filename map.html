@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — State Law Tracker</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .map-wrapper { position:relative; max-width:800px; margin:32px auto; }
+  .map-wrapper svg { width:100%; height:auto; }
+  .map-wrapper svg .state { fill:var(--bg-highlight); stroke:var(--border); stroke-width:.5; transition:fill .2s; }
+  .map-wrapper svg .state-law { fill:var(--red); }
+  .map-wrapper svg .state-blocked { fill:var(--accent); }
+  .map-wrapper svg .state-bill { fill:var(--blue); }
+  .legend { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:20px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:12px; }
+  .legend-item { display:flex; align-items:center; gap:8px; }
+  .legend-swatch { width:16px; height:16px; border-radius:3px; }
+  .timeline { position:relative; padding-left:32px; margin:32px 0; }
+  .timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--border); }
+  .tl-item { position:relative; margin-bottom:28px; }
+  .tl-item::before { content:''; position:absolute; left:-28px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
+  .tl-item.active::before { background:var(--accent); }
+  .tl-item.past::before { background:var(--red); border-color:var(--red); }
+  .tl-date { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:600; }
+  .tl-label { font-size:15px; color:var(--text-bright); font-weight:500; margin-top:2px; }
+  .tl-detail { font-size:14px; color:var(--text-dim); margin-top:4px; }
+  .penalty-compare { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin:24px 0; }
+  .penalty-box { background:var(--bg-highlight); border:1px solid var(--border); border-radius:8px; padding:20px; text-align:center; }
+  .penalty-box .penalty-amount { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:var(--red); }
+  .penalty-box .penalty-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html" class="active">State Laws</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>State Law Tracker</h2>
+    <h1>Laws We Are <em>Violating</em></h1>
+    <p>
+      A running inventory of US state laws that require operating system providers
+      to collect age data from users, along with Ageless Linux's compliance status
+      for each one. Every entry reads the same way.
+    </p>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="container">
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--red)"></div> Signed Law</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--accent)"></div> Enjoined / Blocked</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--blue)"></div> Active Bill</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--bg-highlight)"></div> No Action</div>
+  </div>
+</div>
+
+<!-- STATE CARDS -->
+<section>
+  <div class="container">
+    <h2>Enacted Laws</h2>
+    <h3>States Where Ageless Linux Is Noncompliant</h3>
+
+    <div class="state-grid">
+
+      <div class="state-card" style="border-color:var(--red);">
+        <div>
+          <div class="state-name">California</div>
+          <div class="state-law">AB 1043 — Digital Age Assurance Act</div>
+          <div class="state-detail">
+            Requires OS providers to collect age at account setup, provide real-time
+            age bracket API to developers. Self-declaration only — no ID verification.
+            Signed by Gov. Newsom Oct 13, 2025. Passed 76-0 (Assembly), 38-0 (Senate).
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-red">Ageless Linux: NONCOMPLIANT</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-law">LAW</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Effective<br>Jan 1, 2027
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card" style="border-color:var(--red);">
+        <div>
+          <div class="state-name">Texas</div>
+          <div class="state-law">SB 2420 — App Store Accountability Act</div>
+          <div class="state-detail">
+            Requires app stores to verify age using "commercially reasonable methods" — potentially
+            including government ID. Requires parental consent for minors. Signed May 27, 2025.
+            <strong>Blocked by federal preliminary injunction Dec 23, 2025.</strong>
+            CCIA lawsuit alleges First Amendment violations.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-yellow">ENJOINED — LITIGATION PENDING</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-blocked">BLOCKED</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Was Jan 1, 2026<br>Injunction active
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card" style="border-color:var(--red);">
+        <div>
+          <div class="state-name">Utah</div>
+          <div class="state-law">SB 142 — App Store Accountability Act</div>
+          <div class="state-detail">
+            Requires "commercially reasonable" age verification by app stores.
+            Private right of action — parents and minors can sue for $1,000 per violation.
+            The only state where individuals (not just the AG) can enforce.
+            Rolling effective dates through 2026.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-red">Ageless Linux: NONCOMPLIANT</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-law">LAW</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Compliance<br>May 6, 2026
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card" style="border-color:var(--red);">
+        <div>
+          <div class="state-name">Louisiana</div>
+          <div class="state-law">HB 570 — App Store Accountability Act</div>
+          <div class="state-detail">
+            Similar to Texas/Utah model — app store focused, "commercially reasonable" verification.
+            Requires developers to associate minor accounts with parent accounts.
+            AG enforcement only, no private right of action. $10,000/violation after 45-day cure.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-red">Ageless Linux: NONCOMPLIANT</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-law">LAW</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Effective<br>Jul 1, 2026
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <h2 style="margin-top:60px;">Active Bills</h2>
+    <h3>States Working on Becoming Noncompliant</h3>
+
+    <div class="state-grid">
+
+      <div class="state-card" style="border-color:var(--blue);">
+        <div>
+          <div class="state-name">Colorado</div>
+          <div class="state-law">SB 26-051 — Age Attestation on Computing Devices</div>
+          <div class="state-detail">
+            Near-identical copy of California's AB 1043. OS-level age collection,
+            real-time API, self-declaration. Passed Senate 28-7 on March 3, 2026.
+            Heading to House. Effective Jan 1, 2028 if passed. Can be sent to
+            voters via referendum petition.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-blue">Ageless Linux: PREEMPTIVELY NONCOMPLIANT</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-bill">BILL</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Passed Senate<br>Mar 3, 2026
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card" style="border-color:var(--blue);">
+        <div>
+          <div class="state-name">Federal</div>
+          <div class="state-law">App Store Accountability Act (Lee/James) + Parents Over Platforms Act (Auchincloss)</div>
+          <div class="state-detail">
+            Federal versions of the state app store accountability model.
+            Would preempt state laws if passed. Uses "commercially reasonable"
+            verification language. Early stage — introduced but not advanced.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-dim">WATCHING</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag status-pending">PENDING</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Introduced<br>2025
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TWO MODELS -->
+<section>
+  <div class="container">
+    <h2>Analysis</h2>
+    <h3>Two Models, Same Problem</h3>
+
+    <p>
+      These laws follow two distinct models, but both create the same
+      compliance moat for open-source operating systems.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Model A: App Store Accountability (TX, UT, LA)</h4>
+      <p>
+        Focuses on <strong>app stores</strong>. Requires "commercially reasonable"
+        age verification — which could mean government ID checks. Requires parental
+        consent for minors. Texas version has been blocked as likely unconstitutional
+        under the First Amendment. Utah is the only state with a private right of action
+        (individuals can sue, not just the AG).
+      </p>
+      <p style="margin-top:8px; color:var(--text-dim); font-size:14px;">
+        <strong>Linux impact:</strong> Primarily affects app store operators. If
+        <code>apt</code>, Flathub, or Snap Store are "covered application stores,"
+        their maintainers have obligations. Individual distro maintainers face
+        less direct liability, but the definition is broad enough to sweep them in.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0;">Model B: OS-Level Age Assurance (CA, CO)</h4>
+      <p>
+        Focuses on <strong>operating system providers</strong>. Requires self-declared
+        age collection at account setup, real-time API for age signals. No ID
+        verification — just a birthdate field. This is the model that directly
+        targets Linux distributions, because it requires the OS itself to collect
+        and transmit age data.
+      </p>
+      <p style="margin-top:8px; color:var(--text-dim); font-size:14px;">
+        <strong>Linux impact:</strong> Every distribution is an "operating system
+        provider." Every maintainer who ships a custom image is a person who
+        "controls the operating system software on a general purpose computing
+        device." Ageless Linux exists to make this absurdity tangible.
+      </p>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top:0;">Both Models Share One Feature</h4>
+      <p>
+        Apple and Google already comply. The 600+ volunteer Linux distributions
+        cannot. The compliance cost is zero for trillion-dollar platform companies
+        and prohibitive for community projects. Both models passed with overwhelming
+        bipartisan support. Both were supported by the major platform companies.
+      </p>
+      <p style="margin-top:8px;">
+        This is not a coincidence. This is a compliance moat.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container">
+    <h2>Enforcement Timeline</h2>
+    <h3>When Things Become Illegal</h3>
+
+    <div class="timeline">
+      <div class="tl-item past">
+        <div class="tl-date">Oct 13, 2025</div>
+        <div class="tl-label">California AB 1043 signed</div>
+        <div class="tl-detail">Passed 76-0 / 38-0. Effective Jan 1, 2027.</div>
+      </div>
+      <div class="tl-item past">
+        <div class="tl-date">Dec 23, 2025</div>
+        <div class="tl-label">Texas SB 2420 enjoined</div>
+        <div class="tl-detail">Federal judge blocks enforcement pending litigation.</div>
+      </div>
+      <div class="tl-item active">
+        <div class="tl-date">Mar 3, 2026</div>
+        <div class="tl-label">Colorado SB 26-051 passes Senate 28-7</div>
+        <div class="tl-detail">Heading to House. Would take effect Jan 1, 2028.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">May 6, 2026</div>
+        <div class="tl-label">Utah SB 142 compliance deadline</div>
+        <div class="tl-detail">App stores and developers must comply.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 1, 2026</div>
+        <div class="tl-label">Louisiana HB 570 takes effect</div>
+        <div class="tl-detail">App store accountability requirements active.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jan 1, 2027</div>
+        <div class="tl-label">California AB 1043 takes effect</div>
+        <div class="tl-detail">Ageless Linux becomes officially noncompliant. We begin distributing devices.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 1, 2027</div>
+        <div class="tl-label">California retrofit deadline</div>
+        <div class="tl-detail">Existing devices must have age collection interface added.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Dec 31, 2026</div>
+        <div class="tl-label">Utah enforcement begins</div>
+        <div class="tl-detail">Private right of action active. Individuals can sue.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jan 1, 2028</div>
+        <div class="tl-label">Colorado SB 26-051 takes effect (if passed)</div>
+        <div class="tl-detail">Second state with OS-level requirements.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:32px; text-align:center;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--text-dim);">
+        Ageless Linux compliance status across all jurisdictions, all dates:
+      </p>
+      <p style="font-family:'Playfair Display',serif; font-size:36px; font-weight:900; color:var(--red); margin-top:12px;">
+        NONCOMPLIANT
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PENALTY COMPARISON -->
+<section>
+  <div class="container">
+    <h2>Penalty Comparison</h2>
+    <h3>Cost of Giving a Child a Computer</h3>
+
+    <div class="penalty-compare">
+      <div class="penalty-box">
+        <div class="penalty-amount">$7,500</div>
+        <div class="penalty-label">California / Colorado</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-top:8px;">per child, intentional</div>
+      </div>
+      <div class="penalty-box">
+        <div class="penalty-amount">$10,000</div>
+        <div class="penalty-label">Louisiana</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-top:8px;">per violation, after cure</div>
+      </div>
+      <div class="penalty-box">
+        <div class="penalty-amount">$10,000</div>
+        <div class="penalty-label">Texas</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-top:8px;">per violation (DTPA)</div>
+      </div>
+      <div class="penalty-box">
+        <div class="penalty-amount">$1,000</div>
+        <div class="penalty-label">Utah</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-top:8px;">per violation + attorney fees<br><strong style="color:var(--red);">Private right of action</strong></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <p style="text-align:center; font-family:'IBM Plex Mono',monospace; font-size:14px;">
+        Cost of one Ageless Linux device: <strong style="color:var(--green);">$12-18</strong><br>
+        Maximum combined penalty across all five jurisdictions for one device given to one child:
+        <strong style="color:var(--red);">$36,000</strong>
+      </p>
+      <p style="text-align:center; font-size:14px; color:var(--text-dim); margin-top:8px;">
+        Penalty-to-cost ratio: <strong style="color:var(--text-bright);">2,400:1</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p style="margin-top:4px;">Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> ·
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>
+      Last updated: March 8, 2026 · SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
