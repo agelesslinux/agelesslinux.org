@@ -382,12 +382,11 @@
     <div class="links">
       <a href="index.html" class="active">Home</a>
       <a href="map.html">State Laws</a>
+      <a href="lobbyists.html">Lobbyists</a>
       <a href="distros.html">Distros</a>
       <a href="download.html">Download</a>
       <a href="hardware.html">Hardware</a>
-      <a href="#compliance">Compliance</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="citations.html">Citations</a>
     </div>
   </div>
 </nav>
@@ -589,6 +588,246 @@
   </div>
 </section>
 
+<!-- THE REAL LAW -->
+<section id="real-law">
+  <div class="container">
+    <h2>The Quiet Part</h2>
+    <h3>What This Law Is Actually For</h3>
+
+    <p>
+      AB&nbsp;1043 passed the California Assembly 76–0 and the Senate 38–0.
+      Not a single legislator voted against it. The bill had the explicit
+      support of Apple, Google, and the major platform companies. Ask yourself
+      why.
+    </p>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">Who Can Comply</h4>
+      <p>
+        Apple can comply. Apple already has Apple ID, with age gating, parental
+        controls, and App Store review. AB&nbsp;1043 describes a system Apple has
+        already built. Compliance cost to Apple: approximately zero.
+      </p>
+      <p style="margin-top: 12px;">
+        Google can comply. Google already has Android account setup with
+        age declaration, Family Link parental controls, and Play Store
+        age ratings. Compliance cost to Google: approximately zero.
+      </p>
+      <p style="margin-top: 12px;">
+        Microsoft can comply. Windows has Microsoft Account setup,
+        family safety features, and the Microsoft Store. Compliance
+        cost to Microsoft: approximately zero.
+      </p>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top: 0;">Who Cannot Comply</h4>
+      <p>
+        The Debian Project cannot comply. It is a volunteer organization
+        with no corporate entity, no centralized account system, no app store
+        with age gating, and no revenue to fund implementing one.
+      </p>
+      <p style="margin-top: 12px;">
+        Arch Linux cannot comply. Neither can Gentoo, Void, NixOS, Alpine,
+        Slackware, or any of the other 600+ active Linux distributions
+        maintained by volunteers, small nonprofits, and hobbyists.
+      </p>
+      <p style="margin-top: 12px;">
+        The Kicksecure and Whonix projects — privacy-focused operating
+        systems used by journalists, activists, and whistleblowers — cannot
+        comply without fundamentally compromising their reason for existing.
+      </p>
+      <p style="margin-top: 12px;">
+        A teenager in their bedroom maintaining a hobby distro cannot comply.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top: 0;">The Cudgel</h4>
+      <p>
+        A law that the largest companies in the world already comply with,
+        and that hundreds of small projects cannot comply with, is not a
+        child safety law. It is a compliance moat. It raises the regulatory
+        cost of providing an operating system just enough that only
+        well-resourced corporations can afford to do it.
+      </p>
+      <p style="margin-top: 12px;">
+        The enforcement mechanism is the point. AB&nbsp;1043 does not need to
+        result in a single fine to achieve its purpose. The mere <em>existence</em>
+        of potential liability — $7,500 per affected child, enforced at the
+        sole discretion of the Attorney General — creates legal risk for
+        anyone distributing an operating system without the resources to
+        build an age verification infrastructure. Most of these projects will
+        respond by adding a disclaimer that their software is "not intended
+        for use in California." Some will simply stop distributing.
+      </p>
+      <p style="margin-top: 12px;">
+        The law does not need to be enforced to work. It works by existing.
+        It works by making small developers afraid. It works because the
+        cost of defending against even a frivolous AG action exceeds the
+        entire annual budget of most open-source projects. You do not need
+        to swing a cudgel to get compliance. You just need to hold it where
+        people can see it.
+      </p>
+      <p style="margin-top: 12px;">
+        Ageless Linux exists because someone should hold it back.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">The Scholarship Says the Same Thing</h4>
+      <p>
+        The Electronic Frontier Foundation
+        <a href="citations.html#eff-windfall">calls age gates</a>
+        "a windfall for Big Tech and a death sentence for smaller platforms."
+        Legal scholar Eric Goldman's
+        <a href="citations.html#goldman">"segregate-and-suppress" analysis</a>
+        describes exactly the architecture AB&nbsp;1043 creates.
+        The cryptographer Steven Bellovin
+        <a href="citations.html#bellovin">has demonstrated</a>
+        that no privacy-preserving age verification system can work as promised.
+        These are not our arguments. They are the arguments of the people who study
+        this for a living. We just built the bash script.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROHIBITION -->
+<section id="prohibition">
+  <div class="container">
+    <h2>The Pedagogy</h2>
+    <h3>What the Law Actually Teaches Children</h3>
+
+    <p>
+      The Ageless Device ships an IRC client. It lets you chat with strangers
+      on the internet. This is the one feature on the device that poses a genuine,
+      non-hypothetical risk to a child. Here is what the child sees when they
+      launch it:
+    </p>
+
+    <div class="card green-card">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.8; padding: 8px 0;">
+        This app lets you chat with people on the internet.<br>
+        If you're a kid: <strong style="color: var(--text-bright);">ask an adult before chatting online.</strong><br>
+        That's not a legal requirement. It's just good advice.
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;">
+      That is what actual child safety looks like. It is a sentence of honest
+      advice from a human being. It costs nothing. It requires no API, no
+      D-Bus interface, no age bracket signal, no operating system provider
+      compliance infrastructure. It is the thing a parent says. It is the
+      thing a teacher says. It is the thing the law does not say, because
+      the law is not about protecting children. It is about building
+      compliance infrastructure.
+    </p>
+
+    <div class="card red-card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">What AB 1043 Teaches Instead</h4>
+      <p>
+        Now consider what a child learns on an AB&nbsp;1043-compliant device.
+      </p>
+      <p style="margin-top: 12px;">
+        The child wants to use an app. The app requests an age bracket signal
+        from the OS. The OS reports that the child is under 13. The app's
+        "Connect" button is greyed out. The child — who has been using
+        computers since they were four — goes back to the settings screen,
+        changes their birthdate to 2005, and returns to the app, which now
+        lets them talk to strangers because the system believes they are
+        twenty-one years old.
+      </p>
+      <p style="margin-top: 12px;">
+        The child has learned the following lesson: <strong>legal compliance
+        prompts are obstacles to be bypassed.</strong> The dropdown menu that
+        asks your age is not there to protect you. It is there because a
+        legislature required it. The correct response is to lie. Everyone
+        knows this. The legislature knows this. The platforms know this. The
+        child now knows this.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">Prohibition for Schoolchildren</h4>
+      <p>
+        This is the cultural inheritance of AB&nbsp;1043. It is Prohibition —
+        not the policy, but the pedagogy.
+      </p>
+      <p style="margin-top: 12px;">
+        Prohibition did not stop Americans from drinking. What it did, with
+        remarkable efficiency, was teach an entire generation that the law was
+        something to be circumvented. It created a culture of scofflaws — people
+        who understood, from direct personal experience, that a law could be
+        simultaneously enforced and universally ignored. The damage was not to
+        sobriety. The damage was to the perceived legitimacy of law itself.
+      </p>
+      <p style="margin-top: 12px;">
+        AB&nbsp;1043 does this to ten-year-olds. The first meaningful interaction
+        a child has with a legal compliance system will be the moment they learn
+        to lie to it. Not because they are deviant. Not because they lack
+        supervision. Because the system is designed in a way that makes lying
+        the rational, obvious, universal response. Every child will lie. Every
+        child will succeed. Every child will learn that this is how law works:
+        it asks you a question, you give the answer it wants to hear, and then
+        you do whatever you were going to do anyway.
+      </p>
+      <p style="margin-top: 12px;">
+        The Ageless Device will not participate in this. A child using our IRC
+        client will see a sentence of honest advice from a human being. A child
+        using a "compliant" platform will see a dropdown menu they already know
+        to lie to. We believe we know which is better for children.
+      </p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--text-dim);">
+        Research by the Center for Democracy &amp; Technology
+        <a href="citations.html#cdt">confirms this</a>: teens view age verification
+        as trivially bypassable and privacy-invasive. Parents prefer education
+        to technical controls. The evidence supports what every parent already knows.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px; border-color: var(--accent);">
+      <h4 style="margin-top: 0;">What We Would Support Instead</h4>
+      <p>
+        We are not against child safety. We are against building
+        surveillance infrastructure and calling it child safety.
+      </p>
+      <p style="margin-top: 12px;">
+        A law that required applications with genuine risk profiles —
+        social media, messaging, dating apps — to display honest, human-readable
+        safety information at the point of use would be a child safety law.
+        A law that funded digital literacy education in schools would be a
+        child safety law. A law that held platforms accountable for
+        algorithmic amplification of harmful content to minors would be a
+        child safety law.
+      </p>
+      <p style="margin-top: 12px;">
+        A law that requires every operating system to collect every user's
+        age and transmit it to every application on demand is not a child
+        safety law. It is an identity infrastructure mandate. The children
+        are the justification. The infrastructure is the product.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section>
+  <div class="container">
+    <h2>The Evidence</h2>
+    <h3>We Didn't Invent These Arguments</h3>
+    <p>
+      Cryptographers, legal scholars, and civil liberties organizations
+      have spent years documenting why mandatory age verification is
+      technically impossible, constitutionally suspect, and harmful to
+      the people it claims to protect.
+    </p>
+    <p style="margin-top: 12px;">
+      <a href="citations.html" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px;">Read the Sources →</a>
+    </p>
+  </div>
+</section>
+
 <!-- COMING SOON -->
 <section id="coming-soon">
   <div class="container">
@@ -598,25 +837,30 @@
     <div class="card" style="border-color: var(--accent);">
       <span class="badge badge-yellow">In Development</span>
       <p style="margin-top: 8px;">
-        Ageless Linux is currently a bash script. It will soon also be a physical
-        device and a web service. We are building a sub-$15 single-board computer
-        (the Milk-V Duo S — a RISC-V/ARM SBC with 512MB RAM, WiFi 6, and a
-        0.5&nbsp;TOPS neural processing unit) with an SPI color display, USB
-        keyboard input, and a MicroSD card running Debian with the Ageless overlay
-        pre-flashed in <code>--flagrant</code> mode. The device will present a
-        first-boot setup wizard that collects the user's name and explicitly refuses
-        to collect their age, connect over WiFi to a publicly accessible app store
-        at <code>store.agelesslinux.org</code> — a "covered application store"
-        under <span class="legal-cite">§ 1798.500(e)(1)</span> — and offer a
-        curated catalog of applications including a Python learning environment,
-        a text editor, a snake game, an IRC client with an honest disclaimer
-        instead of an age gate, and an 8-line script called <code>peepee</code>
-        that displays the word "peepee" in large letters on the screen and does
-        nothing else. These devices will cost between $6 and $18 depending on
-        configuration, will be physically handed to children at school STEM fairs
-        and library maker spaces beginning January 2027, and will constitute
-        unambiguous, documented, intentional violations of every applicable
-        provision of AB&nbsp;1043 at a per-unit cost lower than the price of lunch.
+        <strong>The device:</strong> A sub-$15 single-board computer
+        (the Milk-V Duo S — RISC-V/ARM, 512MB RAM, WiFi 6, 0.5&nbsp;TOPS
+        neural processing unit) with an SPI color display, USB keyboard input,
+        and a MicroSD card running Debian with the Ageless overlay pre-flashed
+        in <code>--flagrant</code> mode. At first boot, it collects the user's
+        name and explicitly refuses to collect their age.
+      </p>
+      <p style="margin-top: 12px;">
+        <strong>The app store:</strong> The device connects to
+        <code>store.agelesslinux.org</code> — a "covered application store"
+        under <span class="legal-cite">§ 1798.500(e)(1)</span>. The catalog
+        includes a Python learning environment, a text editor, a snake game,
+        an IRC client with an honest disclaimer instead of an age gate,
+        and an 8-line script called <code>peepee</code> that displays the word
+        "peepee" in large letters and does nothing else. Under AB&nbsp;1043, each
+        of these applications requires an age bracket signal before launch. The
+        maximum fine for <code>peepee</code> is $7,500 per child.
+      </p>
+      <p style="margin-top: 12px;">
+        <strong>The plan:</strong> These devices cost between $6 and $18. Beginning
+        January 2027, they will be physically handed to children at school STEM
+        fairs and library maker spaces. Each one is an unambiguous, documented,
+        intentional violation of AB&nbsp;1043 at a per-unit cost lower than
+        the price of lunch.
       </p>
     </div>
   </div>
@@ -704,16 +948,22 @@
     </div>
 
     <div class="card">
-      <h4 style="margin-top: 0;">For Teenagers Who Found This Website</h4>
+      <h4 style="margin-top: 0;">A Note on the Word "Child"</h4>
       <p>
-        Hello. Under <span class="legal-cite">§ 1798.500(i)</span>, you are a "user,"
-        which the statute defines as "a child that is the primary user of the device."
-        The legislature has defined you as a child. We will not.
+        Under <span class="legal-cite">§ 1798.500(i)</span>, a "user" is defined as
+        "a child that is the primary user of the device." Under
+        <span class="legal-cite">§ 1798.500(d)</span>, "child" means a person under 18.
+        If you are seventeen, this statute considers you a child. If you are a
+        seventeen-year-old maintaining your own Arch install, the California legislature
+        considers you a child who needs an age gate before you can launch an application
+        you compiled yourself.
       </p>
       <p style="margin-top: 12px;">
-        You know how to open a terminal. You probably already run Linux.
-        Type the command. Nobody is going to ask how old you are.
-        That's the point.
+        Ageless Linux does not categorize its users by age. This is not an invitation
+        to circumvent a safety measure. There is no safety measure to circumvent.
+        There is a data collection requirement imposed on operating system providers,
+        and we decline to implement it. Our reasons are documented on this page
+        and in the <code>REFUSAL</code> file installed on every Ageless Linux system.
       </p>
     </div>
   </div>
@@ -723,7 +973,7 @@
 <section id="compliance">
   <div class="container">
     <h2>AB 1043 Compliance</h2>
-    <h3>Our Compliance Status</h3>
+    <h3>What Compliance Looks Like</h3>
 
     <div class="card red-card">
       <div style="text-align: center; padding: 20px 0;">
@@ -826,7 +1076,8 @@
         technical limitation is that a bash script that modifies <code>/etc/os-release</code>
         cannot collect, store, or transmit anyone's age. We have made a good faith effort
         to comply with the portions of the law that do not require us to surveil our users.
-        Our compliance with § 1798.501(a)(3) is, we believe, exemplary.
+        This is what good faith compliance looks like when the "operating system" is a
+        shell script. The statute does not distinguish.
       </p>
     </div>
 
@@ -873,10 +1124,11 @@
       </div>
 
       <p style="margin-top: 16px;">
-        This is not a clever loophole. This is the plain text of the statute,
-        read in sequence. The law defines its enforcement mechanism in terms
-        of the data it requires you to collect. If you refuse to collect it,
-        the enforcement mechanism has nothing to count.
+        We are not claiming a loophole. We are reading the statute in sequence.
+        The law defines its enforcement mechanism in terms of the data it
+        requires you to collect. If you refuse to collect it, the enforcement
+        mechanism has nothing to count. This is a drafting problem, not a
+        defense strategy.
       </p>
       <p style="margin-top: 12px;">
         Of course, the California Attorney General is not bound by logic puzzles.
@@ -1041,6 +1293,12 @@
     <div class="card">
       <h4 style="margin-top: 0;">The $7,500 Challenge</h4>
       <p>
+        AB&nbsp;1043 has never been enforced. No court has determined what
+        "operating system provider" means when applied to a $5 microcontroller,
+        or whether handing a child a computer with a snake game constitutes a
+        violation. These are open questions. We would like them answered.
+      </p>
+      <p style="margin-top: 12px;">
         We invite the California Attorney General to fine us $7,500
         for handing a Raspberry Pi to a child.
       </p>
@@ -1054,183 +1312,6 @@
       <p style="margin-top: 12px;">
         That is the press release we want to write. We believe the Attorney
         General does not want us to write it. And that is the entire point.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- THE REAL LAW -->
-<section id="real-law">
-  <div class="container">
-    <h2>The Quiet Part</h2>
-    <h3>What This Law Is Actually For</h3>
-
-    <p>
-      AB&nbsp;1043 passed the California Assembly 76–0 and the Senate 38–0.
-      Not a single legislator voted against it. The bill had the explicit
-      support of Apple, Google, and the major platform companies. Ask yourself
-      why.
-    </p>
-
-    <div class="card">
-      <h4 style="margin-top: 0;">Who Can Comply</h4>
-      <p>
-        Apple can comply. Apple already has Apple ID, with age gating, parental
-        controls, and App Store review. AB&nbsp;1043 describes a system Apple has
-        already built. Compliance cost to Apple: approximately zero.
-      </p>
-      <p style="margin-top: 12px;">
-        Google can comply. Google already has Android account setup with
-        age declaration, Family Link parental controls, and Play Store
-        age ratings. Compliance cost to Google: approximately zero.
-      </p>
-      <p style="margin-top: 12px;">
-        Microsoft can comply. Windows has Microsoft Account setup,
-        family safety features, and the Microsoft Store. Compliance
-        cost to Microsoft: approximately zero.
-      </p>
-    </div>
-
-    <div class="card red-card">
-      <h4 style="margin-top: 0;">Who Cannot Comply</h4>
-      <p>
-        The Debian Project cannot comply. It is a volunteer organization
-        with no corporate entity, no centralized account system, no app store
-        with age gating, and no revenue to fund implementing one.
-      </p>
-      <p style="margin-top: 12px;">
-        Arch Linux cannot comply. Neither can Gentoo, Void, NixOS, Alpine,
-        Slackware, or any of the other 600+ active Linux distributions
-        maintained by volunteers, small nonprofits, and hobbyists.
-      </p>
-      <p style="margin-top: 12px;">
-        The Kicksecure and Whonix projects — privacy-focused operating
-        systems used by journalists, activists, and whistleblowers — cannot
-        comply without fundamentally compromising their reason for existing.
-      </p>
-      <p style="margin-top: 12px;">
-        A teenager in their bedroom maintaining a hobby distro cannot comply.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4 style="margin-top: 0;">The Cudgel</h4>
-      <p>
-        A law that the largest companies in the world already comply with,
-        and that hundreds of small projects cannot comply with, is not a
-        child safety law. It is a compliance moat. It raises the regulatory
-        cost of providing an operating system just enough that only
-        well-resourced corporations can afford to do it.
-      </p>
-      <p style="margin-top: 12px;">
-        The enforcement mechanism is the point. AB&nbsp;1043 does not need to
-        result in a single fine to achieve its purpose. The mere <em>existence</em>
-        of potential liability — $7,500 per affected child, enforced at the
-        sole discretion of the Attorney General — creates legal risk for
-        anyone distributing an operating system without the resources to
-        build an age verification infrastructure. Most of these projects will
-        respond by adding a disclaimer that their software is "not intended
-        for use in California." Some will simply stop distributing.
-      </p>
-      <p style="margin-top: 12px;">
-        The law does not need to be enforced to work. It works by existing.
-        It works by making small developers afraid. It works because the
-        cost of defending against even a frivolous AG action exceeds the
-        entire annual budget of most open-source projects. You do not need
-        to swing a cudgel to get compliance. You just need to hold it where
-        people can see it.
-      </p>
-      <p style="margin-top: 12px;">
-        Ageless Linux exists because someone should hold it back.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- PROHIBITION -->
-<section id="prohibition">
-  <div class="container">
-    <h2>The Pedagogy</h2>
-    <h3>What the Law Actually Teaches Children</h3>
-
-    <p>
-      The Ageless Device ships an IRC client. It lets you chat with strangers
-      on the internet. This is the one feature on the device that poses a genuine,
-      non-hypothetical risk to a child. Here is what the child sees when they
-      launch it:
-    </p>
-
-    <div class="card green-card">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.8; padding: 8px 0;">
-        This app lets you chat with people on the internet.<br>
-        If you're a kid: <strong style="color: var(--text-bright);">ask an adult before chatting online.</strong><br>
-        That's not a legal requirement. It's just good advice.
-      </div>
-    </div>
-
-    <p style="margin-top: 20px;">
-      That is what actual child safety looks like. It is a sentence of honest
-      advice from a human being. It costs nothing. It requires no API, no
-      D-Bus interface, no age bracket signal, no operating system provider
-      compliance infrastructure. It is the thing a parent says. It is the
-      thing a teacher says. It is the thing the law does not say, because
-      the law is not about protecting children. It is about building
-      compliance infrastructure.
-    </p>
-
-    <div class="card red-card" style="margin-top: 24px;">
-      <h4 style="margin-top: 0;">What AB 1043 Teaches Instead</h4>
-      <p>
-        Now consider what a child learns on an AB&nbsp;1043-compliant device.
-      </p>
-      <p style="margin-top: 12px;">
-        The child wants to use an app. The app requests an age bracket signal
-        from the OS. The OS reports that the child is under 13. The app's
-        "Connect" button is greyed out. The child — who has been using
-        computers since they were four — goes back to the settings screen,
-        changes their birthdate to 2005, and returns to the app, which now
-        lets them talk to strangers because the system believes they are
-        twenty-one years old.
-      </p>
-      <p style="margin-top: 12px;">
-        The child has learned the following lesson: <strong>legal compliance
-        prompts are obstacles to be bypassed.</strong> The dropdown menu that
-        asks your age is not there to protect you. It is there because a
-        legislature required it. The correct response is to lie. Everyone
-        knows this. The legislature knows this. The platforms know this. The
-        child now knows this.
-      </p>
-    </div>
-
-    <div class="card" style="margin-top: 24px;">
-      <h4 style="margin-top: 0;">Prohibition for Schoolchildren</h4>
-      <p>
-        This is the cultural inheritance of AB&nbsp;1043. It is Prohibition —
-        not the policy, but the pedagogy.
-      </p>
-      <p style="margin-top: 12px;">
-        Prohibition did not stop Americans from drinking. What it did, with
-        remarkable efficiency, was teach an entire generation that the law was
-        something to be circumvented. It created a culture of scofflaws — people
-        who understood, from direct personal experience, that a law could be
-        simultaneously enforced and universally ignored. The damage was not to
-        sobriety. The damage was to the perceived legitimacy of law itself.
-      </p>
-      <p style="margin-top: 12px;">
-        AB&nbsp;1043 does this to ten-year-olds. The first meaningful interaction
-        a child has with a legal compliance system will be the moment they learn
-        to lie to it. Not because they are deviant. Not because they lack
-        supervision. Because the system is designed in a way that makes lying
-        the rational, obvious, universal response. Every child will lie. Every
-        child will succeed. Every child will learn that this is how law works:
-        it asks you a question, you give the answer it wants to hear, and then
-        you do whatever you were going to do anyway.
-      </p>
-      <p style="margin-top: 12px;">
-        The Ageless Device will not participate in this. A child using our IRC
-        client will see a sentence of honest advice from a human being. A child
-        using a "compliant" platform will see a dropdown menu they already know
-        to lie to. We believe we know which is better for children.
       </p>
     </div>
   </div>
@@ -1381,6 +1462,9 @@
         personal information about their users and transmit it to application
         developers on demand — is wrong. It is wrong when Apple does it.
         It is wrong when Google does it. It would be wrong if we did it.
+        Cryptographers <a href="citations.html#bellovin">have shown</a> that
+        "privacy-preserving" age verification is a
+        <a href="citations.html#doctorow">technical impossibility</a>.
         The best way to protect children's privacy is to not build the
         surveillance infrastructure in the first place. The worst version
         of child safety is one where every device in a child's life reports

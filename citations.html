@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — Citations &amp; Reading List</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .citation-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 16px 0;
+  }
+  .citation-card .citation-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .citation-card .citation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-bright);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .citation-card .citation-title a {
+    color: var(--text-bright);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-dim);
+    transition: color .2s, border-color .2s;
+  }
+  .citation-card .citation-title a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .citation-card .citation-author {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .citation-card .citation-argument {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .citation-card .citation-relevance {
+    margin-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    padding: 8px 12px;
+    background: rgba(64,192,192,0.06);
+    border-radius: 4px;
+  }
+  .reading-list {
+    margin: 24px 0;
+  }
+  .reading-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .reading-item:last-child {
+    border-bottom: none;
+  }
+  .reading-item a {
+    color: var(--text-bright);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-dim);
+    font-weight: 500;
+    transition: color .2s, border-color .2s;
+  }
+  .reading-item a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .reading-item .reading-org {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .reading-item .reading-desc {
+    font-size: 14px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="lobbyists.html">Lobbyists</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="citations.html" class="active">Citations</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>Reading List</h2>
+    <h1>The Case Against <em>Age Verification</em></h1>
+    <p>
+      The arguments against mandatory age verification are not new, and they are not ours alone.
+      Cryptographers, legal scholars, civil liberties organizations, and journalists have been
+      making them for years. This page collects the sources we rely on, organized by the argument
+      they support.
+    </p>
+  </div>
+</div>
+
+<!-- PRIVACY & SURVEILLANCE -->
+<section>
+  <div class="container">
+    <h2>Privacy &amp; Surveillance</h2>
+    <h3>Age Verification Is Surveillance Infrastructure</h3>
+
+    <p>
+      These sources establish that no age verification system can operate without creating a
+      surveillance mechanism. The technical constraints are not engineering problems. They are
+      fundamental.
+    </p>
+
+    <div class="citation-card" id="bellovin">
+      <div class="citation-source">Georgetown Law / Columbia University</div>
+      <div class="citation-title">
+        <a href="https://www.cs.columbia.edu/~smb/papers/age-verify.pdf">"Privacy-Preserving Age Verification—And Its Limitations"</a>
+      </div>
+      <div class="citation-author">Steven M. Bellovin — co-designer of Kerberos, former FTC Chief Technologist</div>
+      <div class="citation-argument">
+        Analysis demonstrating that all proposed "privacy-preserving" age verification schemes either leak
+        identity data or can be trivially circumvented. The technical limitations are fundamental, not
+        engineering problems. Even zero-knowledge proofs cannot solve this cleanly.
+      </div>
+      <div class="citation-relevance">
+        If the best cryptographers in the field say it cannot be done privately, then AB 1043's implicit
+        assumption that a non-invasive compliance path exists is false.
+      </div>
+    </div>
+
+    <div class="citation-card" id="doctorow">
+      <div class="citation-source">Medium</div>
+      <div class="citation-title">
+        <a href="https://doctorow.medium.com/privacy-preserving-age-verification-is-bullshit-0aefd53019e0">"'Privacy preserving age verification' is Bullshit"</a>
+      </div>
+      <div class="citation-author">Cory Doctorow — novelist, journalist, EFF Special Advisor</div>
+      <div class="citation-argument">
+        If a system can determine someone's age, it can determine who they are. There is no technical
+        architecture that separates age from identity. The phrase "privacy-preserving age verification"
+        is a contradiction in terms.
+      </div>
+      <div class="citation-relevance">
+        Ageless Linux is a physical instantiation of this argument. We built what honest compliance
+        looks like: a system that does not ask.
+      </div>
+    </div>
+
+    <div class="citation-card" id="scheffler">
+      <div class="citation-source">Communications of the ACM</div>
+      <div class="citation-title">
+        <a href="https://cacm.acm.org/opinion/age-verification-systems-will-be-a-personal-identifiable-information-nightmare/">"Age Verification Systems Will Be a PII Nightmare"</a>
+      </div>
+      <div class="citation-author">Sarah Scheffler</div>
+      <div class="citation-argument">
+        Age verification systems create centralized stores of personally identifiable information that
+        become high-value targets for data breach. The "protection" infrastructure creates more risk
+        than the harms it claims to prevent.
+      </div>
+      <div class="citation-relevance">
+        The Ageless Device collects a name and refuses an age. It is more protective of user data than
+        any compliant system can be.
+      </div>
+    </div>
+
+    <div class="citation-card" id="iapp">
+      <div class="citation-source">International Association of Privacy Professionals</div>
+      <div class="citation-title">
+        <a href="https://iapp.org/news/a/mind-the-gap-understanding-age-verification-and-assurance">"Mind the Gap: Understanding Age Verification and Assurance"</a>
+      </div>
+      <div class="citation-author">IAPP</div>
+      <div class="citation-argument">
+        The privacy compliance industry's own professional body examines the gap between age verification
+        theory and practice. Device-level solutions provide consistent controls but cannot account for
+        developmental context. App-based systems offer tailored experiences but face interoperability
+        challenges and rely on accurate self-reporting. Enforcement has been "inconsistent or easy to bypass."
+        When the people whose job is to implement privacy compliance publish skepticism about age verification's
+        viability, that is a different flavor of credibility than advocacy organizations saying the same thing.
+      </div>
+      <div class="citation-relevance">
+        The IAPP is not an activist organization. It is the professional body for privacy officers. Its
+        assessment confirms that the technical problems are not a matter of opinion.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONSTITUTIONAL & LEGAL -->
+<section>
+  <div class="container">
+    <h2>Constitutional &amp; Legal</h2>
+    <h3>The Right to Be Unknown</h3>
+
+    <div class="citation-card" id="goldman">
+      <div class="citation-source">Stanford Technology Law Review</div>
+      <div class="citation-title">
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5208739">"The 'Segregate-and-Suppress' Approach to Regulating Child Safety Online"</a>
+      </div>
+      <div class="citation-author">Eric Goldman — Professor, Santa Clara University School of Law</div>
+      <div class="citation-argument">
+        Published in the Stanford Technology Law Review — one of the top-tier legal journals in technology law.
+        Age-gating laws inevitably segregate children into a separate, inferior internet experience and suppress
+        their access to lawful speech. The "segregate-and-suppress" framework maps directly onto AB 1043's
+        architecture: identify children (segregate), then restrict what they can access (suppress).
+      </div>
+      <div class="citation-relevance">
+        The REFUSAL notice and the peepee app are concrete demonstrations that the segregation step is the
+        law's actual function, not the suppression step.
+      </div>
+    </div>
+
+    <div class="citation-card" id="robertson">
+      <div class="citation-source">The Verge</div>
+      <div class="citation-title">
+        <a href="https://www.theverge.com/policy/781256/anonymity-privacy-age-verification-free-speech">"The Right to Anonymity is Powerful, and America Is Destroying It"</a>
+      </div>
+      <div class="citation-author">Adi Robertson</div>
+      <div class="citation-argument">
+        Age verification laws eliminate online anonymity — not just for children, but for everyone. You cannot
+        verify a child's age without requiring adults to prove they are not children. The right to anonymity is a
+        prerequisite for free expression.
+      </div>
+      <div class="citation-relevance">
+        The Ageless Device's core design decision — collects a name, refuses an age — is an anonymity argument
+        made physical.
+      </div>
+    </div>
+
+    <div class="citation-card" id="paxton">
+      <div class="citation-source">U.S. Supreme Court / Electronic Frontier Foundation</div>
+      <div class="citation-title">
+        <a href="https://www.eff.org/pages/supreme-courts-decision-age-verification-tramples-free-speech-and-undermines-privacy"><em>Free Speech Coalition v. Paxton</em> (2025)</a>
+      </div>
+      <div class="citation-author">U.S. Supreme Court, decided June 27, 2025 (6&ndash;3)</div>
+      <div class="citation-argument">
+        The Court upheld Texas's age verification law for sexually explicit content under intermediate scrutiny,
+        but the ruling was narrow: it applies only to age restrictions on sexual materials that minors have no
+        legal right to access. The dissent (Kagan, Sotomayor, Jackson) argued the law should have faced strict
+        scrutiny and that it burdens adults' access to lawful speech. The decision does not authorize broader
+        age-verification mandates on social media, general-audience websites, or app stores. AB 1043 was
+        designed to survive <em>Paxton</em> by avoiding content regulation entirely&mdash;it mandates age
+        collection at the OS level regardless of content. But the enforcement paradox Ageless Linux has
+        identified (fines assessed "per affected child" requiring the very data collection the law mandates)
+        may reopen the constitutional question.
+      </div>
+      <div class="citation-relevance">
+        Even the courts that upheld age verification acknowledged it creates constitutional tension. AB 1043's
+        drafters tried to thread that needle. We are the proof that the needle has no eye.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+      <p style="font-size: 14px;">
+        For our analysis of AB 1043's legislative history, industry endorsements, and the model-bill
+        pipeline, see <a href="lobbyists.html">The Lobby: Who Wrote These Laws</a>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- INDUSTRY CAPTURE -->
+<section>
+  <div class="container">
+    <h2>Industry Capture</h2>
+    <h3>Who Benefits From Compliance Moats</h3>
+
+    <div class="citation-card" id="eff-windfall">
+      <div class="citation-source">Electronic Frontier Foundation</div>
+      <div class="citation-title">
+        <a href="https://www.eff.org/pages/age-gates-are-windfall-big-tech-and-death-sentence-smaller-platforms">"Age Gates: A Windfall for Big Tech and a Death Sentence for Smaller Platforms"</a>
+      </div>
+      <div class="citation-author">Electronic Frontier Foundation</div>
+      <div class="citation-argument">
+        Age verification mandates entrench dominant platforms that already collect age data and impose impossible
+        burdens on smaller platforms and open-source projects. The compliance cost is zero for Apple and Google
+        and existential for everyone else.
+      </div>
+      <div class="citation-relevance">
+        AB 1043 passed 76-0 in the Assembly and 38-0 in the Senate with the explicit support of Apple and Google.
+        The EFF explains why.
+      </div>
+    </div>
+
+    <div class="citation-card" id="eff-privacy">
+      <div class="citation-source">Electronic Frontier Foundation</div>
+      <div class="citation-title">
+        <a href="https://www.eff.org/wp/privacy-first-better-way-address-online-harms">"Privacy First: A Better Way to Address Online Harms"</a>
+      </div>
+      <div class="citation-author">Electronic Frontier Foundation</div>
+      <div class="citation-argument">
+        A comprehensive alternative framework. Rather than requiring identity verification to access content,
+        regulate the harms themselves: ban behavioral advertising, require real data minimization, prohibit
+        deceptive design patterns.
+      </div>
+      <div class="citation-relevance">
+        The alternative to AB 1043 is not "nothing." It is regulating the business model that created the problem
+        instead of building surveillance infrastructure to manage its symptoms.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EFFECTIVENESS & HARM -->
+<section>
+  <div class="container">
+    <h2>Effectiveness &amp; Harm</h2>
+    <h3>These Laws Do Not Protect Children</h3>
+
+    <div class="citation-card" id="cdt">
+      <div class="citation-source">Center for Democracy &amp; Technology</div>
+      <div class="citation-title">
+        <a href="https://cdt.org/wp-content/uploads/2025/08/2025-08-22-CDT-Research-Brief-on-Age-Verification-1.pdf">"Teen and Parent Perspectives on Approaches to Age Verification"</a>
+      </div>
+      <div class="citation-author">Center for Democracy &amp; Technology</div>
+      <div class="citation-argument">
+        Primary research showing that teenagers and parents view age verification as both ineffective and
+        privacy-invasive. Teens bypass it trivially. Parents prefer education and conversation to technical
+        controls.
+      </div>
+      <div class="citation-relevance">
+        Every child will lie to a dropdown menu. The CDT's research confirms what every parent already knows.
+      </div>
+    </div>
+
+    <div class="citation-card" id="unicef">
+      <div class="citation-source">UNICEF</div>
+      <div class="citation-title">
+        <a href="https://www.unicef.org/press-releases/age-restrictions-alone-wont-keep-children-safe-online">"Age Restrictions Alone Won't Keep Children Safe Online"</a>
+      </div>
+      <div class="citation-author">UNICEF</div>
+      <div class="citation-argument">
+        The international child welfare organization concludes that age restrictions are not a substitute for
+        platform investment in child safety. Many children will access platforms through workarounds or less
+        regulated alternatives, making them harder — not easier — to protect.
+      </div>
+      <div class="citation-relevance">
+        When UNICEF — whose entire mission is child welfare — says age restrictions alone are insufficient,
+        the "but think of the children" argument loses its last institutional defender.
+      </div>
+    </div>
+
+    <div class="citation-card" id="newamerica">
+      <div class="citation-source">New America / Open Technology Institute</div>
+      <div class="citation-title">
+        <a href="https://www.newamerica.org/oti/reports/age-verification-the-complicated-effort-to-protect-youth-online/challenges-with-age-verification/">"Challenges with Age Verification"</a>
+      </div>
+      <div class="citation-author">New America, Open Technology Institute</div>
+      <div class="citation-argument">
+        Policy analysis cataloging the practical failures of age verification: false positives locking out
+        legitimate users, false negatives letting children through, and the impossibility of a system that
+        does both well.
+      </div>
+      <div class="citation-relevance">
+        The statute assumes a technical solution exists. The policy research says it does not.
+      </div>
+    </div>
+
+    <div class="citation-card" id="kayyali">
+      <div class="citation-source">Tech Policy Press</div>
+      <div class="citation-title">
+        <a href="https://www.techpolicy.press/age-verification-is-locking-trans-people-out-of-the-internet/">"Age Verification Is Locking Trans People Out of the Internet"</a>
+      </div>
+      <div class="citation-author">Dia Kayyali &amp; Jasmine Mithani</div>
+      <div class="citation-argument">
+        Age verification systems that require government ID disproportionately exclude trans people whose
+        documents do not match their identity. The harms are not hypothetical — they are documented and ongoing.
+      </div>
+      <div class="citation-relevance">
+        The people these laws claim to protect are among the first people they harm.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FURTHER READING -->
+<section>
+  <div class="container">
+    <h2>Further Reading</h2>
+    <h3>Trackers, Advocacy, International Context</h3>
+
+    <p>
+      These resources provide broader context on the age verification debate. They are not all directly
+      cited in our arguments, but they inform the landscape we operate in.
+    </p>
+
+    <div class="reading-list">
+
+      <div class="reading-item">
+        <a href="https://www.eff.org/wp/behind-the-one-way-mirror">"Behind the One-Way Mirror: A Deep Dive Into the Technology of Corporate Surveillance"</a>
+        <div class="reading-org">Electronic Frontier Foundation</div>
+        <div class="reading-desc">Foundational report on corporate third-party tracking infrastructure. The surveillance systems age verification builds on.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://www.stoponlineidchecks.org/">"Stop Online ID Checks"</a>
+        <div class="reading-org">Fight for the Future</div>
+        <div class="reading-desc">Grassroots campaign and coalition letter signed by 90+ reproductive rights, LGBTQ+, and civil liberties organizations.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://www.woodhullfoundation.org/our-projects/fighting-age-verification/">"Fighting Age Verification"</a>
+        <div class="reading-org">Woodhull Freedom Foundation</div>
+        <div class="reading-desc">Fact-checked resources on constitutional and privacy concerns with age verification mandates.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://www.manushyafoundation.org/manushya-s-statement-on-age-gating">"Statement on Age Gating"</a>
+        <div class="reading-org">Manushya Foundation</div>
+        <div class="reading-desc">International human rights perspective: age gating as mass surveillance and identity-based discipline.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://www.openrightsgroup.org/publications/regulating-age-verification/">"Regulating Age Verification"</a>
+        <div class="reading-org">Open Rights Group</div>
+        <div class="reading-desc">UK perspective on age verification under the Online Safety Act. The same problems, a different statute.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://theintercept.com/2024/08/16/project-2025-russ-vought-porn-ban/">"Project 2025 Co-Author Caught Admitting the Secret Conservative Plan to Ban Porn"</a>
+        <div class="reading-org">The Intercept</div>
+        <div class="reading-desc">Hidden-camera recording of Project 2025 architect describing age verification laws as a "back door" to a national pornography ban. Ageless Linux is not about adult content — but the legal infrastructure AB 1043 builds at the OS level is the same infrastructure these actors intend to repurpose. Age collection interfaces built for "child safety" do not come with a promise about what they will be used for next.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://theintercept.com/2025/01/15/supreme-court-porn-age-verification/">"SCOTUS Won't Hear the Real Reason Porn Age-Verification Laws Are Spreading"</a>
+        <div class="reading-org">The Intercept</div>
+        <div class="reading-desc">Analysis of the political strategy behind age verification legislation and the gap between stated and actual legislative intent.</div>
+      </div>
+
+      <div class="reading-item">
+        <a href="https://www.tes.com/magazine/teaching-learning/general/jonathan-haidt-anxious-generation-right-about-smartphones">"Is Jonathan Haidt's Book Right About Smartphones?"</a>
+        <div class="reading-org">TES Magazine</div>
+        <div class="reading-desc">Critical examination of whether the "phones are destroying children" narrative holds up under scrutiny. Spoiler: the evidence is weaker than the headlines.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section>
+  <div class="container">
+    <div class="card" style="border-color: var(--accent);">
+      <p>
+        Ageless Linux does not claim to have invented these arguments. We are standing on the scholarship
+        of cryptographers, legal scholars, and civil liberties advocates who have been saying these things
+        for years. Our contribution is a bash script and a $12 computer. The argument was already won.
+        The legislature passed the law anyway.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p>Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> ·
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>
+      Last updated: March 10, 2026 · SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

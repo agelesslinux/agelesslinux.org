@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ageless Linux — The Lobby: Who Wrote These Laws</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .lobbyist-entry {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .lobbyist-entry:last-child { border-bottom: none; }
+  .lobbyist-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    color: var(--text-bright);
+    font-size: 14px;
+  }
+  .lobbyist-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .lobbyist-detail {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .lobbyist-detail .money {
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+  }
+  .pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+  }
+  .pipeline-node {
+    background: var(--bg-highlight);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    text-align: center;
+    color: var(--text-bright);
+  }
+  .pipeline-arrow {
+    color: var(--accent);
+    font-size: 18px;
+  }
+  .sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .sponsor-item {
+    background: var(--bg-highlight);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .sponsor-item .sponsor-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .sponsor-item .sponsor-type {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  @media (max-width: 640px) {
+    .lobbyist-entry { grid-template-columns: 1fr; }
+    .sponsor-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="lobbyists.html" class="active">Lobbyists</a>
+      <a href="distros.html">Distros</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="citations.html">Citations</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h2>The Lobby</h2>
+    <h1>Who <em>Wrote</em> These Laws</h1>
+    <p>
+      AB 1043 passed the California Assembly 76&ndash;0 and the Senate 38&ndash;0. Not a single
+      legislator voted against it. Laws do not pass unanimously by accident. They pass unanimously
+      because the interests that benefit from them have done enough work to eliminate opposition
+      before the vote. This page documents who did that work.
+    </p>
+  </div>
+</div>
+
+<!-- THE PATTERN -->
+<section>
+  <div class="container">
+    <h2>The Pattern</h2>
+    <h3>How One Bill Becomes Every Bill</h3>
+
+    <p>
+      AB 1043 was not written in isolation. It is a template. The same organizations that drafted
+      the model bill in California are now deploying it in state legislatures across the country.
+      The companies that benefit from the compliance moat fund the advocacy organizations that
+      draft the bills that create the compliance moat.
+    </p>
+
+    <div class="pipeline-step">
+      <div class="pipeline-node">
+        <div style="color:var(--accent); font-weight:600;">CA AB 1043</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">signed Oct 2025</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-node">
+        <div style="color:var(--text-bright); font-weight:600;">CO SB 26-051</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">explicit copy</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-node">
+        <div style="color:var(--text-bright); font-weight:600;">MI HB 4429 / SB 284</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">&ldquo;model legislation&rdquo;</div>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-node">
+        <div style="color:var(--text-dim); font-weight:600;">Next State</div>
+        <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="card red-card">
+      <p>
+        Colorado Senator Matt Ball (D) stated publicly that SB 26-051 was &ldquo;based on
+        California&rsquo;s bill AB 1043.&rdquo; Michigan Representative Paquette called HB 4429
+        and SB 284 &ldquo;model legislation.&rdquo; The template is not hidden. It is the strategy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHORS -->
+<section>
+  <div class="container">
+    <h2>Authors</h2>
+    <h3>The Legislators</h3>
+
+    <div class="card">
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Assemblywoman Buffy Wicks</div>
+          <div class="lobbyist-role">AB 1043 Author</div>
+        </div>
+        <div class="lobbyist-detail">
+          Author of AB 1043, the Digital Age Assurance Act. D-Oakland. Received
+          <span class="money">$8,500</span> in direct campaign donations from Google, with an
+          additional approximately <span class="money">$2,000</span> from Google employees.
+          Brokered a <span class="money">$250,000,000</span> deal between Google, the State
+          of California, and news publishers in 2024. Introduced the bill that creates a
+          compliance requirement Google already meets at zero marginal cost.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Senator Tom Umberg</div>
+          <div class="lobbyist-role">AB 1043 Co-Author</div>
+        </div>
+        <div class="lobbyist-detail">
+          Co-author of AB 1043. D-Santa Ana.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry" style="border-bottom:none;">
+        <div>
+          <div class="lobbyist-name">Colorado Sponsors</div>
+          <div class="lobbyist-role">SB 26-051 Sponsors</div>
+        </div>
+        <div class="lobbyist-detail">
+          Senator Matt Ball (D), Senator Larry Liston (R), Representative Amy Paschal
+          (D, former software engineer), Representative Naquetta Ricks.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIMARY BACKERS -->
+<section>
+  <div class="container">
+    <h2>Primary Backers</h2>
+    <h3>The Companies That Benefit</h3>
+
+    <p>
+      Every company listed below already collects user age data as part of its existing business
+      operations. For each of them, AB 1043 compliance costs approximately nothing. For the 600+
+      volunteer Linux distributions, it costs everything.
+    </p>
+
+    <div class="card">
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Meta</div>
+          <div class="lobbyist-role">Endorsed</div>
+        </div>
+        <div class="lobbyist-detail">
+          Publicly endorsed AB 1043. Engineered the conceptual shift from platform-level to
+          operating-system-level age verification&mdash;moving the compliance burden from
+          Meta&rsquo;s products to every OS distributor. Funded the Digital Childhood Alliance.
+          Dan Sachs, VP of Safety Policy, issued a formal endorsement on September 9, 2025.
+          Nicole Lopez, Global Director of Youth Safety Policy, testified before state
+          legislatures in 20+ states promoting similar bills.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Google</div>
+          <div class="lobbyist-role">Endorsed (Reversed)</div>
+        </div>
+        <div class="lobbyist-detail">
+          Filed formal opposition to AB 1043 in April 2025, arguing the bill shielded
+          application developers from liability. Six rounds of amendments later, the final
+          version included a &ldquo;good faith&rdquo; liability shield for OS providers under
+          <span class="legal-cite">&sect; 1798.502(b)</span>&mdash;rewritten to Google&rsquo;s
+          specifications. By September 2025, Google&rsquo;s Senior Director of Government
+          Affairs called the bill &ldquo;thoughtful.&rdquo; The bill&rsquo;s author received
+          <span class="money">$8,500</span> in direct Google campaign donations and brokered
+          a <span class="money">$250M</span> Google-state-publishers deal. Google also supported
+          KOSA at the federal level. Android already collects date of birth during account setup.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Microsoft</div>
+          <div class="lobbyist-role">Silent Beneficiary</div>
+        </div>
+        <div class="lobbyist-detail">
+          Made no public statement on AB 1043. Explicitly supported KOSA at the federal level.
+          Windows already requires date-of-birth entry during Microsoft Account creation. Xbox
+          has full parental controls. AB 1043 creates near-zero marginal compliance cost for
+          Microsoft while imposing existential burdens on open-source alternatives.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Apple</div>
+          <div class="lobbyist-role">Silent Beneficiary</div>
+        </div>
+        <div class="lobbyist-detail">
+          Made no public statement endorsing or opposing AB 1043. Already collects user age
+          through Apple ID. Benefits from the &ldquo;good faith&rdquo; liability shield under
+          <span class="legal-cite">&sect; 1798.502(b)</span>. The App Store already implements
+          age-based content restrictions. Compliance cost: zero. No evidence of active lobbying
+          for the bill&mdash;but no need to lobby for a law you already comply with.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">OpenAI</div>
+          <div class="lobbyist-role">Co-Sponsor</div>
+        </div>
+        <div class="lobbyist-detail">
+          Merged competing ballot initiatives with Common Sense Media in January 2026 to create
+          the &ldquo;Parents &amp; Kids Safe AI Act.&rdquo; Committed at least
+          <span class="money">$10,000,000</span> to the combined effort.
+        </div>
+      </div>
+
+      <div class="lobbyist-entry" style="border-bottom:none;">
+        <div>
+          <div class="lobbyist-name">Internet Works Coalition</div>
+          <div class="lobbyist-role">Endorsed</div>
+        </div>
+        <div class="lobbyist-detail">
+          Reddit, Pinterest, and Roblox endorsed AB 1043 through the Internet Works coalition.
+          None of these companies are operating system providers. They are platforms&mdash;the
+          entities the law is ostensibly designed to regulate. Platforms endorsing an OS-level
+          mandate tells you everything about who this law is designed to protect: not the
+          platforms from liability, but the platforms from competition.
+        </div>
+      </div>
+    </div>
+
+    <div class="card red-card">
+      <h4 style="margin-top:0;">The NetChoice Paradox</h4>
+      <p>
+        NetChoice&mdash;the tech industry trade association&mdash;filed a formal veto request
+        opposing AB 1043 on September 29, 2025. NetChoice&rsquo;s members include Google and Meta,
+        both of which endorsed the bill individually. The trade group filed a veto request opposing
+        the law its own members support. This is not confusion. This is positioning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- THE PIPELINE -->
+<section>
+  <div class="container">
+    <h2>The Pipeline</h2>
+    <h3>Advocacy Organizations and Their Funders</h3>
+
+    <p>
+      The organizations that draft and promote age verification legislation receive their funding
+      from the companies that benefit from it.
+    </p>
+
+    <div class="card">
+      <div class="lobbyist-entry">
+        <div>
+          <div class="lobbyist-name">Common Sense Media</div>
+          <div class="lobbyist-role">Model-Bill Architect</div>
+        </div>
+        <div class="lobbyist-detail">
+          Founded by James P. Steyer, brother of billionaire Tom Steyer. Annual revenue
+          approximately <span class="money">$24,600,000</span>. Receives approximately
+          <span class="money">$10,000,000</span> per year from 21 business distribution partners.
+          Foundation funders include the Chan Zuckerberg Initiative (Meta), the Bezos Family
+          Foundation (Amazon), and the Gates Foundation (Microsoft). The companies that benefit
+          from OS-level age verification fund the organization that advocated for OS-level age
+          verification.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="lobbyist-entry" style="border-bottom:none;">
+        <div>
+          <div class="lobbyist-name">5Rights Foundation</div>
+          <div class="lobbyist-role">International Architect</div>
+        </div>
+        <div class="lobbyist-detail">
+          Led by Baroness Beeban Kidron, a member of the UK House of Lords. Architect of the
+          Age Appropriate Design Code model that inspired California&rsquo;s AB 2273 and
+          subsequently AB 1043. Co-developed IEEE 2089.1 Standard for online age verification.
+          Inspired similar legislation in Maryland, Vermont, Connecticut, and Minnesota.
+        </div>
+      </div>
+    </div>
+
+    <div class="card yellow-card">
+      <p>
+        The funding flows in a circle. Tech companies fund advocacy organizations. Advocacy
+        organizations draft model bills. Model bills create compliance requirements. The compliance
+        requirements cost nothing for the tech companies that funded the advocacy organizations.
+        The cost falls on everyone else.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">The COPPA Trigger</h4>
+      <p>
+        AB 1043 does not merely create a compliance moat. It creates a compliance moat that
+        authorizes more data collection about children.
+      </p>
+      <p style="margin-top: 12px;">
+        Under COPPA, the federal children&rsquo;s privacy law, companies are subject to strict
+        obligations when they have &ldquo;actual knowledge&rdquo; that a user is under 13. For two
+        decades, Big Tech exploited a simple loophole: don&rsquo;t ask, don&rsquo;t know. If you
+        never collect age data, you never have actual knowledge, and COPPA never triggers.
+      </p>
+      <p style="margin-top: 12px;">
+        AB 1043 closes that loophole&mdash;but in a way that also works for Big Tech. Once an
+        operating system sends an age bracket signal indicating a user is under 13, every application
+        developer who receives that signal has &ldquo;deemed actual knowledge&rdquo; and is locked
+        into full COPPA obligations. The burden of generating the signal falls on OS providers, not
+        on Meta or Google. The platforms get to claim they are &ldquo;protecting children&rdquo; while
+        the operating system does the data collection that triggers the legal framework.
+      </p>
+      <p style="margin-top: 12px;">
+        In February 2026, the FTC issued a COPPA Policy Statement essentially admitting that
+        age verification and data minimization are in fundamental conflict. The federal regulator
+        acknowledges the contradiction. The California legislature encoded it into law.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-top: 0;">The Door That Stays Open</h4>
+      <p>
+        AB 1043 requires only self-declared age&mdash;a birthdate field, not government ID or
+        biometrics. Industry analysts have described this as &ldquo;an initial implementation
+        designed to get the door open.&rdquo; Self-declaration today. Biometric verification
+        tomorrow. The infrastructure is the same; only the input changes. Once every operating
+        system has an age collection interface and a real-time API for transmitting age data to
+        applications, upgrading from a text field to a face scan is a configuration change, not
+        a new law.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CO-SPONSORS -->
+<section>
+  <div class="container">
+    <h2>Co-Sponsors</h2>
+    <h3>Organizations That Endorsed AB 1043</h3>
+
+    <div class="sponsor-grid">
+      <div class="sponsor-item">
+        <div class="sponsor-name">Children Now</div>
+        <div class="sponsor-type"><span class="badge badge-red">CO-SPONSOR</span></div>
+      </div>
+      <div class="sponsor-item">
+        <div class="sponsor-name">International Centre for Missing &amp; Exploited Children (ICMEC)</div>
+        <div class="sponsor-type"><span class="badge badge-red">CO-SPONSOR</span></div>
+      </div>
+      <div class="sponsor-item">
+        <div class="sponsor-name">California Catholic Conference</div>
+        <div class="sponsor-type"><span class="badge badge-dim">SUPPORTER</span></div>
+      </div>
+      <div class="sponsor-item">
+        <div class="sponsor-name">CFT-AFL-CIO</div>
+        <div class="sponsor-type"><span class="badge badge-dim">SUPPORTER</span></div>
+      </div>
+      <div class="sponsor-item">
+        <div class="sponsor-name">#HalfTheStory</div>
+        <div class="sponsor-type"><span class="badge badge-dim">SUPPORTER</span></div>
+      </div>
+      <div class="sponsor-item">
+        <div class="sponsor-name">The Source LGBT+ Center</div>
+        <div class="sponsor-type"><span class="badge badge-dim">SUPPORTER</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE COALITION -->
+<section>
+  <div class="container">
+    <h2>The Coalition</h2>
+    <h3>Who Is Not at This Table</h3>
+
+    <div class="card" style="border-color: var(--accent);">
+      <p>
+        ALEC&mdash;the American Legislative Exchange Council, the organization most commonly
+        associated with model legislation campaigns&mdash;is not driving these bills. ALEC
+        favors parental-control solutions over government mandates and has not adopted
+        OS-level age verification as a model policy.
+      </p>
+      <p style="margin-top: 12px;">
+        This matters because it preempts the easiest dismissal: that age verification mandates
+        are a right-wing culture war project. They are not. The actual coalition is Big Tech
+        companies and centrist child-safety nonprofits funded by Big Tech, opposed by civil
+        libertarians on both sides. The EFF and the ACLU oppose these laws. So does NetChoice,
+        a tech-industry trade group led by former Google lobbyists. The coalition that wrote
+        AB 1043 is bipartisan, well-funded, and weirder than any simple political narrative
+        can contain.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- THE RESULT -->
+<section>
+  <div class="container">
+    <h2>The Result</h2>
+    <h3>Who Pays and Who Doesn't</h3>
+
+    <div class="card red-card">
+      <p>
+        The companies that benefit from this law funded the organizations that drafted it.
+        The legislator who authored it brokered a quarter-billion-dollar deal with the
+        company whose products it protects. The platforms it ostensibly regulates endorsed it.
+      </p>
+      <p style="margin-top: 12px;">
+        This is not a child safety law. It is a market protection statute with children&rsquo;s
+        names on it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:600;">AGELESS LINUX</p>
+    <p>Software for humans of indeterminate age.</p>
+    <div class="legal-footer">
+      <a href="https://agelesslinux.org">agelesslinux.org</a> &middot;
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
+      <br>
+      Last updated: March 10, 2026 &middot; SPDX-License-Identifier: Unlicense
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
