@@ -6,7 +6,21 @@
     <description>News and Commentary from the Ageless Linux project</description>
     <language>en-us</language>
     <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Thu, 19 Mar 2026 10:19:09 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 10:27:14 +0000</lastBuildDate>
+    <item>
+      <title>Ageless Linux — State Law Tracker</title>
+      <link>https://agelesslinux.org/map.html</link>
+      <description>Added Illinois, New York, and Brazil to state law tracker; expanded timeline and penalty tables</description>
+      <pubDate>Thu, 19 Mar 2026 10:27:14 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/map.html#updated-2026-03-19</guid>
+    </item>
+    <item>
+      <title>Ageless Linux — Distro Compliance Tracker</title>
+      <link>https://agelesslinux.org/distros.html</link>
+      <description>Added Arch Linux 32 (excluding CA + BR), updated MidnightBSD to reflect Brazil exclusion, added source citations</description>
+      <pubDate>Thu, 19 Mar 2026 10:27:14 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/distros.html#updated-2026-03-19</guid>
+    </item>
     <item>
       <title>Ageless Linux — Support</title>
       <link>https://agelesslinux.org/support.html</link>

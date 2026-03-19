@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""generate-rss.py — Pre-commit RSS feed generator for agelesslinux.org
+"""generate-rss.py — RSS feed generator for agelesslinux.org
 
-Detects new and substantially rewritten HTML pages in the staged changes
-and adds entries to rss.xml. Called from the git pre-commit hook.
+Two modes of operation:
 
-New HTML files always get a feed entry. Modified HTML files only get one
-if git's -B (break rewrites) flag considers them a rewrite — meaning the
-dissimilarity exceeds the threshold (default ~60%). This filters out date
-changes, header tweaks, and other minor edits.
+1. Pre-commit hook (automatic): Detects new HTML pages in staged changes
+   and adds entries to rss.xml. Only fires on brand-new files.
+
+2. Manual invocation: Pass filenames and descriptions as arguments to add
+   entries for substantive content updates to existing pages. This is
+   intended to be called by Claude during the commit workflow when changes
+   are newsworthy (not formatting, footer links, or date bumps).
+
+   Usage: generate-rss.py update <file> <description> [<file> <description> ...]
 """
 
 import os
@@ -52,19 +56,6 @@ def get_new_html_files(base):
     if not out:
         return []
     return [f for f in out.split("\n") if f.endswith(".html")]
-
-
-def get_rewritten_html_files(base):
-    """HTML files git considers rewrites (using -B to detect dissimilarity)."""
-    out, _ = git("diff", "--cached", "-B", "--summary", base, "--", "*.html")
-    if not out:
-        return []
-    rewrites = []
-    for line in out.split("\n"):
-        m = re.match(r"\s*rewrite\s+(\S+\.html)\s+\((\d+)%\)", line)
-        if m:
-            rewrites.append(m.group(1))
-    return rewrites
 
 
 def get_staged_content(filepath):
@@ -150,67 +141,94 @@ def add_item(channel, title, link, description, pub_date, guid):
         channel.append(item)
 
 
-def main():
-    # Ensure we're at the repo root
-    root, _ = git("rev-parse", "--show-toplevel")
-    os.chdir(root)
+def write_feed(tree):
+    """Write rss.xml and stage it for the current commit."""
+    ET.indent(tree, space="  ")
+    tree.write(FEED_FILE, encoding="unicode", xml_declaration=True)
+    with open(FEED_FILE, "a") as f:
+        f.write("\n")
+    git("add", FEED_FILE)
 
+
+def cmd_hook():
+    """Pre-commit hook mode: add RSS entries for new HTML files only."""
     base = get_diff_base()
     new_files = get_new_html_files(base)
-    rewritten_files = get_rewritten_html_files(base)
 
-    # Build the list of files that qualify for a feed entry
-    qualifying = []
-    for f in new_files:
-        qualifying.append((f, "new"))
-    for f in rewritten_files:
-        if f not in new_files:  # avoid double-counting
-            qualifying.append((f, "rewrite"))
-
-    if not qualifying:
-        return 0  # nothing to announce
+    if not new_files:
+        return 0
 
     tree = load_feed()
     channel = tree.getroot().find("channel")
     now = datetime.now(timezone.utc)
 
-    # Set or update lastBuildDate
     last_build = channel.find("lastBuildDate")
     if last_build is None:
         last_build = ET.SubElement(channel, "lastBuildDate")
     last_build.text = format_datetime(now)
 
-    for filepath, action in qualifying:
+    for filepath in new_files:
         html = get_staged_content(filepath)
         title = extract_title(html) or filepath
         url = f"{SITE_URL}/{filepath}"
-
-        # Use meta description if available, otherwise a short generic line
-        desc = extract_meta_description(html)
-        if not desc:
-            if action == "new":
-                desc = title
-            else:
-                desc = f"Major update to {title}"
-
-        # GUID: stable URL for new pages, URL#date for rewrites so readers see updates
-        if action == "new":
-            guid = url
-        else:
-            guid = f"{url}#updated-{now.strftime('%Y-%m-%d')}"
+        desc = extract_meta_description(html) or title
+        guid = url
 
         add_item(channel, title, url, desc, now, guid)
-        print(f"rss: {action} → {filepath}")
+        print(f"rss: new → {filepath}")
 
-    # Write rss.xml
-    ET.indent(tree, space="  ")
-    tree.write(FEED_FILE, encoding="unicode", xml_declaration=True)
-    with open(FEED_FILE, "a") as f:
-        f.write("\n")
-
-    # Stage it so it's included in this commit
-    git("add", FEED_FILE)
+    write_feed(tree)
     return 0
+
+
+def cmd_update(args):
+    """Manual mode: add RSS entries for substantive updates to existing pages.
+
+    Args should be pairs of (filepath, description).
+    Usage: generate-rss.py update distros.html "Added Arch 32, updated MidnightBSD"
+    """
+    if len(args) < 2 or len(args) % 2 != 0:
+        print("Usage: generate-rss.py update <file> <description> [<file> <description> ...]")
+        return 1
+
+    pairs = [(args[i], args[i + 1]) for i in range(0, len(args), 2)]
+
+    tree = load_feed()
+    channel = tree.getroot().find("channel")
+    now = datetime.now(timezone.utc)
+
+    last_build = channel.find("lastBuildDate")
+    if last_build is None:
+        last_build = ET.SubElement(channel, "lastBuildDate")
+    last_build.text = format_datetime(now)
+
+    for filepath, description in pairs:
+        # Read from working tree (not staged) since this is called before staging
+        if os.path.exists(filepath):
+            with open(filepath) as f:
+                html = f.read()
+        else:
+            print(f"rss: skipping {filepath} (file not found)")
+            continue
+
+        title = extract_title(html) or filepath
+        url = f"{SITE_URL}/{filepath}"
+        guid = f"{url}#updated-{now.strftime('%Y-%m-%d')}"
+
+        add_item(channel, title, url, description, now, guid)
+        print(f"rss: update → {filepath}")
+
+    write_feed(tree)
+    return 0
+
+
+def main():
+    root, _ = git("rev-parse", "--show-toplevel")
+    os.chdir(root)
+
+    if len(sys.argv) > 1 and sys.argv[1] == "update":
+        return cmd_update(sys.argv[2:])
+    return cmd_hook()
 
 
 if __name__ == "__main__":
