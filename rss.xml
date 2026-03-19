@@ -6,7 +6,14 @@
     <description>News and Commentary from the Ageless Linux project</description>
     <language>en-us</language>
     <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Thu, 19 Mar 2026 10:27:14 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Mar 2026 22:00:00 +0000</lastBuildDate>
+    <item>
+      <title>systemd ships birthDate field; distro tracker updated</title>
+      <link>https://agelesslinux.org/distros.html</link>
+      <description>systemd PR #40954 merged March 18, adding a birthDate field to user records — the data layer for the emerging age verification stack. Distro tracker updated with systemd (upstream), NixOS, Artix Linux, and Kicksecure/Whonix status change. Emerging Standard section rewritten for the systemd + xdg-desktop-portal pipeline.</description>
+      <pubDate>Wed, 19 Mar 2026 22:00:00 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/distros.html#systemd-birthdate-2026-03-19</guid>
+    </item>
     <item>
       <title>Ageless Linux — State Law Tracker</title>
       <link>https://agelesslinux.org/map.html</link>
