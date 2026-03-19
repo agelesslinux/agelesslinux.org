@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Ageless Linux: Updates</title>
+    <link>https://agelesslinux.org</link>
+    <description>News and Commentary from the Ageless Linux project</description>
+    <language>en-us</language>
+    <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Mar 2026 10:19:09 +0000</lastBuildDate>
+    <item>
+      <title>Ageless Linux — Support</title>
+      <link>https://agelesslinux.org/support.html</link>
+      <description>Ageless Linux — Support</description>
+      <pubDate>Thu, 19 Mar 2026 10:19:09 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/support.html</guid>
+    </item>
+  </channel>
+</rss>

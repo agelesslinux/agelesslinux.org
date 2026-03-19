@@ -46,8 +46,10 @@
 
     <p>
       AB 1043 takes effect January 1, 2027. No major distribution has shipped
-      compliance mechanisms yet. The discussion is happening now. Here is where
-      every project stands.
+      compliance mechanisms yet. The freedesktop.org merge request for
+      <code>org.freedesktop.AgeVerification1</code> has been closed after
+      community pushback. Future work is redirecting to Flatpak portal
+      infrastructure. Here is where every project stands.
     </p>
 
     <div class="card">
@@ -83,10 +85,23 @@
       <div class="distro-row">
         <div class="distro-name">Fedora / Red Hat</div>
         <div class="distro-detail">
-          CC'd on the freedesktop.org cross-distro thread. No official response.
-          Fedora legal list is aware of the legislation.
+          Fedora Project Leader Jef Spaleta proposed a measured approach: local file
+          in <code>/etc/</code> populated during account creation, local D-Bus API,
+          no telemetry. No mechanism shipped or formally adopted.
         </div>
-        <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+        <div class="distro-status" style="color:var(--accent);">EXPLORING</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">System76 / Pop!_OS</div>
+        <div class="distro-detail">
+          CEO Carl Richell published a
+          <a href="https://blog.system76.com/post/system76-on-age-verification/">blog post</a>
+          opposing mandates as technically ineffective. Met with Colorado co-author
+          Sen. Matt Ball — senator suggested excluding open source software from
+          SB 26-051. Actively lobbying.
+        </div>
+        <div class="distro-status" style="color:var(--green);">OPPOSED</div>
       </div>
 
       <div class="distro-row">
@@ -97,6 +112,20 @@
           requirements have no obvious attachment point.
         </div>
         <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Arch Linux 32</div>
+        <div class="distro-detail">
+          The community-maintained 32-bit fork
+          <a href="https://linuxiac.com/linux-distributions-begin-blocking-brazil-access-over-new-digital-law/">blocked access from Brazilian and California IPs</a>
+          on March 17, 2026 — the day Lei 15.211 took effect. Website,
+          downloads, package repositories, and forums all return a notice
+          citing Lei 15.211 and AB 1043. A volunteer project with no user
+          database and no corporate backing, it characterized the block as
+          "preventive compliance."
+        </div>
+        <div class="distro-status" style="color:var(--red);">EXCLUDING CA + BR</div>
       </div>
 
       <div class="distro-row">
@@ -115,10 +144,33 @@
       <div class="distro-row">
         <div class="distro-name">MidnightBSD</div>
         <div class="distro-detail">
-          Modified its license to <strong>exclude California residents from desktop use</strong>
-          effective January 1, 2027. First project to respond with a geographic restriction.
+          Modified its <a href="https://github.com/MidnightBSD/src?tab=License-1-ov-file">COPYRIGHT file</a>
+          to exclude residents of jurisdictions requiring age verification for
+          operating systems. Brazil excluded effective
+          <a href="https://itsfoss.com/news/midnightbsd-age-verification/">March 17, 2026</a>
+          (Lei 15.211); California effective January 1, 2027 (AB 1043).
+          Colorado, Illinois, and New York listed as contingent if their
+          pending bills pass. First project to respond with a geographic
+          restriction.
         </div>
-        <div class="distro-status" style="color:var(--red);">EXCLUDING CA</div>
+        <div class="distro-status" style="color:var(--red);">EXCLUDING CA + BR</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Omarchy Linux</div>
+        <div class="distro-detail">
+          Rejected compliance outright. No plans to implement anything in response
+          to age verification mandates.
+        </div>
+        <div class="distro-status" style="color:var(--red);">REFUSED</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Adenix GNU/Linux</div>
+        <div class="distro-detail">
+          Declared it will not implement age checks.
+        </div>
+        <div class="distro-status" style="color:var(--red);">REFUSED</div>
       </div>
 
       <div class="distro-row">
@@ -142,6 +194,10 @@
         <div class="distro-status" style="color:var(--red);">REFUSED</div>
       </div>
     </div>
+
+    <p style="margin-top:16px; text-align:center;">
+      <a href="https://agelesslinux.github.io/age-reporting/distro-specific.html" class="btn btn-outline">Detailed distro analysis →</a>
+    </p>
   </div>
 </section>
 
@@ -153,10 +209,14 @@
 
     <p>
       Aaron Rainbolt's March 1, 2026 proposal to the Debian, Ubuntu, Fedora,
-      and freedesktop.org mailing lists outlines a D-Bus interface that would
+      and freedesktop.org mailing lists outlined a D-Bus interface intended to
       become the standard age verification mechanism across Linux distributions.
-      Understanding this interface is essential to understanding what Ageless
-      Linux will need to neutralize.
+      <strong>The freedesktop.org merge request has been closed</strong> after
+      community pushback over the reputational risk of associating a core desktop
+      standard with politically sensitive regulation. Rainbolt indicated future
+      work would move into the portal infrastructure used by Flatpak. Understanding
+      this interface remains essential — the question is where it will land, not
+      whether it will be attempted.
     </p>
 
     <div class="card">
@@ -282,7 +342,7 @@ systemctl mask ageverification.service
         No distro has shipped age verification yet. For the moment, the
         only thing you need:
       </p>
-      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --flagrant</pre>
+      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
       <p style="margin-top:12px;">
         This installs the Ageless Linux identity and REFUSAL notice. When
         there is something real to remove, this script will be updated to
@@ -326,8 +386,9 @@ systemctl mask ageverification.service
     <p style="margin-top:4px;">Software for humans of indeterminate age.</p>
     <div class="legal-footer">
       <a href="https://agelesslinux.org">agelesslinux.org</a> ·
-      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a>
-      <br>Last updated: March 10, 2026 · SPDX-License-Identifier: Unlicense
+      <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a> ·
+      <a href="support.html">Support</a>
+      <br>Last updated: March 18, 2026 · SPDX-License-Identifier: Unlicense
     </div>
   </div>
 </footer>
