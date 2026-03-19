@@ -45,11 +45,12 @@
     <h3>As of March 2026</h3>
 
     <p>
-      AB 1043 takes effect January 1, 2027. No major distribution has shipped
-      compliance mechanisms yet. The freedesktop.org merge request for
-      <code>org.freedesktop.AgeVerification1</code> has been closed after
-      community pushback. Future work is redirecting to Flatpak portal
-      infrastructure. Here is where every project stands.
+      AB 1043 takes effect January 1, 2027. No major distribution has shipped an
+      application-facing compliance mechanism yet, but the infrastructure is forming
+      upstream. systemd merged a <code>birthDate</code> field into user records on
+      March 18, 2026. An xdg-desktop-portal PR defines the application-facing API.
+      The original freedesktop.org D-Bus proposal has been closed; the portal approach
+      is the path forward. Here is where every project stands.
     </p>
 
     <div class="card">
@@ -57,6 +58,20 @@
         <div class="distro-name" style="color:var(--text-dim); font-size:12px;">DISTRIBUTION</div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim);">STATUS</div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim); text-align:right;">AGELESS RESPONSE</div>
+      </div>
+
+      <div class="distro-row" style="border-bottom:2px solid var(--red);">
+        <div class="distro-name" style="color:var(--red);">systemd (upstream)</div>
+        <div class="distro-detail">
+          <a href="https://github.com/systemd/systemd/pull/40954">PR #40954</a>
+          merged March 18, 2026: adds <code>birthDate</code> field (YYYY-MM-DD) to
+          JSON user records. Explicitly cites AB 1043, CO SB 26-051, and Brazil Lei
+          15.211. Coordinates with
+          <a href="https://github.com/flatpak/xdg-desktop-portal/pull/1922">xdg-desktop-portal
+          PR #1922</a> (open, age range portal API). This is the data layer for the
+          emerging age verification stack. Affects all systemd-based distributions.
+        </div>
+        <div class="distro-status" style="color:var(--red);">MERGED</div>
       </div>
 
       <div class="distro-row">
@@ -178,6 +193,29 @@
       </div>
 
       <div class="distro-row">
+        <div class="distro-name">NixOS</div>
+        <div class="distro-detail">
+          No official response. Declarative configuration model has no imperative
+          installer flow for age prompts. Copyright held by "NixOS Contributors"
+          &mdash; under <span class="legal-cite">&sect; 1798.500(g)</span>, every
+          contributor is arguably an OS provider.
+        </div>
+        <div class="distro-status" style="color:var(--text-dim);">SILENT</div>
+      </div>
+
+      <div class="distro-row">
+        <div class="distro-name">Artix Linux</div>
+        <div class="distro-detail">
+          Developer
+          <a href="https://forum.artixlinux.org/index.php/topic,9304.msg55607.html#msg55607">nous</a>:
+          "We'll NEVER require any verification or identification from the user."
+          Systemd-free fork of Arch &mdash; the userdb <code>birthDate</code> field
+          does not exist on Artix systems.
+        </div>
+        <div class="distro-status" style="color:var(--red);">REFUSED</div>
+      </div>
+
+      <div class="distro-row">
         <div class="distro-name">SteamOS / Valve</div>
         <div class="distro-detail">
           No public response. Steam already has age-gated content and account
@@ -209,18 +247,40 @@
 <section>
   <div class="container">
     <h2>The Emerging Standard</h2>
-    <h3>org.freedesktop.AgeVerification1</h3>
+    <h3>systemd userdb + xdg-desktop-portal</h3>
 
     <p>
-      Aaron Rainbolt's March 1, 2026 proposal to the Debian, Ubuntu, Fedora,
-      and freedesktop.org mailing lists outlined a D-Bus interface intended to
-      become the standard age verification mechanism across Linux distributions.
-      <strong>The freedesktop.org merge request has been closed</strong> after
-      community pushback over the reputational risk of associating a core desktop
-      standard with politically sensitive regulation. Rainbolt indicated future
-      work would move into the portal infrastructure used by Flatpak. Understanding
-      this interface remains essential — the question is where it will land, not
-      whether it will be attempted.
+      The original D-Bus proposal (<code>org.freedesktop.AgeVerification1</code>) by
+      Aaron Rainbolt was closed at freedesktop.org after community pushback. Rainbolt
+      himself now recommends the xdg-desktop-portal approach as the likely path forward.
+      The standard that is actually forming has two layers:
+    </p>
+
+    <div class="card" style="border-color:var(--red); margin-bottom:16px;">
+      <h4 style="margin-top:0;">Data Layer: systemd userdb <code>birthDate</code>
+        <span class="badge badge-red" style="margin-left:8px;">Merged</span></h4>
+      <p>
+        <a href="https://github.com/systemd/systemd/pull/40954">systemd PR #40954</a>
+        (merged March 18, 2026) adds a <code>birthDate</code> field to JSON user
+        records. Stores exact dates (YYYY-MM-DD), not brackets. Readable by any
+        process querying userdb. This is the storage layer that the application API reads from.
+      </p>
+    </div>
+
+    <div class="card" style="border-color:var(--yellow); margin-bottom:16px;">
+      <h4 style="margin-top:0;">API Layer: xdg-desktop-portal age range
+        <span class="badge badge-yellow" style="margin-left:8px;">Open PR</span></h4>
+      <p>
+        <a href="https://github.com/flatpak/xdg-desktop-portal/pull/1922">PR #1922</a>
+        (opened by David Edmundson, KDE) adds an age range portal. Applications submit
+        age thresholds and receive ranges, not exact dates. Desktop environments implement
+        the backend; the portal defines the contract.
+      </p>
+    </div>
+
+    <p>
+      Understanding both layers is essential. The original D-Bus interface specification
+      below remains relevant as context for the broader ecosystem discussion.
     </p>
 
     <div class="card">
@@ -392,7 +452,7 @@ systemctl mask ageverification.service
       <a href="https://agelesslinux.org">agelesslinux.org</a> ·
       <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a> ·
       <a href="support.html">Support</a>
-      <br>Last updated: March 18, 2026 · SPDX-License-Identifier: Unlicense
+      <br>Last updated: March 19, 2026 · SPDX-License-Identifier: Unlicense
     </div>
   </div>
 </footer>
