@@ -24,6 +24,8 @@
   </div>
 </nav>
 
+<main>
+
 <div class="page-header">
   <div class="container">
     <h2>Download</h2>
@@ -53,7 +55,7 @@
         Installs Ageless Linux identity and a stub age verification API
         that returns no data. Preserves a thin "good faith effort" argument.
       </p>
-      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
+      <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
     </div>
 
     <div class="card red-card">
@@ -62,7 +64,7 @@
         No API stub. No fig leaf. Installs a machine-readable REFUSAL notice.
         Intended for devices that will be physically handed to children.
       </p>
-      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
+      <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
     </div>
 
     <p style="margin-top:16px;">
@@ -141,7 +143,7 @@
         personally selecting which software to promote to children.
         That makes him "the algorithm."
       </p>
-      <pre># Add the Ageless Store Flatpak remote (coming soon)
+      <pre tabindex="0"># Add the Ageless Store Flatpak remote (coming soon)
 flatpak remote-add --if-not-exists ageless-store \
   https://store.agelesslinux.org/repo
 
@@ -204,6 +206,8 @@ flatpak install ageless-store org.agelesslinux.PeePee</pre>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="container">

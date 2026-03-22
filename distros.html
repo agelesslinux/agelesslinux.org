@@ -24,6 +24,8 @@
   </div>
 </nav>
 
+<main>
+
 <div class="page-header">
   <div class="container">
     <h2>Distro Compliance Tracker</h2>
@@ -303,7 +305,7 @@
 
     <div class="card">
       <h4 style="margin-top:0;">Proposed Interface</h4>
-      <pre>&lt;interface name="org.freedesktop.AgeVerification1"&gt;
+      <pre tabindex="0">&lt;interface name="org.freedesktop.AgeVerification1"&gt;
   &lt;method name="SetAge"&gt;
     &lt;arg type="s" name="User" direction="in"/&gt;
     &lt;arg type="u" name="YearsOfAge" direction="in"/&gt;
@@ -365,7 +367,7 @@
         GNOME Initial Setup, the likely mechanism will be either an
         AccountsService extension or the proposed D-Bus daemon. Reversion:
       </p>
-      <pre># Anticipated — will be updated when implementation ships
+      <pre tabindex="0"># Anticipated — will be updated when implementation ships
 # Mask the age verification daemon
 sudo systemctl mask ageverification.service
 
@@ -396,7 +398,7 @@ dbus-send --system --print-reply \
         it will likely be a new <code>udeb</code> component. Reversion for
         unattended installs:
       </p>
-      <pre># Preseed to skip age collection (anticipated)
+      <pre tabindex="0"># Preseed to skip age collection (anticipated)
 d-i ageverification/skip boolean true
 d-i ageverification/age string undefined
 
@@ -407,7 +409,7 @@ echo "AGELESS_AGE_VERIFICATION_STATUS=refused" >> /etc/os-release</pre>
 
     <div class="card yellow-card">
       <h4 style="margin-top:0;">Fedora / Anaconda (anticipated)</h4>
-      <pre># Kickstart snippet to skip age verification
+      <pre tabindex="0"># Kickstart snippet to skip age verification
 %packages
 -ageverification-daemon
 ageless-stub
@@ -424,7 +426,7 @@ systemctl mask ageverification.service
         No distro has shipped age verification yet. For the moment, the
         only thing you need:
       </p>
-      <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
+      <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
       <p style="margin-top:12px;">
         This installs the Ageless Linux identity and REFUSAL notice. When
         there is something real to remove, this script will be updated to
@@ -461,6 +463,8 @@ systemctl mask ageverification.service
     </p>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="container">

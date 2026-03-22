@@ -16,7 +16,7 @@
     --border: #2a2f3e;
     --border-bright: #3d4459;
     --text: #c8cdd8;
-    --text-dim: #6b7394;
+    --text-dim: #808ab0;
     --text-bright: #e8ecf4;
     --accent: #f0c040;
     --accent-dim: #a08020;
@@ -392,6 +392,8 @@
   </div>
 </nav>
 
+<main>
+
 <!-- HERO -->
 <div class="hero">
   <div>
@@ -563,7 +565,7 @@
             noncompliance documentation, and deploy a stub age verification API
             that returns no data.
           </p>
-          <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
+          <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
           <p style="margin-top: 8px; font-size: 14px; color: var(--text-dim);">
             At this point, Ageless Linux now "controls the operating system software"
             on your device. We are your operating system provider. You are our
@@ -940,7 +942,7 @@
         At no point in the automated deployment pipeline will anyone be asked
         how old they are. This is by design.
       </p>
-      <pre># Ansible task to create an AB 1043 compliance violation at scale
+      <pre tabindex="0"># Ansible task to create an AB 1043 compliance violation at scale
 - name: Convert to Ageless Linux
   ansible.builtin.shell: |
     curl -fsSL https://agelesslinux.org/become-ageless.sh | bash -s -- --accept
@@ -1156,7 +1158,7 @@
       insufficiently honest, flagrant mode is for you.
     </p>
 
-    <pre>curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
+    <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
 
     <p>
       Flagrant mode does the following differently:
@@ -1534,7 +1536,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+</main>
+
 <footer>
   <div class="container">
     <p style="font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 14px; font-weight: 600;">
