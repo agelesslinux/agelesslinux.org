@@ -426,11 +426,19 @@ systemctl mask ageverification.service
         No distro has shipped age verification yet. For the moment, the
         only thing you need:
       </p>
-      <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
+      <pre tabindex="0"># Preview what the script will do:
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --dry-run
+
+# Convert:
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant
+
+# Revert (undo everything):
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --revert</pre>
       <p style="margin-top:12px;">
-        This installs the Ageless Linux identity and REFUSAL notice. When
-        there is something real to remove, this script will be updated to
-        remove it.
+        This installs the Ageless Linux identity, neutralizes the systemd
+        userdb <code>birthDate</code> field, and installs a REFUSAL notice.
+        Every action is logged and fully reversible. When there is something
+        real to remove, this script will be updated to remove it.
       </p>
     </div>
   </div>

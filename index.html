@@ -560,12 +560,22 @@
         <div>
           <h4 style="margin-top: 4px;">Convert to Ageless Linux</h4>
           <p>
-            Run our conversion script. This will modify <code>/etc/os-release</code>
-            and associated system identification files, install our AB&nbsp;1043
+            Run our conversion script. It will analyze your system, show you
+            exactly what it plans to do, then modify <code>/etc/os-release</code>
+            and associated system identification files, neutralize the systemd
+            userdb <code>birthDate</code> field, install our AB&nbsp;1043
             noncompliance documentation, and deploy a stub age verification API
-            that returns no data.
+            that returns no data. Every action is logged to
+            <code>/etc/agelesslinux.conf</code> and fully reversible.
           </p>
-          <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
+          <pre tabindex="0"># Preview what will happen (no changes made):
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --dry-run
+
+# Convert:
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept
+
+# Revert (undo everything):
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --revert</pre>
           <p style="margin-top: 8px; font-size: 14px; color: var(--text-dim);">
             At this point, Ageless Linux now "controls the operating system software"
             on your device. We are your operating system provider. You are our
@@ -1075,10 +1085,11 @@
       </blockquote>
       <p style="margin-top: 16px;">
         Ageless Linux has considered the available technology. The available technology
-        is a bash script that modifies <code>/etc/os-release</code>. The reasonable
-        technical limitation is that a bash script that modifies <code>/etc/os-release</code>
-        cannot collect, store, or transmit anyone's age. We have made a good faith effort
-        to comply with the portions of the law that do not require us to surveil our users.
+        is a bash script that modifies <code>/etc/os-release</code> and neutralizes
+        the systemd userdb <code>birthDate</code> field. The reasonable
+        technical limitation is that a bash script cannot collect, store, or transmit
+        anyone's age. We have made a good faith effort to comply with the portions
+        of the law that do not require us to surveil our users.
         This is what good faith compliance looks like when the "operating system" is a
         shell script. The statute does not distinguish.
       </p>
@@ -1355,9 +1366,10 @@
     <div class="faq-item">
       <div class="faq-q">Q: Is this really just a bash script that changes the name of the OS?</div>
       <div class="faq-a">
-        Right now, yes. A bash script that modifies <code>/etc/os-release</code>
-        and installs a refusal notice. That's the point — that's all it takes to
-        become a regulated "operating system provider" under AB&nbsp;1043.
+        Right now, yes. A bash script that modifies <code>/etc/os-release</code>,
+        neutralizes the systemd userdb <code>birthDate</code> field, and installs
+        a refusal notice. That's the point — that's all it takes to become a
+        regulated "operating system provider" under AB&nbsp;1043.
       </div>
       <div class="faq-a" style="margin-top: 12px;">
         But Ageless Linux is not just a script. It is a commitment. As major

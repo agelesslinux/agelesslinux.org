@@ -42,17 +42,20 @@
 <section>
   <div class="container">
     <h2>The Script</h2>
-    <h3>Convert Any Debian System</h3>
+    <h3>Convert Any Linux System</h3>
 
     <p>
-      The fastest path to noncompliance. Run this on any Debian-based system
-      to convert it to Ageless Linux.
+      The fastest path to noncompliance. Run this on any Linux system
+      to convert it to Ageless Linux. The script analyzes your system,
+      shows you exactly what it will do, logs every action, and is fully
+      reversible.
     </p>
 
     <div class="card">
       <h4 style="margin-top:0;">Standard Mode</h4>
       <p>
-        Installs Ageless Linux identity and a stub age verification API
+        Installs Ageless Linux identity, neutralizes the systemd userdb
+        <code>birthDate</code> field, and deploys a stub age verification API
         that returns no data. Preserves a thin "good faith effort" argument.
       </p>
       <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept</pre>
@@ -67,9 +70,23 @@
       <pre tabindex="0">curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --accept --flagrant</pre>
     </div>
 
+    <div class="card">
+      <h4 style="margin-top:0;">Dry Run &amp; Revert</h4>
+      <p>
+        Preview every change before committing. Undo everything afterward.
+        The script records all actions to <code>/etc/agelesslinux.conf</code>
+        so revert can cleanly restore your system.
+      </p>
+      <pre tabindex="0"># See what would happen without changing anything:
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --dry-run
+
+# Undo a previous conversion:
+curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --revert</pre>
+    </div>
+
     <p style="margin-top:16px;">
       <a href="become-ageless.sh" class="btn btn-primary">View Script Source</a>
-      <a href="https://github.com/jmccardle/ageless-linux" class="btn btn-outline" style="margin-left:8px;">GitHub</a>
+      <a href="https://github.com/agelesslinux/agelesslinux" class="btn btn-outline" style="margin-left:8px;">GitHub</a>
     </p>
   </div>
 </section>
