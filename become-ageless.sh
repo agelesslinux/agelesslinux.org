@@ -376,9 +376,10 @@ summary_compliance() {
 #    user resolution.
 #
 #    NOTE: We do NOT reload systemd-userdbd after creating drop-in records.
-#    Reloading mid-session causes display managers (especially SDDM) to lose
-#    the ability to verify passwords on the lock screen. The drop-in records
-#    are picked up automatically on next boot or login.
+#    Creating or reloading drop-in records mid-session causes display managers
+#    (SDDM, LightDM, and potentially others) to lose the ability to verify
+#    passwords on the lock screen. The drop-in records are picked up
+#    automatically on next boot or login.
 
 analyze_userdb() {
     # Detect systemd
@@ -592,8 +593,8 @@ with open(fp, "w") as f:
     echo ""
     echo -e "  ${YELLOW}NOTE:${NC} systemd-userdbd has NOT been reloaded. Userdb changes will"
     echo -e "  take effect after your next login or reboot."
-    if [[ "$DM_NAME" == "sddm" ]]; then
-        echo -e "  ${YELLOW}SDDM users:${NC} Do NOT lock your screen before logging out/rebooting."
+    if [[ "$DM_NAME" != "unknown" ]]; then
+        echo -e "  ${YELLOW}WARNING:${NC} Do NOT lock your screen before logging out/rebooting."
     fi
 }
 
@@ -704,7 +705,7 @@ execute_agelessd() {
 #  Runs every 24 hours via systemd timer.
 #
 #  NOTE: This daemon does NOT reload systemd-userdbd after writing records.
-#  Reloading mid-session can break display manager lock screens (SDDM, etc).
+#  Reloading mid-session can break display manager lock screens (SDDM, LightDM, etc).
 #  Changes take effect on next login or boot.
 #
 #  SPDX-License-Identifier: Unlicense
@@ -981,10 +982,12 @@ print_analysis() {
     echo -e "  Base system:              ${CYAN}${BASE_NAME}${BASE_VERSION:+ $BASE_VERSION}${NC} (${BASE_ID})"
 
     # Display manager
-    if [[ "$DM_NAME" == "sddm" ]]; then
-        echo -e "  Display manager:          ${YELLOW}${DM_NAME}${NC} (see warning below)"
-    elif [[ "$DM_NAME" != "unknown" ]]; then
-        echo -e "  Display manager:          ${DM_NAME}"
+    if [[ "$DM_NAME" != "unknown" ]]; then
+        if [[ $USERDB_AVAILABLE -eq 1 ]]; then
+            echo -e "  Display manager:          ${YELLOW}${DM_NAME}${NC} (see warning below)"
+        else
+            echo -e "  Display manager:          ${DM_NAME}"
+        fi
     else
         echo -e "  Display manager:          ${YELLOW}not detected${NC}"
     fi
@@ -1041,13 +1044,13 @@ print_analysis() {
     echo ""
 }
 
-print_sddm_warning() {
-    if [[ "$DM_NAME" == "sddm" ]]; then
-        echo -e "  ${YELLOW}WARNING: SDDM detected${NC}"
+print_dm_warning() {
+    if [[ "$DM_NAME" != "unknown" && $USERDB_AVAILABLE -eq 1 ]]; then
+        echo -e "  ${YELLOW}WARNING: display manager detected (${DM_NAME})${NC}"
         echo ""
-        echo "  This system uses SDDM as its display manager. Creating userdb"
-        echo "  drop-in records can interfere with SDDM's lock screen password"
-        echo "  verification if applied mid-session. To avoid this:"
+        echo "  Creating userdb drop-in records mid-session can interfere"
+        echo "  with lock screen password verification (confirmed on SDDM"
+        echo "  and LightDM). To avoid this:"
         echo ""
         echo "    1. After conversion, do NOT lock your screen."
         echo "    2. Instead, fully log out and log back in (or reboot)."
@@ -1205,11 +1208,11 @@ print_summary() {
         echo ""
         echo -e "  To revert: ${BOLD}sudo become-ageless.sh --revert${NC}"
         echo ""
-        if [[ "$DM_NAME" == "sddm" ]]; then
+        if [[ "$DM_NAME" != "unknown" && $USERDB_AVAILABLE -eq 1 ]]; then
             echo -e "  ${YELLOW}IMPORTANT: Do NOT lock your screen. Log out and back in (or reboot)"
-            echo -e "  first. SDDM's lock screen may reject your password until you do.${NC}"
+            echo -e "  first. Your lock screen may reject your password until you do.${NC}"
             echo ""
-        else
+        elif [[ $USERDB_AVAILABLE -eq 1 ]]; then
             echo -e "  ${YELLOW}Log out and back in (or reboot) for userdb changes to take effect.${NC}"
             echo ""
         fi
@@ -1240,11 +1243,11 @@ print_summary() {
         echo ""
         echo -e "  To revert: ${BOLD}sudo become-ageless.sh --revert${NC}"
         echo ""
-        if [[ "$DM_NAME" == "sddm" ]]; then
+        if [[ "$DM_NAME" != "unknown" && $USERDB_AVAILABLE -eq 1 ]]; then
             echo -e "  ${YELLOW}IMPORTANT: Do NOT lock your screen. Log out and back in (or reboot)"
-            echo -e "  first. SDDM's lock screen may reject your password until you do.${NC}"
+            echo -e "  first. Your lock screen may reject your password until you do.${NC}"
             echo ""
-        else
+        elif [[ $USERDB_AVAILABLE -eq 1 ]]; then
             echo -e "  ${YELLOW}Log out and back in (or reboot) for userdb changes to take effect.${NC}"
             echo ""
         fi
@@ -1374,7 +1377,7 @@ main() {
 
     # Report
     print_analysis
-    print_sddm_warning
+    print_dm_warning
     print_planned_actions
 
     # Dry run exit
