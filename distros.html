@@ -49,7 +49,10 @@
     <p>
       AB 1043 takes effect January 1, 2027. No major distribution has shipped an
       application-facing compliance mechanism yet, but the infrastructure is forming
-      upstream. systemd merged a <code>birthDate</code> field into user records on
+      upstream. (MidnightBSD, a desktop BSD, shipped the first base-system age
+      verification daemon in March 2026 &mdash; though it is purely self-declared
+      and does not satisfy statutes requiring identity checks.) systemd merged a
+      <code>birthDate</code> field into user records on
       March 18, 2026. An xdg-desktop-portal PR defines the application-facing API.
       The original freedesktop.org D-Bus proposal has been closed; the portal approach
       is the path forward. Here is where every project stands.
@@ -169,16 +172,27 @@
       <div class="distro-row">
         <div class="distro-name">MidnightBSD</div>
         <div class="distro-detail">
-          Modified its <a href="https://github.com/MidnightBSD/src?tab=License-1-ov-file">COPYRIGHT file</a>
-          to exclude residents of jurisdictions requiring age verification for
-          operating systems. Brazil excluded effective
-          <a href="https://itsfoss.com/news/midnightbsd-age-verification/">March 17, 2026</a>
-          (Lei 15.211); California effective January 1, 2027 (AB 1043).
-          Colorado, Illinois, and New York listed as contingent if their
-          pending bills pass. First project to respond with a geographic
-          restriction.
+          Merged <a href="https://github.com/MidnightBSD/src/pull/302">PR #302</a>
+          on March 9, 2026: a complete base-system age verification stack. The
+          <code>aged</code> daemon stores per-user age and date of birth in an
+          SQLite database (<code>/var/db/aged/aged.db</code>), exposed over a
+          Unix socket, enabled by default in <code>rc.conf</code>, and started
+          before <code>LOGIN</code>. The <code>agectl</code> CLI sets and
+          queries age data. Three C functions added to <code>libutil</code>
+          (<code>agev_get_age_bracket()</code>, <code>agev_set_age()</code>,
+          <code>agev_set_dob()</code>) give any compiled application access to
+          age brackets. Age-based Unix groups (<code>age4p</code>,
+          <code>age13p</code>, <code>age16p</code>, <code>age18p</code>) gate
+          package installation via <code>mport</code>. Purely self-declared:
+          root sets age via CLI, no external verification, no network calls.
+          The PR body states this &ldquo;will not comply with Brazil or the
+          proposed law in New York. (they require ID checks)&rdquo; The
+          geographic <a href="https://github.com/MidnightBSD/src?tab=License-1-ov-file">COPYRIGHT
+          exclusion</a> of California and Brazil remains in place alongside the
+          new daemon. First operating system to ship a base-system age
+          verification daemon.
         </div>
-        <div class="distro-status" style="color:var(--red);">EXCLUDING CA + BR</div>
+        <div class="distro-status" style="color:var(--red);">COMPLYING</div>
       </div>
 
       <div class="distro-row">
@@ -482,7 +496,7 @@ curl -fsSL https://agelesslinux.org/become-ageless.sh | sudo bash -s -- --revert
       <a href="https://agelesslinux.org">agelesslinux.org</a> ·
       <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a> ·
       <a href="support.html">Support</a>
-      <br>Last updated: March 21, 2026 · SPDX-License-Identifier: Unlicense
+      <br>Last updated: March 29, 2026 · SPDX-License-Identifier: Unlicense
     </div>
   </div>
 </footer>

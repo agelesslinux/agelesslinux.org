@@ -6,7 +6,14 @@
     <description>News and Commentary from the Ageless Linux project</description>
     <language>en-us</language>
     <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 20 Mar 2026 15:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 12:00:00 +0000</lastBuildDate>
+    <item>
+      <title>MidnightBSD ships first base-system age verification daemon</title>
+      <link>https://agelesslinux.org/distros.html</link>
+      <description>MidnightBSD merged PR #302: a complete age verification stack in the base OS. The aged daemon stores per-user age/DOB in SQLite, exposed over a Unix socket, enabled by default. Includes agectl CLI, agev(3) library API in libutil, and age-based Unix groups (age4p, age13p, age16p, age18p) for mport package gating. Purely self-declared — no external verification. PR body acknowledges it "will not comply with Brazil or the proposed law in New York." First operating system to ship a base-system age verification daemon. Geographic COPYRIGHT exclusion of CA and Brazil remains alongside.</description>
+      <pubDate>Sun, 29 Mar 2026 12:00:00 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/distros.html#midnightbsd-aged-2026-03-29</guid>
+    </item>
     <item>
       <title>EFF resource hub added to citations; exclusion statistics documented</title>
       <link>https://agelesslinux.org/citations.html</link>
