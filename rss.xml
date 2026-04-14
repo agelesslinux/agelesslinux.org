@@ -6,7 +6,14 @@
     <description>News and Commentary from the Ageless Linux project</description>
     <language>en-us</language>
     <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 29 Mar 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Apr 2026 12:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Michigan pulls Digital Age Assurance Act — first withdrawal of model legislation</title>
+      <link>https://agelesslinux.org/map.html</link>
+      <description>Michigan HB 4429 and SB 284 — identical bipartisan bills based on Digital Childhood Alliance model legislation — pulled by sponsors April 6, 2026 after privacy advocates identified critical gaps: no limits on data use, no restrictions on combining data with other personal information, no data deletion requirements. First state to withdraw bills based on this model. State law tracker updated with new "Withdrawn" section and timeline entry.</description>
+      <pubDate>Sun, 13 Apr 2026 12:00:00 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/map.html#michigan-withdrawn-2026-04-13</guid>
+    </item>
     <item>
       <title>MidnightBSD ships first base-system age verification daemon</title>
       <link>https://agelesslinux.org/distros.html</link>

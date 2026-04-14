@@ -13,6 +13,7 @@
   .map-wrapper svg .state-law { fill:var(--red); }
   .map-wrapper svg .state-blocked { fill:var(--accent); }
   .map-wrapper svg .state-bill { fill:var(--blue); }
+  .map-wrapper svg .state-dead { fill:var(--green); }
   .legend { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:20px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:12px; }
   .legend-item { display:flex; align-items:center; gap:8px; }
   .legend-swatch { width:16px; height:16px; border-radius:3px; }
@@ -22,6 +23,7 @@
   .tl-item::before { content:''; position:absolute; left:-28px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
   .tl-item.active::before { background:var(--accent); }
   .tl-item.past::before { background:var(--red); border-color:var(--red); }
+  .tl-item.dead::before { background:var(--green); border-color:var(--green); }
   .tl-date { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:600; }
   .tl-label { font-size:15px; color:var(--text-bright); font-weight:500; margin-top:2px; }
   .tl-detail { font-size:14px; color:var(--text-dim); margin-top:4px; }
@@ -68,6 +70,7 @@
     <div class="legend-item"><div class="legend-swatch" style="background:var(--red)"></div> Signed Law</div>
     <div class="legend-item"><div class="legend-swatch" style="background:var(--accent)"></div> Enjoined / Blocked</div>
     <div class="legend-item"><div class="legend-swatch" style="background:var(--blue)"></div> Active Bill</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--green)"></div> Withdrawn</div>
     <div class="legend-item"><div class="legend-swatch" style="background:var(--bg-highlight)"></div> No Action</div>
   </div>
 </div>
@@ -274,6 +277,41 @@
       </div>
 
     </div>
+
+    <h2 style="margin-top:60px;">Withdrawn</h2>
+    <h3>States That Blinked</h3>
+
+    <div class="state-grid">
+
+      <div class="state-card" style="border-color:var(--green);">
+        <div>
+          <div class="state-name">Michigan</div>
+          <div class="state-law">HB 4429 / SB 284 — Digital Age Assurance Act</div>
+          <div class="state-detail">
+            Identical bipartisan bills (Rep. Brad Paquette, R-Niles; Sen. John Cherry, D-Flint)
+            based on Digital Childhood Alliance model legislation. Would have required device
+            manufacturers and operating systems to estimate user age at activation and transmit
+            a continuous "digital age signal" to apps and websites. Critics — including
+            the Michigan Fair Elections Institute and University of Michigan privacy
+            researchers — identified that the bills lacked limits on data use, had no
+            restrictions on combining data with other personal information, and contained
+            no data deletion requirements. <strong>Pulled by sponsors April 6, 2026</strong>
+            after advocacy outreach beginning April 4.
+          </div>
+          <div style="margin-top:12px;">
+            <span class="badge badge-green">WITHDRAWN</span>
+          </div>
+        </div>
+        <div class="state-status">
+          <div class="status-tag" style="background:var(--green); color:#0c0e13;">DEAD</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:8px;">
+            Pulled<br>Apr 6, 2026
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -347,7 +385,7 @@
     </div>
 
     <div class="card">
-      <h4 style="margin-top:0;">Model B: OS-Level Age Assurance (CA, CO)</h4>
+      <h4 style="margin-top:0;">Model B: OS-Level Age Assurance (CA, CO; MI withdrawn)</h4>
       <p>
         Focuses on <strong>operating system providers</strong>. Requires self-declared
         age collection at account setup, real-time API for age signals. No ID
@@ -409,10 +447,15 @@
         <div class="tl-label">Colorado SB 26-051 passes Senate 28-7</div>
         <div class="tl-detail">Heading to House. Would take effect Jan 1, 2028.</div>
       </div>
-      <div class="tl-item active">
+      <div class="tl-item past">
         <div class="tl-date">Mar 17, 2026</div>
         <div class="tl-label">Brazil Lei 15.211 takes effect</div>
         <div class="tl-detail">First international OS-level age verification law. Bans self-declaration. Penalties up to ~$9.4M USD.</div>
+      </div>
+      <div class="tl-item dead">
+        <div class="tl-date" style="color:var(--green);">Apr 6, 2026</div>
+        <div class="tl-label">Michigan HB 4429 / SB 284 withdrawn</div>
+        <div class="tl-detail">Digital Age Assurance Act pulled by sponsors after privacy advocates identified critical gaps. First state bills based on this model to be withdrawn.</div>
       </div>
       <div class="tl-item">
         <div class="tl-date">May 6, 2026</div>
@@ -521,7 +564,7 @@
       <a href="https://ffwf.net/contact">Contact: John McCardle / FFwF Robotics LLC</a> ·
       <a href="support.html">Support</a>
       <br>
-      Last updated: March 16, 2026 · SPDX-License-Identifier: Unlicense
+      Last updated: April 13, 2026 · SPDX-License-Identifier: Unlicense
     </div>
   </div>
 </footer>
