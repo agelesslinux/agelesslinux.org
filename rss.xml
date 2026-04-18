@@ -6,7 +6,28 @@
     <description>News and Commentary from the Ageless Linux project</description>
     <language>en-us</language>
     <atom:link href="https://agelesslinux.org/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 13 Apr 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 09:53:33 +0000</lastBuildDate>
+    <item>
+      <title>Fax Your Rep — Ageless Linux</title>
+      <link>https://agelesslinux.org/fax.html</link>
+      <description>Send a one-page fax to your California legislator about AB 1043. No age verification required.</description>
+      <pubDate>Sat, 18 Apr 2026 09:53:33 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/fax.html</guid>
+    </item>
+    <item>
+      <title>The Shame Wall — Legislators Without a Fax Number — Ageless Linux</title>
+      <link>https://agelesslinux.org/fax-transparency.html</link>
+      <description>Public fax coverage for every target state. Ten U.S. senators and representatives have a DC fax. Everyone else has decided that faxes are beneath them.</description>
+      <pubDate>Sat, 18 Apr 2026 09:53:33 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/fax-transparency.html</guid>
+    </item>
+    <item>
+      <title>Fax Your Rep — CYOA web form and transparency page shipped</title>
+      <link>https://agelesslinux.org/fax.html</link>
+      <description>New /fax.html: address entry, legislator lookup, four CYOA persona paths (parent, developer, student, privacy advocate), section-cited fax template, live preview, send flow, and sharing. Every step teaches one thing about AB 1043. The form is the argument. Paired with /fax-transparency.html — "The Shame Wall" — which documents fax coverage across Congress and target state legislatures: 10 of 538 federal members keep a DC fax line; 120 of 120 California state legislators are reachable via the algorithmic Capitol fax pattern. Tagline: "No age verification required to send a fax."</description>
+      <pubDate>Sat, 18 Apr 2026 12:00:00 +0000</pubDate>
+      <guid isPermaLink="false">https://agelesslinux.org/fax.html#launch-2026-04-18</guid>
+    </item>
     <item>
       <title>Michigan pulls Digital Age Assurance Act — first withdrawal of model legislation</title>
       <link>https://agelesslinux.org/map.html</link>

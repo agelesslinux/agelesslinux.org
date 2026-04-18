@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fax Your Rep — Ageless Linux</title>
+<meta name="description" content="Send a one-page fax to your California legislator about AB 1043. No age verification required.">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:title" content="Fax Your Rep — Ageless Linux">
+<meta property="og:description" content="No age verification required to send a fax. A CYOA-style form to message your California legislator about AB 1043.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agelesslinux.org/fax.html">
+<meta property="og:image" content="https://agelesslinux.org/meta.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fax Your Rep — Ageless Linux">
+<meta name="twitter:description" content="No age verification required to send a fax.">
+<meta name="twitter:image" content="https://agelesslinux.org/meta.jpg">
+
+<link rel="alternate" type="application/rss+xml" title="Ageless Linux: Updates" href="/rss.xml">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* page-specific */
+  main { padding-bottom: 80px; }
+
+  .wizard { margin-top: 40px; }
+  .wizard .step { display: none; }
+  .wizard .step.active { display: block; }
+
+  .stepper { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 32px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .stepper .pip { padding: 4px 10px; border-radius: 3px; background: var(--bg-card); border: 1px solid var(--border); }
+  .stepper .pip.active { background: var(--accent); color: #0c0e13; border-color: var(--accent); }
+  .stepper .pip.done { color: var(--accent); border-color: var(--accent-dim); }
+
+  .addr-input { width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 16px; padding: 16px 20px; background: var(--bg-raised); color: var(--text-bright); border: 1px solid var(--border-bright); border-radius: 6px; }
+  .addr-input:focus { outline: none; border-color: var(--accent); }
+  .addr-hint { font-size: 13px; color: var(--text-dim); margin-top: 8px; font-family: 'IBM Plex Mono', monospace; }
+
+  .persona-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+  .persona-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 24px; cursor: pointer; transition: all .2s; }
+  .persona-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .persona-card.selected { border-color: var(--accent); background: linear-gradient(135deg, rgba(240,192,64,.08), var(--bg-card)); }
+  .persona-card .ptitle { font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 10px; }
+  .persona-card .pname { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--text-bright); margin-bottom: 12px; }
+  .persona-card .pdesc { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  .leg-list { display: grid; gap: 14px; margin: 20px 0; }
+  .leg-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; display: grid; grid-template-columns: 1fr auto; gap: 12px; cursor: pointer; transition: all .2s; }
+  .leg-card:hover { border-color: var(--accent); }
+  .leg-card.selected { border-color: var(--accent); background: linear-gradient(135deg, rgba(240,192,64,.08), var(--bg-card)); }
+  .leg-card.no-fax { opacity: 0.55; cursor: not-allowed; }
+  .leg-card.no-fax:hover { border-color: var(--border); transform: none; }
+  .leg-name { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 15px; color: var(--text-bright); }
+  .leg-meta { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .leg-vote { font-size: 13px; color: var(--red); margin-top: 6px; font-family: 'IBM Plex Mono', monospace; }
+  .leg-fax { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-dim); text-align: right; align-self: center; }
+  .leg-fax.ok { color: var(--green); }
+  .leg-fax.missing { color: var(--red); }
+
+  .cyoa-card { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 24px 28px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  .cyoa-step-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 10px; }
+  .cyoa-headline { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--text-bright); margin-bottom: 16px; line-height: 1.3; }
+  .cyoa-body { font-size: 15px; line-height: 1.8; }
+  .cyoa-body p + p { margin-top: 12px; }
+  .cyoa-nav { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .compose { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0; }
+  @media (max-width: 900px) { .compose { grid-template-columns: 1fr; } }
+  .compose label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); margin-bottom: 8px; }
+  .compose textarea { width: 100%; min-height: 480px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.6; padding: 16px 18px; background: var(--bg-raised); color: var(--text-bright); border: 1px solid var(--border-bright); border-radius: 6px; resize: vertical; }
+  .compose textarea:focus { outline: none; border-color: var(--accent); }
+
+  /* Fax preview styled like the PDF output */
+  .fax-preview { background: #fafaf5; color: #111; padding: 36px 40px; border: 1px solid var(--border); border-radius: 6px; font-family: 'Helvetica', 'Arial', sans-serif; font-size: 11px; line-height: 1.5; min-height: 480px; position: relative; overflow: hidden; }
+  .fax-preview .fp-header { font-family: 'Helvetica', sans-serif; font-size: 20px; font-weight: bold; letter-spacing: .5px; color: #111; margin-bottom: 4px; }
+  .fax-preview .fp-subhead { font-size: 8px; color: #333; margin-bottom: 10px; border-bottom: 1.5px solid #111; padding-bottom: 10px; }
+  .fax-preview .fp-addr { margin: 14px 0; border-bottom: 0.5px solid #888; padding-bottom: 12px; }
+  .fax-preview .fp-addr .row { display: grid; grid-template-columns: 44px 1fr; gap: 4px; margin-bottom: 6px; }
+  .fax-preview .fp-addr .label { font-weight: bold; }
+  .fax-preview .fp-body p { margin-bottom: 7px; font-size: 10.5px; line-height: 1.45; }
+  .fax-preview .fp-footer { position: absolute; bottom: 28px; left: 40px; right: 40px; font-size: 9px; color: #333; border-top: 0.5px solid #888; padding-top: 10px; display: flex; justify-content: space-between; font-style: italic; }
+
+  .verify-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start; margin: 14px 0; }
+  .verify-row label { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text-dim); padding-top: 10px; }
+  .verify-row input[type=email] { width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 14px; padding: 10px 14px; background: var(--bg-raised); color: var(--text-bright); border: 1px solid var(--border-bright); border-radius: 6px; }
+  .verify-row input[type=email]:focus { outline: none; border-color: var(--accent); }
+  .cert-row { margin: 18px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+  .cert-row input { margin-top: 4px; }
+  .cert-row .legal-cite { display: inline; }
+
+  .status-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 28px; margin: 20px 0; text-align: center; }
+  .status-box.delivered { border-color: var(--green); background: linear-gradient(135deg, var(--green-dim), var(--bg-card)); }
+  .status-box.failed { border-color: var(--red); background: linear-gradient(135deg, var(--red-dim), var(--bg-card)); }
+  .status-box .big { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--text-bright); margin: 8px 0; }
+  .status-box .label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); }
+
+  .error-box { background: var(--red-dim); border: 1px solid var(--red); border-radius: 8px; padding: 20px 24px; margin: 16px 0; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.7; color: var(--text-bright); }
+  .error-box .error-title { color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; margin-bottom: 6px; }
+  .error-box a { color: var(--accent); }
+
+  .share-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+
+  .loader { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border-bright); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .ageless-note { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-dim); margin: 24px 0; padding: 12px 16px; border-left: 2px solid var(--accent-dim); background: var(--bg-highlight); }
+
+  @media (max-width: 640px) {
+    .persona-grid { grid-template-columns: 1fr; }
+    .leg-card { grid-template-columns: 1fr; }
+    .leg-fax { text-align: left; }
+    .verify-row { grid-template-columns: 1fr; }
+    .verify-row label { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">AGELESS<span> LINUX</span></a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="map.html">State Laws</a>
+      <a href="lobbyists.html">Lobbyists</a>
+      <a href="distros.html">Distros</a>
+      <a href="fax.html" class="active">Fax Rep</a>
+      <a href="download.html">Download</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="citations.html">Citations</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="page-header">
+  <div class="container">
+    <h2>Fax Your Rep</h2>
+    <h1>A legal document that happens to be <em>furious</em>.</h1>
+    <p>
+      One page. One legislator. Section numbers cited. Sent by fax, because
+      <span class="legal-cite">Cal. Civ. Code § 1798.500(i)</span> does not regulate fax machines.
+      Every California state legislator voted yes on AB 1043 &mdash; 76-0 in the Assembly, 38-0 in the Senate.
+      This form lets you tell one of them why that was a mistake.
+    </p>
+    <p style="margin-top:16px;">
+      <em>No age verification required to send a fax.</em>
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <!-- Stepper -->
+    <div class="stepper" id="stepper">
+      <span class="pip" data-step="address">1. Address</span>
+      <span class="pip" data-step="legislators">2. Legislator</span>
+      <span class="pip" data-step="persona">3. Persona</span>
+      <span class="pip" data-step="cyoa">4. The Argument</span>
+      <span class="pip" data-step="compose">5. Compose</span>
+      <span class="pip" data-step="verify">6. Verify</span>
+      <span class="pip" data-step="send">7. Send</span>
+    </div>
+
+    <div class="wizard">
+
+      <!-- STEP 1: ADDRESS -->
+      <div class="step active" data-step="address">
+        <div class="card">
+          <h3>Enter your address</h3>
+          <p style="margin-bottom:20px;">
+            We use the U.S. Census Bureau geocoder to map your address to congressional
+            and state legislative districts. Your address is not stored, not logged, and
+            not used for anything besides the lookup. No age is collected.
+          </p>
+          <input type="text" id="addr-field" class="addr-input"
+                 placeholder="425 Market St, San Francisco, CA 94105"
+                 autocomplete="street-address">
+          <div class="addr-hint">Full street address, city, state, ZIP. California launch only.</div>
+          <div id="addr-error"></div>
+          <div style="margin-top:20px;">
+            <button class="btn btn-primary" id="btn-lookup">
+              <span id="lookup-spinner" style="display:none;"><span class="loader"></span></span>
+              Find my legislators
+            </button>
+          </div>
+          <div class="ageless-note">
+            AB 1043 &sect; 1798.501(a)(1) requires operating systems to collect your child's
+            birth date. This form collects your street address for one HTTP request and throws
+            it away. The contrast is intentional.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: LEGISLATORS -->
+      <div class="step" data-step="legislators">
+        <div class="card">
+          <h3>Pick a legislator to fax</h3>
+          <p id="leg-summary" style="color:var(--text-dim); font-size:14px; margin-bottom:8px;"></p>
+          <p style="font-size:14px; margin-bottom:12px;">
+            California state legislators voted <strong>76-0</strong> in the Assembly and
+            <strong>38-0</strong> in the Senate. Every person on this list who represents
+            you in Sacramento voted yes. Federal representatives did not vote on AB 1043
+            (it is state law) &mdash; fax them about the federal
+            <a href="#" onclick="return showFederalNote(event)">KIDS Act</a> and COPPA 2.0 instead.
+          </p>
+          <div class="leg-list" id="leg-list"></div>
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="goto('address')">&larr; Change address</button>
+            <a href="fax-transparency.html" class="btn btn-outline">The Shame Wall &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: PERSONA -->
+      <div class="step" data-step="persona">
+        <div class="card">
+          <h3>What concerns you most?</h3>
+          <p style="font-size:14px; margin-bottom:8px;">
+            Pick the frame that fits you. Each path cites the same statute and makes the
+            same demand; the emotional lens is different. You can edit the text before sending.
+          </p>
+          <div class="persona-grid" id="persona-grid">
+            <div class="persona-card" data-persona="parent">
+              <div class="ptitle">Persona 01</div>
+              <div class="pname">The Parent</div>
+              <div class="pdesc">I already manage my kids' screen time. AB 1043 replaces my judgment with a state mandate and stores my child's birth date in every OS they touch.</div>
+            </div>
+            <div class="persona-card" data-persona="developer">
+              <div class="ptitle">Persona 02</div>
+              <div class="pname">The Developer</div>
+              <div class="pdesc">I build or maintain software. AB 1043 calls me an "operating system provider" and owes the state a real-time age verification API I cannot build.</div>
+            </div>
+            <div class="persona-card" data-persona="student">
+              <div class="ptitle">Persona 03</div>
+              <div class="pname">The Student</div>
+              <div class="pdesc">I taught myself to code on a Linux computer. AB 1043 defines me as a "user" &mdash; which the law defines as "a child" &mdash; and punishes honest age self-declaration.</div>
+            </div>
+            <div class="persona-card" data-persona="privacy">
+              <div class="ptitle">Persona 04</div>
+              <div class="pname">The Privacy Advocate</div>
+              <div class="pdesc">70,000 government IDs were stolen from Discord's age verification vendor in 58 hours. AB 1043 builds the next breach target at the OS level.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn btn-outline" onclick="goto('legislators')">&larr; Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: CYOA EDUCATION -->
+      <div class="step" data-step="cyoa">
+        <div class="card">
+          <h3 id="cyoa-title">The Argument</h3>
+          <p style="font-size:14px; color:var(--text-dim); margin-bottom:0;">
+            The form is the argument. By the time you finish, you will understand AB 1043
+            well enough to answer questions about it. Each step teaches one thing about
+            the statute.
+          </p>
+          <div id="cyoa-container"></div>
+          <div class="cyoa-nav">
+            <button class="btn btn-outline" id="btn-cyoa-prev">&larr; Back</button>
+            <button class="btn btn-primary" id="btn-cyoa-next">Continue &rarr;</button>
+            <button class="btn btn-outline" id="btn-cyoa-skip">Skip to compose</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: COMPOSE -->
+      <div class="step" data-step="compose">
+        <div class="card">
+          <h3>Compose your fax</h3>
+          <p style="font-size:14px; margin-bottom:8px;">
+            The body below is the template for your persona. Customize it, add personal
+            detail, cut what you do not want to say. Keep it to one page &mdash; the preview
+            will warn you if you overrun. Section citations are load-bearing; leave them in.
+          </p>
+          <div class="compose">
+            <div>
+              <label for="body-edit">Fax body</label>
+              <textarea id="body-edit" spellcheck="true"></textarea>
+              <div style="margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim);">
+                <span id="char-count">0</span> characters &middot;
+                <span id="word-count">0</span> words
+              </div>
+            </div>
+            <div>
+              <label>Live preview</label>
+              <div class="fax-preview" id="fax-preview"></div>
+            </div>
+          </div>
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="goto('cyoa')">&larr; Back</button>
+            <button class="btn btn-primary" onclick="goto('verify')">Review &amp; send &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: VERIFY -->
+      <div class="step" data-step="verify">
+        <div class="card">
+          <h3>Before we send</h3>
+          <p style="font-size:14px; margin-bottom:16px;">
+            We verify that you are a real person with a working email address before
+            spending the project's fax budget. We do not verify your age. We do not
+            verify your ID. We do not verify your handwriting.
+          </p>
+
+          <div class="verify-row">
+            <label for="sender-email">Your email</label>
+            <input type="email" id="sender-email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="cert-row">
+            <input type="checkbox" id="cert-district">
+            <label for="cert-district">
+              I certify that I am a constituent of
+              <strong id="cert-leg-name">[legislator]</strong>
+              (or an interested party within California), that this fax reflects my own
+              views, and that I am authorized to send it.
+              <span class="legal-cite">CA Gov. Code &sect; 11120 (open meetings)</span> and
+              <span class="legal-cite">47 U.S.C. &sect; 227(b)(1)(C)</span>
+              (TCPA fax restrictions) govern this message.
+            </label>
+          </div>
+
+          <div class="cert-row">
+            <input type="checkbox" id="cert-age">
+            <label for="cert-age">
+              I acknowledge that this form has not asked for my age and will not ask
+              for my age. <em>No age verification required to send a fax.</em>
+            </label>
+          </div>
+
+          <div id="verify-error"></div>
+
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="goto('compose')">&larr; Back</button>
+            <button class="btn btn-primary" id="btn-send">
+              <span id="send-spinner" style="display:none;"><span class="loader"></span></span>
+              Send the fax
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7: SEND / RESULT -->
+      <div class="step" data-step="send">
+        <div class="card">
+          <h3>Delivery status</h3>
+          <div class="status-box" id="status-box">
+            <div class="label">Status</div>
+            <div class="big" id="status-big">&mdash;</div>
+            <div id="status-detail" style="color:var(--text-dim); font-size:14px;"></div>
+          </div>
+
+          <div id="result-share" style="display:none;">
+            <h4>Share the fax</h4>
+            <p style="font-size:14px; margin-bottom:8px;">
+              Screenshot the preview below and post it. The project is a civil disobedience
+              campaign; attention is part of the mechanism.
+            </p>
+            <div class="share-row">
+              <a class="btn btn-outline" id="share-twitter" target="_blank" rel="noopener">Share on X</a>
+              <a class="btn btn-outline" id="share-mastodon" target="_blank" rel="noopener">Share on Mastodon</a>
+              <a class="btn btn-outline" id="share-bluesky" target="_blank" rel="noopener">Share on Bluesky</a>
+              <button class="btn btn-outline" onclick="copyShareLink()">Copy link</button>
+            </div>
+            <h4>The fax that was sent</h4>
+            <div class="fax-preview" id="fax-preview-final" style="min-height:600px;"></div>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="fax.html" class="btn btn-outline">Send another fax</a>
+            <a href="fax-transparency.html" class="btn btn-outline">The Shame Wall &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div>Ageless Linux &middot; FFwF Robotics LLC &middot; John McCardle (BDFL)</div>
+    <div><a href="https://ffwf.net/contact">Contact</a> &middot; <a href="https://github.com/agelesslinux">GitHub</a> &middot; <a href="rss.xml">RSS</a></div>
+    <div class="legal-footer">
+      Licensed under the Unlicense (SPDX: Unlicense). Addresses submitted to this form
+      are forwarded once to the U.S. Census Bureau geocoder and then discarded.
+      No age data is collected at any step. If a back-end endpoint is unavailable,
+      this form will tell you plainly and point you at
+      <a href="https://ffwf.net/contact">ffwf.net/contact</a>.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Fax Your Rep — CYOA form
+   Static frontend. Expects the following serverless endpoints:
+     GET  /api/fax/lookup?address=ENCODED
+     POST /api/fax/send  (body: {legislator, persona, body, sender_email})
+     GET  /api/fax/status?id=FAX_ID
+   If any endpoint is unavailable the UI surfaces the failure and
+   points the user at ffwf.net/contact. No mock data anywhere.
+   ============================================================ */
+
+const API = {
+  lookup:  '/api/fax/lookup',
+  send:    '/api/fax/send',
+  status:  '/api/fax/status',
+};
+
+/* These templates mirror agelesslinux/data/fax.py MESSAGES for preview
+   accuracy. The authoritative copy is the server version; keep in sync. */
+const PERSONA_TEMPLATES = {
+  parent: `I am a California parent. I already manage my children's screen time using the parental controls built into every device I own. Apple Screen Time, Google Family Link — these tools work. I chose them. I configured them. I decide what my children can access.
+
+AB 1043 replaces my judgment with a state mandate. Section 1798.501(a)(1) requires every operating system to collect my child's birth date at account setup. This is not optional. This is not at my discretion. The state has decided that my parenting is insufficient.
+
+My child's birth date will now be stored by every operating system they touch. In September 2025, 70,000 government IDs were stolen from Discord's age verification vendor. You voted to create the next breach target — with my child's data.
+
+The only thing my child will learn from this law is how to lie to a computer. That is not child safety. That is Prohibition — not the policy, but the pedagogy.
+
+I am the parent. Not Sacramento.
+
+Amend AB 1043 to make age collection opt-in at the parent's discretion, or repeal it entirely, before January 1, 2027.`,
+
+  developer: `I maintain open-source software used by thousands of people. AB 1043 says I am an "operating system provider."
+
+Section 1798.500(g) defines that term as anyone who "develops, licenses, or controls the operating system software" on any general purpose computing device. No exemption for open source. No exemption for volunteers. No exemption for non-commercial projects.
+
+A calculator firmware developer — a calculator — chose to geo-block California rather than face $7,500 per child in fines under Section 1798.503(a). Compliance costs start at $20,000 for small businesses. Most open-source projects have zero revenue.
+
+Google, Meta, Snap, and OpenAI publicly endorsed this bill. They already collect age data. They already comply at zero marginal cost. The 600+ volunteer Linux distributions cannot. A law that the largest companies in the world already meet, and that hundreds of small projects cannot, is not a child safety law. It is a compliance moat.
+
+The companies that benefit from OS-level age verification funded the organization that advocated for it. Common Sense Media receives funding from Chan Zuckerberg Initiative, Bezos Foundation, and Gates Foundation.
+
+Exempt non-commercial and open-source software from AB 1043, or repeal it entirely, before January 1, 2027.`,
+
+  student: `I am a California student. I taught myself to code on a Linux computer. Under AB 1043, the operating system I used to learn would need to collect my birth date and tell every application I open that I am a minor.
+
+Section 1798.500(i) defines "user" as "a child that is the primary user of the device." Adults are "account holders." I am not a person in this law. I am a category to be regulated.
+
+Under Section 1798.501(b)(2)(A), every developer who receives the age signal has "deemed actual knowledge" of my age bracket. If I am honest about being under 18, applications will restrict what I can access. If I lie and say I am 21, everything works normally. You are teaching me that honesty is punished and that legal compliance prompts are obstacles to bypass.
+
+I started programming when I was 12. The open-source tools I learned with would be illegal to distribute in California without a real-time age verification API that their volunteer maintainers cannot build.
+
+Do not make it harder for students to learn. Amend or repeal AB 1043 before January 1, 2027.`,
+
+  privacy: `In September 2025, 70,000 government ID photos were stolen from Discord's age verification vendor Persona. The breach lasted 58 hours. Criminal group Scattered LAPSUS$ Hunters claimed 1.5TB of data from 5.5 million users.
+
+That is what age verification produces. Not safety. A target.
+
+AB 1043 requires every operating system to collect birth dates under Section 1798.501(a)(1) and send age signals to every application under Section 1798.501(a)(2). This creates surveillance infrastructure at the OS level. Today it is self-declaration. Industry analysts describe self-declaration as "getting the door open." Tomorrow it is biometric verification.
+
+Cory Doctorow: "If a system can determine someone's age, it can determine who they are." Professor Steven Bellovin at Columbia confirmed this in peer-reviewed research. There is no technical architecture that separates age from identity.
+
+15 million Americans lack driver's licenses. 43% of transgender Americans lack identity documents matching their actual identity. 18% of Black adults lack licenses versus 5% of white adults. Age verification is not neutral.
+
+Do not build surveillance infrastructure that will be breached, repurposed, or weaponized. Repeal AB 1043.`,
+};
+
+/* Per-persona educational walkthrough — each step teaches one thing about AB 1043. */
+const CYOA_STEPS = {
+  parent: [
+    {
+      label: "Step 1 of 3 — You already have the tools",
+      head: "Apple Screen Time. Google Family Link. iOS Content Restrictions.",
+      body: `<p>Every device sold in California in the last decade ships with parental controls
+             that a parent configures. You choose what your child can install, what they can
+             watch, what hours they can use the device. You made those choices.</p>
+             <p>AB 1043 does not replace a broken system. It replaces a working one — with a
+             government mandate your child cannot opt out of and you cannot turn off.</p>`,
+    },
+    {
+      label: "Step 2 of 3 — The breach you just signed up for",
+      head: "September 2025: 70,000 government IDs stolen in 58 hours.",
+      body: `<p><span class="legal-cite">Cal. Civ. Code § 1798.501(a)(1)</span> requires
+             every operating system to <em>collect</em> your child's birth date. Not "offer to
+             collect." Collect.</p>
+             <p>Discord's age verification vendor Persona was breached for 58 hours in
+             September 2025. The stolen data included 70,000 scans of government-issued photo
+             ID. Your child's OS is next. The law requires it to hold the data.</p>`,
+    },
+    {
+      label: "Step 3 of 3 — The ask",
+      head: "Amend AB 1043 to make parental age collection opt-in.",
+      body: `<p>The minimum repair to AB 1043 is a parental-choice exemption: a parent can
+             decline age collection on behalf of their child, and the OS treats that child as
+             an unverified account holder. The statute already distinguishes "account holder"
+             (adult) from "user" (child). Give parents the choice.</p>
+             <p>Full repeal is cleaner. Either is better than what you passed.</p>`,
+    },
+  ],
+
+  developer: [
+    {
+      label: "Step 1 of 4 — You are now an operating system provider",
+      head: "§ 1798.500(g) covers your 200-star side project.",
+      body: `<p>"Operating system provider" means anyone who "develops, licenses, or controls
+             the operating system software" on any general purpose computing device. No
+             revenue threshold. No user-count threshold. No exemption for open source, for
+             volunteers, or for non-commercial projects.</p>
+             <p>If you maintain a Linux distribution — or Home Assistant, or a Raspberry Pi
+             image, or a calculator firmware — you are one.</p>`,
+    },
+    {
+      label: "Step 2 of 4 — The real-time API you do not have",
+      head: "§ 1798.501(a)(2) requires a live signal to every app.",
+      body: `<p>The statute does not ask you to collect an age at install time. It requires
+             you to <em>broadcast</em> an age range signal to every application that requests
+             it, in real time, for the lifetime of the device. That is a service, not a file
+             format. Services cost money. They require identity binding you do not have.</p>
+             <p>Google and Apple already run these services. You do not.</p>`,
+    },
+    {
+      label: "Step 3 of 4 — Seven thousand five hundred dollars per child",
+      head: "§ 1798.503(a) fines start at $7,500 per affected minor.",
+      body: `<p>A calculator firmware project — a calculator — chose to geo-block California
+             rather than risk these fines. Compliance advisories quote a starting figure of
+             $20,000 for small businesses. The going rate to comply is more than the going
+             rate for most open-source software to exist.</p>`,
+    },
+    {
+      label: "Step 4 of 4 — The ask",
+      head: "Exempt open source and non-commercial software.",
+      body: `<p>Every other state privacy statute with teeth — CCPA, CPRA — carries revenue
+             and user-count thresholds that spare small developers. AB 1043 has none. Add
+             them. Exempt non-commercial and open-source software. Or repeal the statute.</p>
+             <p>The companies that already comply asked for this bill. Ask yourself why.</p>`,
+    },
+  ],
+
+  student: [
+    {
+      label: "Step 1 of 3 — The law calls you infrastructure",
+      head: "§ 1798.500(i): a \"user\" is a child. Adults are \"account holders.\"",
+      body: `<p>Read the statute carefully. In AB 1043, an adult is an "account holder" — a
+             person. A person under 18 is a "user" — a category. The law treats everyone under
+             18 as something the operating system manages, not someone the operating system
+             serves.</p>
+             <p>Your legislator voted for a statute that does not consider you a person in
+             the text. Start there.</p>`,
+    },
+    {
+      label: "Step 2 of 3 — Honesty is punished, lying is rewarded",
+      head: "§ 1798.501(b)(2)(A): \"deemed actual knowledge\" reaches every app.",
+      body: `<p>If you tell the OS you are 16 — the truth — every application that requests
+             an age signal will receive "under 18" and, per § 1798.501(b)(2)(A), must treat
+             you accordingly. Degraded experience. Restricted features. Educational content
+             you can no longer access.</p>
+             <p>If you tell the OS you are 21 — a lie — the signal says "adult" and every
+             application works exactly as designed. The law teaches you that honesty costs.</p>`,
+    },
+    {
+      label: "Step 3 of 3 — The ask",
+      head: "Do not make it harder to learn.",
+      body: `<p>Before you had this law, a 16-year-old could install Debian on a used
+             ThinkPad and teach themselves Python. After this law, the maintainers of that
+             Debian image face $7,500 per child in fines for the privilege of enabling that
+             education. Nothing about that equation serves children.</p>
+             <p>Repeal or amend AB 1043 before January 1, 2027.</p>`,
+    },
+  ],
+
+  privacy: [
+    {
+      label: "Step 1 of 4 — The breach is a feature, not a bug",
+      head: "70,000 government IDs. 58 hours. 5.5 million users affected.",
+      body: `<p>Scattered LAPSUS$ Hunters claimed 1.5 TB of data from Discord's age
+             verification vendor Persona in September 2025. This is what age verification
+             infrastructure produces: not safety, but a breach target with a social security
+             number attached.</p>
+             <p>AB 1043 builds one of these per operating system.</p>`,
+    },
+    {
+      label: "Step 2 of 4 — The door does not close",
+      head: "\"Self-declaration is getting the door open.\" — industry analyst",
+      body: `<p>The statute accepts self-declaration today. Industry analysts openly describe
+             this as "getting the door open." The logical endpoint of an OS-level age signal
+             is an OS-level identity binding — biometric, documentary, or both. The statute
+             does not prevent this. It sets the table for it.</p>`,
+    },
+    {
+      label: "Step 3 of 4 — Age verification is not neutral",
+      head: "15 million Americans have no driver's license.",
+      body: `<p>43% of transgender Americans lack identity documents that match their lived
+             identity. 18% of Black adults lack a driver's license, versus 5% of white adults.
+             Any age verification regime that accretes toward document checks — as this one
+             will — discriminates by design.</p>
+             <p>Cory Doctorow, Steven Bellovin at Columbia, and the CDT have all written that
+             there is no technical architecture that separates age from identity.</p>`,
+    },
+    {
+      label: "Step 4 of 4 — The ask",
+      head: "Repeal AB 1043. Do not build the infrastructure.",
+      body: `<p>Every expansion of surveillance infrastructure has been justified on child
+             safety. Every expansion has been repurposed for something else. The door does
+             not close. The only way to prevent AB 1043 from becoming the scaffolding for
+             biometric OS-level identity verification is to not build it.</p>
+             <p>Repeal. Not amend. Repeal.</p>`,
+    },
+  ],
+};
+
+const STATE = {
+  step: 'address',
+  address: null,
+  districts: null,
+  legislators: [],
+  legislator: null,
+  persona: null,
+  cyoaIndex: 0,
+  body: '',
+  faxId: null,
+};
+
+/* ---------- step navigation ---------- */
+const STEPS_ORDER = ['address','legislators','persona','cyoa','compose','verify','send'];
+
+function goto(step) {
+  STATE.step = step;
+  document.querySelectorAll('.wizard .step').forEach(el => {
+    el.classList.toggle('active', el.dataset.step === step);
+  });
+  const pips = document.querySelectorAll('.stepper .pip');
+  const idx = STEPS_ORDER.indexOf(step);
+  pips.forEach((p, i) => {
+    p.classList.remove('active', 'done');
+    if (i === idx) p.classList.add('active');
+    else if (i < idx) p.classList.add('done');
+  });
+  window.scrollTo({ top: document.querySelector('section').offsetTop - 60, behavior: 'smooth' });
+
+  if (step === 'cyoa') renderCyoa();
+  if (step === 'compose') renderCompose();
+  if (step === 'verify') renderVerify();
+}
+
+/* ---------- step 1: address lookup ---------- */
+async function doLookup() {
+  const addr = document.getElementById('addr-field').value.trim();
+  const errEl = document.getElementById('addr-error');
+  errEl.innerHTML = '';
+  if (!addr) {
+    errEl.innerHTML = errorBox('Address required', 'Please enter a full street address, city, state, and ZIP.');
+    return;
+  }
+  document.getElementById('lookup-spinner').style.display = 'inline-block';
+  document.getElementById('btn-lookup').disabled = true;
+  try {
+    const url = API.lookup + '?address=' + encodeURIComponent(addr);
+    const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+    if (!resp.ok) {
+      const txt = await resp.text().catch(() => '');
+      throw new Error('Lookup returned HTTP ' + resp.status + (txt ? (': ' + txt.slice(0, 200)) : ''));
+    }
+    const data = await resp.json();
+    if (!data.legislators || !data.legislators.length) {
+      throw new Error('The geocoder matched your address but no legislators were returned. Try a nearby address.');
+    }
+    STATE.address = data.address || addr;
+    STATE.districts = data.districts || null;
+    STATE.legislators = data.legislators;
+    renderLegislators();
+    goto('legislators');
+  } catch (err) {
+    errEl.innerHTML = errorBox(
+      'Lookup failed',
+      escHtml(err.message || String(err)) +
+      '<br><br>The district-lookup endpoint is not yet deployed at this host. Until it is, you can send a fax manually — every California state legislator\u2019s Capitol fax is <code>(916) 319-21XX</code> (Assembly, district number padded) or <code>(916) 651-49XX</code> (Senate). Or <a href="https://ffwf.net/contact">contact ffwf.net</a> for help.'
+    );
+  } finally {
+    document.getElementById('lookup-spinner').style.display = 'none';
+    document.getElementById('btn-lookup').disabled = false;
+  }
+}
+
+/* ---------- step 2: legislator list ---------- */
+function renderLegislators() {
+  const listEl = document.getElementById('leg-list');
+  const sumEl = document.getElementById('leg-summary');
+  const d = STATE.districts || {};
+  sumEl.textContent = 'Matched: ' + (STATE.address || '(address)') +
+    (d.state ? ' \u2014 ' + d.state : '') +
+    (d.congressional != null ? ' CD-' + String(d.congressional).padStart(2,'0') : '') +
+    (d.state_senate != null ? ', SD-' + String(d.state_senate).padStart(2,'0') : '') +
+    (d.state_assembly != null ? ', AD-' + String(d.state_assembly).padStart(2,'0') : '');
+
+  listEl.innerHTML = '';
+  STATE.legislators.forEach((leg, i) => {
+    const hasFax = !!(leg.fax && (Array.isArray(leg.fax) ? leg.fax.length : leg.fax));
+    const faxDisplay = hasFax
+      ? (Array.isArray(leg.fax) ? leg.fax[0] : leg.fax)
+      : 'no public fax on file';
+    const voteLine = (leg.level === 'state' && (leg.district || '').startsWith('CA'))
+      ? 'Voted YES on AB 1043 (76-0 Assembly / 38-0 Senate; every CA legislator voted yes).'
+      : (leg.level === 'federal')
+        ? 'AB 1043 is state law. Fax about KIDS Act (H.R. 7757) / COPPA 2.0 (S. 836).'
+        : '';
+
+    const card = document.createElement('div');
+    card.className = 'leg-card' + (hasFax ? '' : ' no-fax');
+    card.dataset.idx = i;
+    card.innerHTML = `
+      <div>
+        <div class="leg-name">${escHtml(leg.name)}</div>
+        <div class="leg-meta">${escHtml(leg.office)} &mdash; ${escHtml(leg.district)} (${escHtml(leg.party || 'Unknown')})</div>
+        ${voteLine ? `<div class="leg-vote">${escHtml(voteLine)}</div>` : ''}
+      </div>
+      <div class="leg-fax ${hasFax ? 'ok' : 'missing'}">${escHtml(faxDisplay)}</div>
+    `;
+    if (hasFax) {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.leg-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        STATE.legislator = leg;
+        setTimeout(() => goto('persona'), 200);
+      });
+    }
+    listEl.appendChild(card);
+  });
+}
+
+/* ---------- step 3: persona ---------- */
+document.getElementById('persona-grid').addEventListener('click', (e) => {
+  const card = e.target.closest('.persona-card');
+  if (!card) return;
+  document.querySelectorAll('.persona-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  STATE.persona = card.dataset.persona;
+  STATE.cyoaIndex = 0;
+  setTimeout(() => goto('cyoa'), 200);
+});
+
+/* ---------- step 4: cyoa walkthrough ---------- */
+function renderCyoa() {
+  const steps = CYOA_STEPS[STATE.persona];
+  if (!steps) { goto('compose'); return; }
+  if (STATE.cyoaIndex >= steps.length) { STATE.cyoaIndex = steps.length - 1; }
+  const cur = steps[STATE.cyoaIndex];
+  document.getElementById('cyoa-title').textContent = 'The Argument — ' + personaName(STATE.persona);
+  document.getElementById('cyoa-container').innerHTML = `
+    <div class="cyoa-card">
+      <div class="cyoa-step-label">${escHtml(cur.label)}</div>
+      <div class="cyoa-headline">${cur.head}</div>
+      <div class="cyoa-body">${cur.body}</div>
+    </div>
+  `;
+  document.getElementById('btn-cyoa-prev').disabled = STATE.cyoaIndex === 0;
+  document.getElementById('btn-cyoa-next').textContent =
+    (STATE.cyoaIndex >= steps.length - 1) ? 'Compose fax \u2192' : 'Continue \u2192';
+}
+
+document.getElementById('btn-cyoa-prev').addEventListener('click', () => {
+  if (STATE.cyoaIndex > 0) { STATE.cyoaIndex--; renderCyoa(); }
+});
+document.getElementById('btn-cyoa-next').addEventListener('click', () => {
+  const steps = CYOA_STEPS[STATE.persona];
+  if (STATE.cyoaIndex >= steps.length - 1) { goto('compose'); }
+  else { STATE.cyoaIndex++; renderCyoa(); }
+});
+document.getElementById('btn-cyoa-skip').addEventListener('click', () => goto('compose'));
+
+/* ---------- step 5: compose ---------- */
+function renderCompose() {
+  const textarea = document.getElementById('body-edit');
+  if (!STATE.body) {
+    STATE.body = PERSONA_TEMPLATES[STATE.persona] || '';
+  }
+  textarea.value = STATE.body;
+  updateCounts();
+  renderPreview();
+}
+
+document.getElementById('body-edit').addEventListener('input', (e) => {
+  STATE.body = e.target.value;
+  updateCounts();
+  renderPreview();
+});
+
+function updateCounts() {
+  const t = STATE.body || '';
+  document.getElementById('char-count').textContent = t.length;
+  document.getElementById('word-count').textContent = t.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function renderPreview(targetId) {
+  const el = document.getElementById(targetId || 'fax-preview');
+  if (!el) return;
+  const leg = STATE.legislator || {};
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const bill = (leg.level === 'state' && (leg.district || '').startsWith('CA'))
+    ? { num: 'AB 1043', name: 'Digital Age Assurance Act' }
+    : { num: 'AB 1043', name: 'Digital Age Assurance Act (state) / KIDS Act (federal)' };
+  const bodyHtml = (STATE.body || '').split(/\n\n+/).map(p => `<p>${escHtml(p).replace(/\n/g,'<br>')}</p>`).join('');
+  el.innerHTML = `
+    <div class="fp-header">AGELESS LINUX</div>
+    <div class="fp-subhead">agelesslinux.org &bull; FFwF Robotics LLC &bull; Unlicense</div>
+    <div class="fp-addr">
+      <div class="row"><span class="label">TO:</span><span>${escHtml(leg.name || '[legislator]')}</span></div>
+      <div class="row"><span></span><span>${escHtml(leg.office || '')} — ${escHtml(leg.district || '')}</span></div>
+      <div class="row"><span class="label">RE:</span><span>${escHtml(bill.num)} — ${escHtml(bill.name)}</span></div>
+      <div class="row"><span class="label">DATE:</span><span>${escHtml(today)}</span></div>
+    </div>
+    <div class="fp-body">${bodyHtml}<p style="font-style:italic;margin-top:14px;">Sent by a constituent via agelesslinux.org.</p></div>
+    <div class="fp-footer"><span>No age verification required to send a fax.</span><span>agelesslinux.org</span></div>
+  `;
+}
+
+/* ---------- step 6: verify ---------- */
+function renderVerify() {
+  document.getElementById('cert-leg-name').textContent = (STATE.legislator && STATE.legislator.name) || '[legislator]';
+}
+
+document.getElementById('btn-send').addEventListener('click', async () => {
+  const errEl = document.getElementById('verify-error');
+  errEl.innerHTML = '';
+  const email = document.getElementById('sender-email').value.trim();
+  const district = document.getElementById('cert-district').checked;
+  const age = document.getElementById('cert-age').checked;
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.innerHTML = errorBox('Email required', 'Enter a working email address we can use to verify and send you the delivery receipt.');
+    return;
+  }
+  if (!district) {
+    errEl.innerHTML = errorBox('Constituent certification required', 'Please certify that you are a constituent or interested party.');
+    return;
+  }
+  if (!age) {
+    errEl.innerHTML = errorBox('Acknowledgement required', 'Please acknowledge that this form does not ask for your age.');
+    return;
+  }
+  if (!STATE.legislator) {
+    errEl.innerHTML = errorBox('No legislator selected', 'Go back and pick a legislator to fax.');
+    return;
+  }
+  if (!STATE.body || STATE.body.trim().length < 40) {
+    errEl.innerHTML = errorBox('Body too short', 'Write or restore the fax body before sending.');
+    return;
+  }
+
+  document.getElementById('send-spinner').style.display = 'inline-block';
+  document.getElementById('btn-send').disabled = true;
+
+  try {
+    const resp = await fetch(API.send, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        legislator: STATE.legislator,
+        persona: STATE.persona,
+        body: STATE.body,
+        sender_email: email,
+      }),
+    });
+    if (!resp.ok) {
+      const txt = await resp.text().catch(() => '');
+      throw new Error('Send returned HTTP ' + resp.status + (txt ? (': ' + txt.slice(0,240)) : ''));
+    }
+    const data = await resp.json();
+    STATE.faxId = data.fax_id || data.id || null;
+    goto('send');
+    renderPreview('fax-preview-final');
+    updateStatus(data.status || 'queued', data.detail || 'Waiting for Telnyx to accept the fax.');
+    if (STATE.faxId) pollStatus();
+    renderShare();
+  } catch (err) {
+    errEl.innerHTML = errorBox(
+      'Send failed',
+      escHtml(err.message || String(err)) +
+      '<br><br>The Telnyx send endpoint is not yet deployed at this host. You can still copy the fax body from the compose step and submit it manually via <a href="https://ffwf.net/contact">ffwf.net/contact</a> or any fax-by-email service.'
+    );
+  } finally {
+    document.getElementById('send-spinner').style.display = 'none';
+    document.getElementById('btn-send').disabled = false;
+  }
+});
+
+async function pollStatus() {
+  if (!STATE.faxId) return;
+  let tries = 0;
+  const maxTries = 30;
+  while (tries < maxTries) {
+    tries++;
+    await new Promise(r => setTimeout(r, 4000));
+    try {
+      const r = await fetch(API.status + '?id=' + encodeURIComponent(STATE.faxId));
+      if (!r.ok) continue;
+      const d = await r.json();
+      updateStatus(d.status || 'sending', d.detail || '');
+      if (d.status === 'delivered' || d.status === 'failed') return;
+    } catch (_) { /* keep polling */ }
+  }
+}
+
+function updateStatus(status, detail) {
+  const box = document.getElementById('status-box');
+  box.classList.remove('delivered', 'failed');
+  if (status === 'delivered') box.classList.add('delivered');
+  if (status === 'failed') box.classList.add('failed');
+  document.getElementById('status-big').textContent = status.toUpperCase();
+  document.getElementById('status-detail').textContent = detail || '';
+  if (status === 'delivered' || status === 'failed' || status === 'queued' || status === 'sending') {
+    document.getElementById('result-share').style.display = 'block';
+  }
+}
+
+/* ---------- share ---------- */
+function renderShare() {
+  const leg = STATE.legislator || {};
+  const text = `I just faxed ${leg.name || 'my rep'} about AB 1043 at agelesslinux.org/fax — no age verification required to send a fax.`;
+  const url = 'https://agelesslinux.org/fax.html';
+  document.getElementById('share-twitter').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+  document.getElementById('share-mastodon').href = 'https://mastodon.social/share?text=' + encodeURIComponent(text + ' ' + url);
+  document.getElementById('share-bluesky').href = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(text + ' ' + url);
+}
+
+function copyShareLink() {
+  navigator.clipboard.writeText('https://agelesslinux.org/fax.html').catch(() => {});
+}
+
+/* ---------- helpers ---------- */
+function personaName(p) {
+  return { parent: 'The Parent', developer: 'The Developer', student: 'The Student', privacy: 'The Privacy Advocate' }[p] || '';
+}
+
+function errorBox(title, msg) {
+  return `<div class="error-box"><div class="error-title">${escHtml(title)}</div><div>${msg}</div></div>`;
+}
+
+function escHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function showFederalNote(e) {
+  e.preventDefault();
+  alert('AB 1043 is California state law. The closest federal equivalents are the KIDS Act (H.R. 7757, passed House committee Mar 6 2026) and COPPA 2.0 (S. 836, passed Senate unanimously Mar 5-6 2026). Fax your US senators and representative about those.');
+  return false;
+}
+
+/* ---------- boot ---------- */
+document.getElementById('btn-lookup').addEventListener('click', doLookup);
+document.getElementById('addr-field').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); doLookup(); }
+});
+goto('address');
+</script>
+
+</body>
+</html>
