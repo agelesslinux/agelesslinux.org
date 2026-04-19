@@ -5,35 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ageless Linux — State Law Tracker</title>
 <link rel="alternate" type="application/rss+xml" title="Ageless Linux: Updates" href="/rss.xml">
-<link rel="stylesheet" href="style.css">
-<style>
-  .map-wrapper { position:relative; max-width:800px; margin:32px auto; }
-  .map-wrapper svg { width:100%; height:auto; }
-  .map-wrapper svg .state { fill:var(--bg-highlight); stroke:var(--border); stroke-width:.5; transition:fill .2s; }
-  .map-wrapper svg .state-law { fill:var(--red); }
-  .map-wrapper svg .state-blocked { fill:var(--accent); }
-  .map-wrapper svg .state-bill { fill:var(--blue); }
-  .map-wrapper svg .state-dead { fill:var(--green); }
-  .legend { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin:20px 0 40px; font-family:'IBM Plex Mono',monospace; font-size:12px; }
-  .legend-item { display:flex; align-items:center; gap:8px; }
-  .legend-swatch { width:16px; height:16px; border-radius:3px; }
-  .timeline { position:relative; padding-left:32px; margin:32px 0; }
-  .timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--border); }
-  .tl-item { position:relative; margin-bottom:28px; }
-  .tl-item::before { content:''; position:absolute; left:-28px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
-  .tl-item.active::before { background:var(--accent); }
-  .tl-item.past::before { background:var(--red); border-color:var(--red); }
-  .tl-item.dead::before { background:var(--green); border-color:var(--green); }
-  .tl-date { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:600; }
-  .tl-label { font-size:15px; color:var(--text-bright); font-weight:500; margin-top:2px; }
-  .tl-detail { font-size:14px; color:var(--text-dim); margin-top:4px; }
-  .penalty-compare { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin:24px 0; }
-  .penalty-box { background:var(--bg-highlight); border:1px solid var(--border); border-radius:8px; padding:20px; text-align:center; }
-  .penalty-box .penalty-amount { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:var(--red); }
-  .penalty-box .penalty-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
-</style>
+<script src="base.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-map">
 
 <nav>
   <div class="inner">
@@ -46,8 +21,11 @@
       <a href="fax.html">Fax Rep</a>
       <a href="download.html">Download</a>
       <a href="hardware.html">Hardware</a>
-      <a href="citations.html">Citations</a>
-    </div>
+      <a href="citations.html">Citations</a></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <img src="ast/sun.svg" class="sun-icon" alt="Switch to light mode">
+        <img src="ast/moon.svg" class="moon-icon" alt="Switch to dark mode">
+      </button>
   </div>
 </nav>
 

@@ -5,91 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ageless Linux — The Lobby: Who Wrote These Laws</title>
 <link rel="alternate" type="application/rss+xml" title="Ageless Linux: Updates" href="/rss.xml">
-<link rel="stylesheet" href="style.css">
-<style>
-  .lobbyist-entry {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 16px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: start;
-  }
-  .lobbyist-entry:last-child { border-bottom: none; }
-  .lobbyist-name {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 700;
-    color: var(--text-bright);
-    font-size: 14px;
-  }
-  .lobbyist-role {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .lobbyist-detail {
-    font-size: 14px;
-    line-height: 1.7;
-  }
-  .lobbyist-detail .money {
-    color: var(--accent);
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-  }
-  .pipeline-step {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-  }
-  .pipeline-node {
-    background: var(--bg-highlight);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px 16px;
-    text-align: center;
-    color: var(--text-bright);
-  }
-  .pipeline-arrow {
-    color: var(--accent);
-    font-size: 18px;
-  }
-  .sponsor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
-    margin: 20px 0;
-  }
-  .sponsor-item {
-    background: var(--bg-highlight);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 16px;
-  }
-  .sponsor-item .sponsor-name {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    color: var(--text-bright);
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  .sponsor-item .sponsor-type {
-    font-size: 13px;
-    color: var(--text-dim);
-  }
-  @media (max-width: 640px) {
-    .lobbyist-entry { grid-template-columns: 1fr; }
-    .sponsor-grid { grid-template-columns: 1fr; }
-  }
-</style>
+<script src="base.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-lobbyists">
 
 <nav>
   <div class="inner">
@@ -102,8 +21,11 @@
       <a href="fax.html">Fax Rep</a>
       <a href="download.html">Download</a>
       <a href="hardware.html">Hardware</a>
-      <a href="citations.html">Citations</a>
-    </div>
+      <a href="citations.html">Citations</a></div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <img src="ast/sun.svg" class="sun-icon" alt="Switch to light mode">
+        <img src="ast/moon.svg" class="moon-icon" alt="Switch to dark mode">
+      </button>
   </div>
 </nav>
 
